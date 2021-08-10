@@ -1,0 +1,11 @@
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\bin\Debug\net5.0\RpgOl.Domain.deps.json
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\bin\Debug\net5.0\RpgOl.Domain.dll
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\bin\Debug\net5.0\ref\RpgOl.Domain.dll
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\bin\Debug\net5.0\RpgOl.Domain.pdb
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.AssemblyInfoInputs.cache
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.AssemblyInfo.cs
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.csproj.CoreCompileInputs.cache
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.dll
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\ref\RpgOl.Domain.dll
+C:\Users\nicol\source\repos\RpgOl\RpgOl.Domain\obj\Debug\net5.0\RpgOl.Domain.pdb

@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Localize from '../localize';
 
 type Props = {
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const Login = (props: Props): JSX.Element => {
+const Login = (props: Props) => {
 	const { open, onClose } = props;
 	const classes = useStyles();
 	const [modalStyle] = useState(getModalStyle);

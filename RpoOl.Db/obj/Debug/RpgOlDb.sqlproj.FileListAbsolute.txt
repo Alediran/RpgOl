@@ -1,0 +1,9 @@
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\bin\Debug\RpgOlDb.dacpac
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\bin\Debug\RpoOlDb.dll
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\bin\Debug\RpoOlDb.pdb
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\RpoOlDb.dll
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\RpoOlDb.pdb
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\Model.xml
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\refactor.xml
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\postdeploy.sql
+C:\Users\nicol\source\repos\RpgOl\RpoOlDb\obj\Debug\predeploy.sql

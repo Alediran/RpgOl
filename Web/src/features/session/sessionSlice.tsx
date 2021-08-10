@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
+import UserDto from '../../model/user.dto';
+import UserService from '../../services/user.service';
+
+const userService: UserService = new UserService();
 
 export interface SessionState {
 	isLogged: boolean;
@@ -12,6 +16,17 @@ const initialState: SessionState = {
 	userName: '',
 	userId: '',
 };
+
+type FetchError = {
+	message: string;
+};
+
+export const validateUser = createAsyncThunk(
+	'user/validate',
+	async (user: { userName: string; password: string }) => {
+		return await userService.ValidateUser(user.userName, user.password);
+	}
+);
 
 export const sessionSlice = createSlice({
 	name: 'session',
