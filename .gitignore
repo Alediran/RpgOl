@@ -5,3 +5,5 @@ API/obj/Container/ContainerName.cache
 API/obj/Container/ContainerRunContext.cache
 /RpoOlDb/bin/Debug
 /RpoOlDb/obj/Debug
+/RpgOl.Api/obj/Debug/net5.0
+/RpgOl.Domain/obj/Debug/net5.0
