@@ -1,7 +1,6 @@
-.vs/RpgOl/DesignTimeBuild/.dtbcache.v2
-API/obj/Container/ContainerDevelopmentMode.cache
-API/obj/Container/ContainerId.cache
-API/obj/Container/ContainerName.cache
-API/obj/Container/ContainerRunContext.cache
-/RpoOlDb/bin/Debug
-/RpoOlDb/obj/Debug
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
