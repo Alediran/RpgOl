@@ -1,8 +1,11 @@
 {
-    "en-US": {        
+    "en-US": {      
+        "AccessTitle": "Ingresa en Role Online",  
         "Login": "Ingresar",
+        "SignUp": "Registrarse",
         "Username": "Usuario",
         "Password": "Contraseña",
+        "NewUsers": "Nuevo usuario",
         "ExistingUsers": "Usuarios Existentes"
     }
 }
