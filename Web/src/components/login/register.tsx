@@ -1,5 +1,5 @@
 import { Card } from 'primereact/card';
-import Localize from '../../localize';
+import Localize from '../localize';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'primereact/button';
 

@@ -1,7 +1,7 @@
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import FloatingLabelInput from '../../floatingLabelInput';
-import Localize from '../../localize';
+import FloatingLabelInput from '../floatingLabelInput';
+import Localize from '../localize';
 
 const LoginForm = () => {
 	const handleLogin = () => {};

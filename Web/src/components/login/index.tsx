@@ -1,8 +1,8 @@
 import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import Localize from '../localize';
-import LoginForm from './components/loginForm';
-import RegisterCard from './components/register';
+import LoginForm from './loginForm';
+import RegisterCard from './register';
 
 type Props = {
 	visible: boolean;

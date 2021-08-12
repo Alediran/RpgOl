@@ -41,11 +41,15 @@ const App = () => {
 						/>
 					}
 					end={
-						<Button
-							onClick={() => setShowLogin(true)}
-							hidden={session.isLogged}
-							label={Localize.Login}
-						/>
+						session.isLogged ? (
+							session.userName
+						) : (
+							<Button
+								onClick={() => setShowLogin(true)}
+								hidden={session.isLogged}
+								label={Localize.Login}
+							/>
+						)
 					}
 				/>
 

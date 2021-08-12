@@ -1,5 +1,6 @@
 {
     "en-US": {
+        "DateFormat": "mm/dd/yy",
         "AccessTitle": "Access Role Online",
         "Login": "Login",
         "SignUp": "Sign up",
@@ -7,6 +8,11 @@
         "Password": "Password",
         "NewUsers": "New Users",
         "RegisterMessage": "To use Role Online you need to create a new account, click on the button below to begin the process.",
-        "ExistingUsers": "Existing Users"
+        "ExistingUsers": "Existing Users",
+        "CreateUser": "Create New User",
+        "Email": "Email",
+        "ConfirmPassword": "Confirm Password",
+        "BirthDate": "Birth Date",
+        "Agree": "I agree with the terms and conditions"
     }
 }

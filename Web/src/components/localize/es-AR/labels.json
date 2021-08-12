@@ -1,5 +1,6 @@
 {
-    "en-US": {      
+    "es-AR": {    
+        "DateFormat": "dd/mm/yy",  
         "AccessTitle": "Ingresa en Role Online",  
         "Login": "Ingresar",
         "SignUp": "Registrarse",
@@ -7,6 +8,11 @@
         "Password": "Contraseña",
         "NewUsers": "Nuevo usuario",
         "RegisterMessage": "",
-        "ExistingUsers": "Usuarios Existentes"
+        "ExistingUsers": "Usuarios Existentes",
+        "CreateUser": "Crear nuevo usuario",
+        "Email": "Email",
+        "ConfirmPassword": "Confirme la contraseña",
+        "BirthDate": "Fecha de nacimiento",
+        "Agree": "Acepto los términos y condiciones"
     }
 }
