@@ -11,6 +11,9 @@ import { useEffect } from 'react';
 import { useAppSelector } from './app/hooks';
 import { selectSession } from './features/session/sessionSlice';
 import Signup from './pages/signup';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const App = () => {
 	const [showLogin, setShowLogin] = useState(false);
@@ -29,6 +32,14 @@ const App = () => {
 			<Router>
 				<Menubar
 					model={session.isLogged ? itemsLogged : itemsNotLogged}
+					start={
+						<img
+							alt='logo'
+							src='/images/logo.jpg'
+							height='40'
+							className='p-mr-2'
+						/>
+					}
 					end={
 						<Button
 							onClick={() => setShowLogin(true)}

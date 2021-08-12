@@ -6,6 +6,7 @@
         "Username": "Usuario",
         "Password": "Contraseña",
         "NewUsers": "Nuevo usuario",
+        "RegisterMessage": "",
         "ExistingUsers": "Usuarios Existentes"
     }
 }

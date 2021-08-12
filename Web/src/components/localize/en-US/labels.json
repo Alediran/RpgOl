@@ -6,6 +6,7 @@
         "Username": "Username",
         "Password": "Password",
         "NewUsers": "New Users",
+        "RegisterMessage": "To use Role Online you need to create a new account, click on the button below to begin the process.",
         "ExistingUsers": "Existing Users"
     }
 }
