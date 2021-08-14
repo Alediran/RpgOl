@@ -13,6 +13,11 @@
         "Email": "Email",
         "ConfirmPassword": "Confirme la contraseña",
         "BirthDate": "Fecha de nacimiento",
-        "Agree": "Acepto los términos y condiciones"
+        "Agree": "Acepto los términos y condiciones",
+        "Submit": "Enviar",
+        "Validation:Required": "Obligatorio",
+        "Validation:UserName": "El usuario debe tener al menos 8 caracteres",
+        "Validation:InvalidEmail": "Dirección de email invalida",
+        "Validation:PassswordsNotMatching": "Las contraseñas no son iguales"
     }
 }

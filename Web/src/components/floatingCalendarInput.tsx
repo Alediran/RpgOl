@@ -7,6 +7,9 @@ type Props = {
 	yearNavigator?: boolean;
 	value?: Date | Date[];
 	yearRange?: string;
+	className?: string | undefined;
+	labelClassName?: string | undefined;
+	errors?: string;
 	onChange?: (e: CalendarChangeParams) => void;
 };
 
@@ -18,25 +21,38 @@ const FloatingCalendarInput = (props: Props) => {
 		monthNavigator,
 		yearNavigator,
 		yearRange,
+		className,
+		labelClassName,
+		errors,
 		onChange,
 	} = props;
 	return (
-		<div className='p-field'>
-			<span className='p-float-label'>
-				<Calendar
-					id={id}
-					name={id}
-					value={value}
-					monthNavigator={monthNavigator}
-					yearNavigator={yearNavigator}
-					mask='99/99/9999'
-					onChange={onChange}
-					yearRange={yearRange}
-					dateFormat={Localize.DateFormat}
-					showIcon
-				/>
-				<label htmlFor='date'>Birthday</label>
-			</span>
+		<div>
+			<div>
+				<span className='p-float-label'>
+					<Calendar
+						id={id}
+						name={id}
+						value={value}
+						monthNavigator={monthNavigator}
+						yearNavigator={yearNavigator}
+						mask='99/99/9999'
+						onChange={onChange}
+						yearRange={yearRange}
+						dateFormat={Localize.DateFormat}
+						showIcon
+						className={className}
+					/>
+					<label htmlFor='date' className={labelClassName}>
+						Birthday
+					</label>
+				</span>
+			</div>
+			<div className='error-section'>
+				<small className='p-error'>
+					{errors} {''}
+				</small>
+			</div>
 		</div>
 	);
 };

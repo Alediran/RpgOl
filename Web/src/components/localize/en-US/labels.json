@@ -13,6 +13,11 @@
         "Email": "Email",
         "ConfirmPassword": "Confirm Password",
         "BirthDate": "Birth Date",
-        "Agree": "I agree with the terms and conditions"
+        "Agree": " I agree with the terms and conditions*",
+        "Submit": "Submit",
+        "Validation:Required": "Required",
+        "Validation:UserName": "Username needs to be at least 8 characters long",
+        "Validation:InvalidEmail": "Invalid Email address",
+        "Validation:PassswordsNotMatching": "Passwords don't match"
     }
 }
