@@ -42,7 +42,7 @@ const App = () => {
 					}
 					end={
 						session.isLogged ? (
-							session.userName
+							session.user.userName
 						) : (
 							<Button
 								onClick={() => setShowLogin(true)}

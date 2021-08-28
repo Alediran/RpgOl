@@ -18,6 +18,8 @@
         "Validation:Required": "Obligatorio",
         "Validation:UserName": "El usuario debe tener al menos 8 caracteres",
         "Validation:InvalidEmail": "Dirección de email invalida",
-        "Validation:PassswordsNotMatching": "Las contraseñas no son iguales"
+        "Validation:PassswordsNotMatching": "Las contraseñas no son iguales",
+        "Submit:SignupSuccess": "Cuenta creada exitosamente",
+        "Submit:SignupError": "Error creando tu cuenta"
     }
 }

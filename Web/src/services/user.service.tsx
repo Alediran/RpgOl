@@ -1,17 +1,21 @@
 import axios from 'axios';
-import UserDto from '../model/user.dto';
+import UserCreateDto from '../model/user/user-create.dto';
+import UserSessionDto from '../model/user/user-session.dto';
 
 export default class UserService {
 	apiUrl = 'https://localhost:5001';
 
-	CreateUser = async (user: UserDto) => {
-		const result = await axios.post<UserDto>(`${this.apiUrl}/api/user`, user);
+	CreateUser = async (user: UserCreateDto) => {
+		const result = await axios.post<UserCreateDto>(
+			`${this.apiUrl}/api/user`,
+			user
+		);
 
 		return result;
 	};
 
 	ValidateUser = async (userName: string, password: string) => {
-		const result = await axios.get<UserDto>(
+		const result = await axios.get<UserSessionDto>(
 			`${this.apiUrl}/api/user?userName=${userName}&password=${password}`
 		);
 

@@ -24,8 +24,8 @@ namespace RpgOl.Api.Services
         public async Task<UserDto> CreateUser(string userName, string email, string password, DateTime birthday, System.Threading.CancellationToken cancellationToken = default)
         {
             try { 
-            await _dbContext.Users.AddAsync(new() { Id = Guid.NewGuid(), User = userName, Password = password, Email = email, Birthday = birthday }, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+                await _dbContext.Users.AddAsync(new() { Id = Guid.NewGuid(), User = userName, Password = password, Email = email, Birthday = birthday }, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
             }
             catch(Exception ex) { }
             return await GetByUsername(userName);

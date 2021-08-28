@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
+import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
 import FloatingCalendarInput from '../../components/floatingCalendarInput';
 import FloatingLabelInput from '../../components/floatingLabelInput';
 import Localize from '../../components/localize';
-import UserDto, { validationSchema } from '../../model/user.dto';
+import UserCreateDto, {
+	validationSchema,
+} from '../../model/user/user-create.dto';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+	createUser,
+	selectUser,
+	UserStatus,
+} from '../../features/user/userSlice';
 
 const Signup = () => {
 	const [showMessage, setShowMessage] = useState(false);
-	const [formData, setFormData] = useState({});
+	const dispatch = useAppDispatch();
+	const state = useAppSelector(selectUser);
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
+	const toast = useRef<Toast>(null);
 
-	const initialValues: UserDto = {
-		id: '',
-		userName: '',
-		email: '',
-		password: '',
+	const initialValues: UserCreateDto = {
+		User: '',
+		Email: '',
+		Password: '',
+		Birthday: new Date(),
 		confirm: '',
-		birthday: new Date(),
 		accept: false,
 	};
 
@@ -30,23 +40,47 @@ const Signup = () => {
 		control,
 		handleSubmit,
 		formState: { errors },
-		reset,
-	} = useForm({
+	} = useForm<UserCreateDto>({
 		resolver: zodResolver(validationSchema),
+		defaultValues: initialValues,
 	});
 
-	const getFormErrorMessage = (name: string) => {
-		console.log(errors[name]);
-		return errors[name] && errors[name].message;
+	const getFormErrorMessage = (name: keyof UserCreateDto) => {
+		return errors[name]?.message;
+	};
+
+	const onSubmit = (data: UserCreateDto) => {
+		dispatch(createUser(data)).then((result) => {
+			var severity = '';
+			var summary = '';
+			const life = 3000;
+
+			if (result.meta.requestStatus === 'fulfilled') {
+				severity = 'success';
+				summary = Localize['Submit:SignupSuccess'];
+			} else {
+				severity = 'error';
+				summary = Localize['Submit:SignupError'];
+			}
+
+			if (toast.current)
+				toast.current.show({
+					severity: severity,
+					summary: summary,
+					//detail: 'Message Content',
+					life: life,
+				});
+		});
 	};
 
 	return (
-		<form onSubmit={handleSubmit((d) => console.log(d))}>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Toast position='top-right' ref={toast} />
 			<Card title={Localize.CreateUser}>
 				<div className='p-fluid'>
 					<div className='p-field'>
 						<Controller
-							name='userName'
+							name='User'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -56,7 +90,7 @@ const Signup = () => {
 									value={field.value}
 									onChange={field.onChange}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
-									labelClassName={classNames({ 'p-error': errors.name })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
 							)}
@@ -65,7 +99,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='email'
+							name='Email'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -76,7 +110,7 @@ const Signup = () => {
 									value={field.value}
 									onChange={field.onChange}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
-									labelClassName={classNames({ 'p-error': errors.name })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
 							)}
@@ -84,7 +118,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='password'
+							name='Password'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -95,7 +129,7 @@ const Signup = () => {
 									value={field.value}
 									onChange={field.onChange}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
-									labelClassName={classNames({ 'p-error': errors.name })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
 							)}
@@ -114,7 +148,7 @@ const Signup = () => {
 									value={field.value}
 									onChange={field.onChange}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
-									labelClassName={classNames({ 'p-error': errors.name })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
 							)}
@@ -122,7 +156,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='birthday'
+							name='Birthday'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingCalendarInput
@@ -134,7 +168,7 @@ const Signup = () => {
 									value={field.value}
 									onChange={field.onChange}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
-									labelClassName={classNames({ 'p-error': errors.name })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
 							)}

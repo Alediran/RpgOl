@@ -1,14 +1,15 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
-import UserDto from '../../model/user.dto';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import UserDto from '../../model/user/user-create.dto';
 import UserService from '../../services/user.service';
 
 const userService: UserService = new UserService();
 
-enum Status {
+export enum UserStatus {
 	idle,
 	loading,
 	saving,
+	error,
 }
 
 type FetchError = {
@@ -16,13 +17,12 @@ type FetchError = {
 };
 
 export interface UserState {
-	status: Status;
+	status: UserStatus;
 	error?: string;
 }
 
 const initialState: UserState = {
-	status: Status.idle,
-	error: '',
+	status: UserStatus.idle,
 };
 
 export const createUser = createAsyncThunk<
@@ -46,21 +46,21 @@ export const userSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(createUser.pending, (state) => {
-			state.status = Status.saving;
+			state.status = UserStatus.saving;
 		});
 
 		builder.addCase(createUser.fulfilled, (state) => {
-			state.status = Status.idle;
+			state.status = UserStatus.idle;
 		});
 
 		builder.addCase(createUser.rejected, (state, { payload }) => {
 			state.error = payload?.message;
-			state.status = Status.idle;
+			state.status = UserStatus.error;
 		});
 	},
 });
 
 //export const { sessionApproved } = userSlice.actions;
-export const selectSession = (state: RootState) => state.session;
+export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;
