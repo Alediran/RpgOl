@@ -21,4 +21,12 @@ export default class UserService {
 
 		return result;
 	};
+
+	UserExists = async (userName: string) => {
+		const result = await axios.get<boolean>(
+			`${this.apiUrl}/api/user/exists?userName=${userName}`
+		);
+
+		return result;
+	};
 }

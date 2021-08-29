@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import UserLoginDto from '../../model/user/user-login.dto';
 import UserSessionDto from '../../model/user/user-session.dto';
