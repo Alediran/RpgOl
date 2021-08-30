@@ -14,7 +14,7 @@ export const validationSchema = z
 		Password: z.string(),
 		Birthday: z.date(),
 		confirm: z.string(),
-		accept: z.boolean().refine((data) => data === true),
+		accept: z.boolean(),
 	})
 	.refine((data) => data.Password === data.confirm, {
 		message: Localize['Validation:PassswordsNotMatching'],

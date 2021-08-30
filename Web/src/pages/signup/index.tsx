@@ -67,7 +67,6 @@ const Signup = () => {
 				toast.current.show({
 					severity: severity,
 					summary: summary,
-					//detail: 'Message Content',
 					life: life,
 				});
 		});
