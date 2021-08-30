@@ -24,10 +24,6 @@ export const validationSchema = z
 	.refine((data) => data.Password === data.confirm, {
 		message: Localize['Validation:PassswordsNotMatching'],
 		path: ['confirm'],
-	})
-	.refine(async (data) => (await userService.UserExists(data.User)).data, {
-		message: Localize['Validation:UserExists'],
-		path: ['exists'],
 	});
 
 type UserCreateDto = z.infer<typeof validationSchema>;
