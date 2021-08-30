@@ -20,6 +20,7 @@
         "Validation:InvalidEmail": "Invalid Email address",
         "Validation:PassswordsNotMatching": "Passwords don't match",
         "Validation:UserExists": "The user already exist",
+        "Validation:UndefinedDate": "Please select your birthday",
         "Submit:SignupSuccess": "Signup Successfull",
         "Submit:SignupError": "Error creating your account"
     }

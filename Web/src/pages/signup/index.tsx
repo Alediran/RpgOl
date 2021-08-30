@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from 'primereact/button';
@@ -12,17 +12,11 @@ import Localize from '../../components/localize';
 import UserCreateDto, {
 	validationSchema,
 } from '../../model/user/user-create.dto';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-	createUser,
-	selectUser,
-	UserStatus,
-} from '../../features/user/userSlice';
+import { useAppDispatch } from '../../app/hooks';
+import { createUser } from '../../features/user/userSlice';
 
 const Signup = () => {
-	const [showMessage, setShowMessage] = useState(false);
 	const dispatch = useAppDispatch();
-	const state = useAppSelector(selectUser);
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);
@@ -31,9 +25,9 @@ const Signup = () => {
 		User: '',
 		Email: '',
 		Password: '',
-		Birthday: new Date(),
+		Birthday: undefined,
 		confirm: '',
-		accept: false,
+		Accept: false,
 	};
 
 	const {
@@ -175,23 +169,26 @@ const Signup = () => {
 					</div>
 					<div>
 						<Controller
-							name='accept'
+							name='Accept'
 							control={control}
 							render={({ field, fieldState }) => (
-								<Checkbox
-									inputId={field.name}
-									onChange={(e) => field.onChange(e.checked)}
-									checked={field.value}
-									className={classNames({ 'p-invalid': fieldState.invalid })}
-								/>
+								<div>
+									<Checkbox
+										inputId={field.name}
+										onChange={(e) => field.onChange(e.checked)}
+										checked={field.value}
+										className={classNames({ 'p-invalid': fieldState.invalid })}
+									/>
+
+									<label
+										htmlFor='accept'
+										className={classNames({ 'p-error': errors[field.name] })}
+									>
+										{Localize.Agree}
+									</label>
+								</div>
 							)}
 						/>
-						<label
-							htmlFor='accept'
-							className={classNames({ 'p-error': errors.accept })}
-						>
-							{Localize.Agree}
-						</label>
 					</div>
 					<div>
 						<Button label={Localize.Submit} type='submit' />
