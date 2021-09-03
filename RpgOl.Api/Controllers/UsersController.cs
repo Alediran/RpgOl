@@ -33,5 +33,12 @@ namespace API.Controllers
             return await _userService.CreateUser(user.User, user.Email, user.Password, user.Birthday);
         }
 
+        [HttpGet]
+        [Route("exists")]
+        public async Task<bool> UserExists(string userName)
+        {
+            return await _userService.GetByUsername(userName) != null;
+        }
+
     }
 }

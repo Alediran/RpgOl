@@ -3,7 +3,7 @@ import Localize from '../../components/localize';
 import UserService from '../../services/user.service';
 import errorMap from '../error.map';
 
-z.setErrorMap(errorMap);
+//z.setErrorMap(errorMap);
 
 const userService = new UserService();
 
@@ -12,9 +12,12 @@ export const validationSchema = z
 		User: z
 			.string()
 			.min(8, { message: Localize['Validation:UserName'] })
-			.refine(async (val) => (await userService.UserExists(val)).data, {
-				message: Localize['Validation:UserExists'],
-			}),
+			.refine(
+				async (val) => (await userService.UserExists(val)).data === false,
+				{
+					message: Localize['Validation:UserExists'],
+				}
+			),
 		Email: z.string().email({ message: Localize['Validation:InvalidEmail'] }),
 		Password: z.string().min(1, { message: Localize['Validation:Required'] }),
 		confirm: z.string().min(1, { message: Localize['Validation:Required'] }),
