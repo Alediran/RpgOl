@@ -9,7 +9,12 @@ const userService = new UserService();
 
 export const validationSchema = z
 	.object({
-		User: z.string().min(8, { message: Localize['Validation:UserName'] }),
+		User: z
+			.string()
+			.min(8, { message: Localize['Validation:UserName'] })
+			.refine(async (val) => (await userService.UserExists(val)).data, {
+				message: Localize['Validation:UserExists'],
+			}),
 		Email: z.string().email({ message: Localize['Validation:InvalidEmail'] }),
 		Password: z.string().min(1, { message: Localize['Validation:Required'] }),
 		confirm: z.string().min(1, { message: Localize['Validation:Required'] }),
@@ -19,7 +24,7 @@ export const validationSchema = z
 			.refine((data) => data !== undefined, {
 				message: Localize['Validation:UndefinedDate'],
 			}),
-		Accept: z.boolean().refine((data) => data === true, { message: '' }), //Error here for fork-ts-checker-webpack-plugin-error
+		Accept: z.boolean(), //.refine((data) => data === true, { message: '' }), //Error here for fork-ts-checker-webpack-plugin-error
 	})
 	.refine((data) => data.Password === data.confirm, {
 		message: Localize['Validation:PassswordsNotMatching'],
