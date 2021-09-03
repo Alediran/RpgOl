@@ -3,7 +3,7 @@ import Localize from '../../components/localize';
 import UserService from '../../services/user.service';
 import errorMap from '../error.map';
 
-//z.setErrorMap(errorMap);
+z.setErrorMap(errorMap);
 
 const userService = new UserService();
 

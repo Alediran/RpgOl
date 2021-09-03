@@ -27,9 +27,12 @@ const App = () => {
 	}, [localization]);
 
 	useEffect(() => {
-		const loggedInUser = localStorage.getItem('user');
+		var loggedInUser = localStorage.getItem('user');
 
-		console.log(loggedInUser);
+		if (!loggedInUser) {
+			loggedInUser = sessionStorage.getItem('user');
+		}
+
 		if (loggedInUser) {
 			const user: UserSessionDto = JSON.parse(loggedInUser);
 			dispatch(userReturns(user));

@@ -1,8 +1,9 @@
 type UserSessionDto = {
-  id: string;
-  userName: string;
-  email: string;
-  birthday: Date;
+	id: string;
+	userName: string;
+	email: string;
+	birthday: Date;
+	persist: boolean;
 };
 
-export default UserSessionDto
+export default UserSessionDto;

@@ -172,7 +172,7 @@ const Signup = () => {
 							name='Accept'
 							control={control}
 							render={({ field, fieldState }) => (
-								<div>
+								<span>
 									<Checkbox
 										inputId={field.name}
 										onChange={(e) => field.onChange(e.checked)}
@@ -186,7 +186,7 @@ const Signup = () => {
 									>
 										{Localize.Agree}
 									</label>
-								</div>
+								</span>
 							)}
 						/>
 					</div>

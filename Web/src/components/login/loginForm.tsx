@@ -10,6 +10,7 @@ import Localize from '../localize';
 import { classNames } from 'primereact/utils';
 import { useAppDispatch } from '../../app/hooks';
 import { logUser } from '../../features/session/sessionSlice';
+import { Checkbox } from 'primereact/checkbox';
 
 const LoginForm = () => {
 	const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const LoginForm = () => {
 	const initialValues: UserLoginDto = {
 		userName: '',
 		password: '',
+		persist: false,
 	};
 
 	const {
@@ -74,6 +76,22 @@ const LoginForm = () => {
 									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
 								/>
+							)}
+						/>
+					</div>
+					<div className='p-field form-spacing'>
+						<Controller
+							name='persist'
+							control={control}
+							render={({ field, fieldState }) => (
+								<span>
+									<Checkbox
+										inputId={field.name}
+										onChange={(e) => field.onChange(e.checked)}
+										checked={field.value}
+									/>
+									<label htmlFor='accept'>{Localize['Login:Persist']}</label>
+								</span>
 							)}
 						/>
 					</div>

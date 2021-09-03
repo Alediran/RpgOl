@@ -22,6 +22,7 @@
         "Validation:UserExists": "The user already exist",
         "Validation:UndefinedDate": "Please select your birthday",
         "Submit:SignupSuccess": "Signup Successfull",
-        "Submit:SignupError": "Error creating your account"
+        "Submit:SignupError": "Error creating your account",
+        "Login:Persist": "Do you want to keep your session open?"
     }
 }

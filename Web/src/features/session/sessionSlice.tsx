@@ -21,7 +21,13 @@ export interface SessionState {
 const initialState: SessionState = {
 	status: Status.idle,
 	isLogged: false,
-	user: { id: '', userName: '', email: '', birthday: new Date() },
+	user: {
+		id: '',
+		userName: '',
+		email: '',
+		birthday: new Date(),
+		persist: false,
+	},
 };
 
 type FetchError = {
@@ -40,7 +46,7 @@ export const logUser = createAsyncThunk<
 			message: 'Error while login user',
 		});
 
-	return result.data;
+	return { ...result.data, persist: user.persist };
 });
 
 export const sessionSlice = createSlice({
@@ -63,7 +69,11 @@ export const sessionSlice = createSlice({
 			state.status = Status.logged;
 			state.user = payload;
 			state.isLogged = true;
-			localStorage.setItem('user', JSON.stringify(payload));
+
+			console.log('User is ', payload);
+			if (payload.persist)
+				localStorage.setItem('user', JSON.stringify(payload));
+			else sessionStorage.setItem('user', JSON.stringify(payload));
 		});
 
 		builder.addCase(logUser.rejected, (state, { payload }) => {

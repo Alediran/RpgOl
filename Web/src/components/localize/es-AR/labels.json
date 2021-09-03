@@ -22,6 +22,7 @@
         "Validation:UserExists": "El usuario ya existe",
         "Validation:UndefinedDate": "Por favor seleccione su fecha de cumpleaños",
         "Submit:SignupSuccess": "Cuenta creada exitosamente",
-        "Submit:SignupError": "Error creando tu cuenta"
+        "Submit:SignupError": "Error creando tu cuenta",
+        "Login:Persist": "Desea mantener abierta su sesión?"
     }
 }
