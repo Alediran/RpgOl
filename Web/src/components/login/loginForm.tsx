@@ -8,8 +8,12 @@ import UserLoginDto, {
 import FloatingLabelInput from '../floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
+import { useAppDispatch } from '../../app/hooks';
+import { logUser } from '../../features/session/sessionSlice';
 
 const LoginForm = () => {
+	const dispatch = useAppDispatch();
+
 	const initialValues: UserLoginDto = {
 		userName: '',
 		password: '',
@@ -28,7 +32,9 @@ const LoginForm = () => {
 		return errors[name]?.message;
 	};
 
-	const onSubmit = (data: UserLoginDto) => {};
+	const onSubmit = (data: UserLoginDto) => {
+		dispatch(logUser(data));
+	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -53,11 +59,22 @@ const LoginForm = () => {
 						/>
 					</div>
 					<div className='p-field form-spacing'>
-						<FloatingLabelInput
-							id='password'
-							type='password'
-							label={Localize.Password}
-							feedback={false}
+						<Controller
+							name='password'
+							control={control}
+							render={({ field, fieldState }) => (
+								<FloatingLabelInput
+									id={field.name}
+									type='password'
+									label={Localize.Password}
+									feedback={false}
+									value={field.value}
+									onChange={field.onChange}
+									className={classNames({ 'p-invalid': fieldState.invalid })}
+									labelClassName={classNames({ 'p-error': errors[field.name] })}
+									errors={getFormErrorMessage(field.name)}
+								/>
+							)}
 						/>
 					</div>
 					<div className='p-field form-spacing'>

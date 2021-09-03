@@ -27,7 +27,7 @@ export const validationSchema = z
 			.refine((data) => data !== undefined, {
 				message: Localize['Validation:UndefinedDate'],
 			}),
-		Accept: z.boolean(), //.refine((data) => data === true, { message: '' }), //Error here for fork-ts-checker-webpack-plugin-error
+		Accept: z.boolean(), //.refine((data) => !data, { message: '' }),
 	})
 	.refine((data) => data.Password === data.confirm, {
 		message: Localize['Validation:PassswordsNotMatching'],

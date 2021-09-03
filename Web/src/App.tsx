@@ -8,21 +8,33 @@ import Home from './pages/home';
 import Login from './components/login';
 import Localize from './components/localize';
 import { useEffect } from 'react';
-import { useAppSelector } from './app/hooks';
-import { selectSession } from './features/session/sessionSlice';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { selectSession, userReturns } from './features/session/sessionSlice';
 import Signup from './pages/signup';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import UserSessionDto from './model/user/user-session.dto';
 
 const App = () => {
 	const [showLogin, setShowLogin] = useState(false);
 	const [localization, setLocalization] = useState('en-US');
 	const session = useAppSelector(selectSession);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		Localize.setLanguage(localization);
 	}, [localization]);
+
+	useEffect(() => {
+		const loggedInUser = localStorage.getItem('user');
+
+		console.log(loggedInUser);
+		if (loggedInUser) {
+			const user: UserSessionDto = JSON.parse(loggedInUser);
+			dispatch(userReturns(user));
+		}
+	}, []);
 
 	const itemsNotLogged = [{}];
 	const itemsLogged = [{}];

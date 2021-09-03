@@ -33,8 +33,8 @@ namespace RpgOl.Api.Services
 
         public async Task<UserDto> ValidateUser(string userName, string password)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.User == userName && u.Password == password);
-
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => (u.User == userName && u.Password == password));
+            user.Password = string.Empty;
             return user;
         }
     }

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import UserLoginDto from '../../model/user/user-login.dto';
 import UserSessionDto from '../../model/user/user-session.dto';
@@ -37,7 +37,7 @@ export const logUser = createAsyncThunk<
 
 	if (result.status !== 200)
 		return thunkApi.rejectWithValue({
-			message: 'Error while saving user',
+			message: 'Error while login user',
 		});
 
 	return result.data;
@@ -46,7 +46,14 @@ export const logUser = createAsyncThunk<
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
-	reducers: {},
+	reducers: {
+		userReturns(state, action: PayloadAction<UserSessionDto>) {
+			const { payload } = action;
+			state.status = Status.logged;
+			state.isLogged = true;
+			state.user = payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(logUser.pending, (state) => {
 			state.status = Status.logging;
@@ -55,6 +62,8 @@ export const sessionSlice = createSlice({
 		builder.addCase(logUser.fulfilled, (state, { payload }) => {
 			state.status = Status.logged;
 			state.user = payload;
+			state.isLogged = true;
+			localStorage.setItem('user', JSON.stringify(payload));
 		});
 
 		builder.addCase(logUser.rejected, (state, { payload }) => {
@@ -64,7 +73,7 @@ export const sessionSlice = createSlice({
 	},
 });
 
-// export const { sessionApproved } = sessionSlice.actions;
+export const { userReturns } = sessionSlice.actions;
 export const selectSession = (state: RootState) => state.session;
 
 export default sessionSlice.reducer;
