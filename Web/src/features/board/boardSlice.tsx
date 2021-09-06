@@ -24,7 +24,7 @@ const initialState: BoardState = {
 };
 
 export const getBoards = createAsyncThunk<
-	BoardDto,
+	BoardDto[],
 	string,
 	{ rejectValue: FetchError }
 >('board/get', async (userId: string, thunkApi) => {

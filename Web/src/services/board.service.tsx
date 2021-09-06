@@ -5,7 +5,7 @@ export default class BoardService {
 	apiUrl = 'https://localhost:5001';
 
 	GetBoards = async (userId: string) => {
-		const result = await axios.get<BoardDto>(
+		const result = await axios.get<BoardDto[]>(
 			`${this.apiUrl}/api/board?userId=${userId}`
 		);
 
