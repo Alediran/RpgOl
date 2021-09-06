@@ -2,10 +2,9 @@
 *.user
 *.cache
 *.v2
+*.dbmdl
+*.jfm
 _ReSharper.*
 bin
 obj
 packages
-RpgOl.Dal/obj/Debug/net5.0/RpoOl.Dal.csproj.AssemblyReference.cache
-RpoOl.Db/RpgOl.Db.dbmdl
-RpoOl.Db/RpgOl.Db.jfm
