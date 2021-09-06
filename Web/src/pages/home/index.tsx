@@ -11,6 +11,10 @@ const Home = (): JSX.Element => {
 	return (
 		<div>
 			Home
+			<div className='grid'>
+				<div className='col-12 md:col-6 lg:col-3 sm:flex-nowrap'>Hello</div>
+				<div className='col-12 md:col-6 lg:col-3'>How are you</div>
+			</div>
 			<SpeedDialogue items={items} />
 		</div>
 	);
