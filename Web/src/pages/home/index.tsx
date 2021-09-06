@@ -1,4 +1,5 @@
 import { PrimeIcons } from 'primereact/api';
+import { useEffect } from 'react';
 import Localize from '../../components/localize';
 import SpeedDialogue from '../../components/SpeedDialogue';
 import Boards from './components/boards';
@@ -7,6 +8,8 @@ const Home = (): JSX.Element => {
 	const items = [
 		{ label: Localize['Dial:CreateGame'], icon: PrimeIcons.PENCIL },
 	];
+
+	useEffect(() => {}, []);
 
 	return (
 		<div>

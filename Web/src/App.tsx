@@ -16,6 +16,7 @@ import UserSessionDto from './model/user/user-session.dto';
 import Home from './pages/home';
 import Signup from './pages/signup';
 import { MenuItem } from 'primereact/menuitem';
+import Admin from './pages/admin';
 
 const App = () => {
 	const [showLogin, setShowLogin] = useState(false);
@@ -82,6 +83,7 @@ const App = () => {
 				<Switch>
 					<Route exact path='/' component={Home} />
 					<Route path='/signup' component={Signup} />
+					<Route path='/admin' component={Admin} />
 				</Switch>
 				<Login visible={showLogin} onHide={() => setShowLogin(false)} />
 			</Router>
