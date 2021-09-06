@@ -17,6 +17,7 @@ namespace RpgOl.Dal
         }
 
         public virtual DbSet<UserDto> Users { get; set; }
+        public virtual DbSet<BoardDto> Boards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +31,7 @@ namespace RpgOl.Dal
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(200)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Password)
@@ -42,6 +43,25 @@ namespace RpgOl.Dal
                     .HasMaxLength(200);
 
                 entity.Property(e => e.UserType)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<BoardDto>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasOne(e => e.Owner);
+
+                entity.HasMany(e => e.Players);
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.Property(e => e.IsGeneral)
                     .IsRequired();
             });
 

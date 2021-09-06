@@ -2,12 +2,9 @@
 using Microsoft.Extensions.Logging;
 using RpgOl.Api.Services;
 using RpgOl.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Controllers
+namespace RpgOl.Api.Controllers
 {
     [ApiController]
     [Route("/api/user")]

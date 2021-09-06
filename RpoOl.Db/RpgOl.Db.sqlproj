@@ -60,8 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Users.sql" />
+    <Build Include="Boards.sql" />
+    <Build Include="BoardsPlayers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RpgOlDb.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="RpgOl.Db.refactorlog" />
   </ItemGroup>
 </Project>

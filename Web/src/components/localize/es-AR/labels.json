@@ -28,6 +28,11 @@
         "Menu:UserPreferences": "Preferencias de usuario",
         "Menu:Logout": "Salir",        
         "Menu:Games": "Juegos",
-        "Dial:CreateGame": "Crear Nuevo Juego"
+        "Dial:CreateGame": "Crear Nuevo Juego",
+        "BoardMode:Own": "Tus juegos",
+        "BoardMode:Play": "Juegos en los que participas",
+        "BoardMode:General": "Tablero general",
+        "BoardMode:Owner": "Dueño",
+        "BoardMode:Posts": "Mensajes"
     }
 }

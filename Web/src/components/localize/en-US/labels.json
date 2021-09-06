@@ -28,6 +28,11 @@
         "Menu:UserPreferences": "User Preferences",
         "Menu:Logout": "Logout",
         "Menu:Games": "Games",
-        "Dial:CreateGame": "Create New Game"
+        "Dial:CreateGame": "Create New Game",
+        "BoardMode:Own": "Games you own",
+        "BoardMode:Play": "Games you play",
+        "BoardMode:General": "General boards",
+        "BoardMode:Owner": "Owner",
+        "BoardMode:Posts": "Posts"
     }
 }
