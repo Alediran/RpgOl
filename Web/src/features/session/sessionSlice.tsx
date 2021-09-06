@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import UserLoginDto from '../../model/user/user-login.dto';
-import UserSessionDto from '../../model/user/user-session.dto';
+import UserSessionDto, { UserType } from '../../model/user/user-session.dto';
 import UserService from '../../services/user.service';
 
 const userService: UserService = new UserService();
@@ -27,6 +27,7 @@ const initialState: SessionState = {
 		email: '',
 		birthday: new Date(),
 		persist: false,
+		userType: UserType.User,
 	},
 };
 

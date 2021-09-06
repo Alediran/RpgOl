@@ -23,6 +23,11 @@
         "Validation:UndefinedDate": "Por favor seleccione su fecha de cumpleaños",
         "Submit:SignupSuccess": "Cuenta creada exitosamente",
         "Submit:SignupError": "Error creando tu cuenta",
-        "Login:Persist": "Desea mantener abierta su sesión?"
+        "Login:Persist": "Desea mantener abierta su sesión?",
+        "Menu:User": "Usuario",
+        "Menu:UserPreferences": "Preferencias de usuario",
+        "Menu:Logout": "Salir",        
+        "Menu:Games": "Juegos",
+        "Dial:CreateGame": "Crear Nuevo Juego"
     }
 }

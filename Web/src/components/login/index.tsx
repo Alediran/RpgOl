@@ -15,7 +15,7 @@ const Login = (props: Props) => {
 	return (
 		<Dialog header={Localize.AccessTitle} visible={visible} onHide={onHide}>
 			<div className='p-d-flex'>
-				<LoginForm />
+				<LoginForm onHide={onHide} />
 				<Divider layout='vertical' />
 				<RegisterCard onHide={onHide} />
 			</div>

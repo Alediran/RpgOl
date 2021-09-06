@@ -7,6 +7,7 @@ namespace RpgOl.Domain
         public string User { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime Birthday {get;set;}
+        public DateTime Birthday { get; set; }
+        public UserType UserType { get; set; }
     }
 }

@@ -12,7 +12,11 @@ import { useAppDispatch } from '../../app/hooks';
 import { logUser } from '../../features/session/sessionSlice';
 import { Checkbox } from 'primereact/checkbox';
 
-const LoginForm = () => {
+type Props = {
+	onHide: () => void;
+};
+const LoginForm = (props: Props) => {
+	const { onHide } = props;
 	const dispatch = useAppDispatch();
 
 	const initialValues: UserLoginDto = {
@@ -35,7 +39,7 @@ const LoginForm = () => {
 	};
 
 	const onSubmit = (data: UserLoginDto) => {
-		dispatch(logUser(data));
+		dispatch(logUser(data)).finally(() => onHide());
 	};
 
 	return (

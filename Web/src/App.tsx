@@ -1,26 +1,29 @@
-import { useState } from 'react';
 import './App.css';
 import 'primeflex/primeflex.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Menubar } from 'primereact/menubar';
-import { Button } from 'primereact/button';
-import Home from './pages/home';
-import Login from './components/login';
-import Localize from './components/localize';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectSession, userReturns } from './features/session/sessionSlice';
-import Signup from './pages/signup';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Menubar } from 'primereact/menubar';
+import { Button } from 'primereact/button';
+import { PrimeIcons } from 'primereact/api';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { selectSession, userReturns } from './features/session/sessionSlice';
+import Login from './components/login';
+import Localize from './components/localize';
 import UserSessionDto from './model/user/user-session.dto';
+import Home from './pages/home';
+import Signup from './pages/signup';
+import { MenuItem } from 'primereact/menuitem';
+import { SpeedDial } from 'primereact/speeddial';
 
 const App = () => {
 	const [showLogin, setShowLogin] = useState(false);
 	const [localization, setLocalization] = useState('en-US');
 	const session = useAppSelector(selectSession);
 	const dispatch = useAppDispatch();
+	const [dialItems, setDialItems] = useState<MenuItem[]>();
 
 	useEffect(() => {
 		Localize.setLanguage(localization);
@@ -40,7 +43,21 @@ const App = () => {
 	}, []);
 
 	const itemsNotLogged = [{}];
-	const itemsLogged = [{}];
+	const itemsLogged = [
+		{
+			label: Localize['Menu:User'],
+			icon: PrimeIcons.USER,
+			items: [
+				{ label: Localize['Menu:UserPreferences'], icon: PrimeIcons.COG },
+				{ separator: true },
+				{ label: Localize['Menu:Logout'], icon: PrimeIcons.SIGN_OUT },
+			],
+		},
+	];
+
+	const onLoadPage = (items: MenuItem[]) => {
+		setDialItems(items);
+	};
 
 	return (
 		<div>
@@ -69,7 +86,12 @@ const App = () => {
 				/>
 
 				<Switch>
-					<Route exact path='/' component={Home} />
+					<Route
+						exact
+						path='/'
+						component={Home}
+						//component={() => Home({ onLoadPage: (i) => onLoadPage(i) })}
+					/>
 					<Route path='/signup' component={Signup} />
 				</Switch>
 				<Login visible={showLogin} onHide={() => setShowLogin(false)} />

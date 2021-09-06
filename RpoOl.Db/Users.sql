@@ -4,5 +4,6 @@
     [User] NVARCHAR(200) NOT NULL, 
     [Password] NVARCHAR(200) NOT NULL, 
     [Email] NVARCHAR(200) NOT NULL, 
-    [Birthday] DATE NOT NULL
+    [Birthday] DATE NOT NULL, 
+    [UserType] INT NOT NULL DEFAULT 3
 )

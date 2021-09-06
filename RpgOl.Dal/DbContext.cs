@@ -40,6 +40,9 @@ namespace RpgOl.Dal
                 entity.Property(e => e.User)
                     .IsRequired()
                     .HasMaxLength(200);
+
+                entity.Property(e => e.UserType)
+                    .IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);
