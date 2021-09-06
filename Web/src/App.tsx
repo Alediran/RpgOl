@@ -22,7 +22,6 @@ const App = () => {
 	const [localization, setLocalization] = useState('en-US');
 	const session = useAppSelector(selectSession);
 	const dispatch = useAppDispatch();
-	const [dialItems, setDialItems] = useState<MenuItem[]>();
 
 	useEffect(() => {
 		Localize.setLanguage(localization);
@@ -54,10 +53,6 @@ const App = () => {
 		},
 	];
 
-	const onLoadPage = (items: MenuItem[]) => {
-		setDialItems(items);
-	};
-
 	return (
 		<div>
 			<Router>
@@ -85,12 +80,7 @@ const App = () => {
 				/>
 
 				<Switch>
-					<Route
-						exact
-						path='/'
-						component={Home}
-						//component={() => Home({ onLoadPage: (i) => onLoadPage(i) })}
-					/>
+					<Route exact path='/' component={Home} />
 					<Route path='/signup' component={Signup} />
 				</Switch>
 				<Login visible={showLogin} onHide={() => setShowLogin(false)} />
