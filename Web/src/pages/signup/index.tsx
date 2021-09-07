@@ -88,7 +88,6 @@ const Signup = () => {
 								/>
 							)}
 						/>
-						<div>{}</div>
 					</div>
 					<div className='p-field'>
 						<Controller

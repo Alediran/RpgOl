@@ -1,4 +1,4 @@
-import UserType from '../enums/user-type';
+import UserType from '../static/user-type';
 
 type UserDto = {
 	id: string;

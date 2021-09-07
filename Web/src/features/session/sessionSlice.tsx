@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import UserType from '../../model/enums/user-type';
+import UserType from '../../model/static/user-type';
 import UserLoginDto from '../../model/user/user-login.dto';
 import UserDto from '../../model/user/user.dto';
 import UserService from '../../services/user.service';

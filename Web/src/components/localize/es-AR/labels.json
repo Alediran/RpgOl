@@ -33,6 +33,10 @@
         "BoardMode:Play": "Juegos en los que participas",
         "BoardMode:General": "Tablero general",
         "BoardMode:Owner": "Dueño",
-        "BoardMode:Posts": "Mensajes"
+        "BoardMode:Posts": "Mensajes",
+        "NewGame": "Crear nuevo juego",
+        "Title": "Título",
+        "Alias": "Alias del MJ",
+        "Categories": "Categorias"
     }
 }

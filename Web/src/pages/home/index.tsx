@@ -1,21 +1,29 @@
-import { PrimeIcons } from 'primereact/api';
 import { useEffect, useState } from 'react';
+import { PrimeIcons } from 'primereact/api';
+import { Sidebar } from 'primereact/sidebar';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Localize from '../../components/localize';
 import SpeedDialogue from '../../components/SpeedDialogue';
 import { getBoards } from '../../features/board/boardSlice';
 import { selectSession } from '../../features/session/sessionSlice';
-import { selectUser } from '../../features/user/userSlice';
 import BoardDto from '../../model/board/board.dto';
 import Boards from './components/boards';
+import GameCreate from './components/game-create';
 
 const Home = (): JSX.Element => {
-	const [boards, setBoards] = useState<BoardDto[]>([]);
-	const dispatch = useAppDispatch();
 	const state = useAppSelector(selectSession);
+	const dispatch = useAppDispatch();
+	const [boards, setBoards] = useState<BoardDto[]>([]);
+	const [newGamePanel, setNewGamePanel] = useState(false);
 
 	const items = [
-		{ label: Localize['Dial:CreateGame'], icon: PrimeIcons.PENCIL },
+		{
+			label: Localize['Dial:CreateGame'],
+			icon: PrimeIcons.PENCIL,
+			command: () => {
+				setNewGamePanel(true);
+			},
+		},
 	];
 
 	useEffect(() => {
@@ -46,6 +54,13 @@ const Home = (): JSX.Element => {
 				</div>
 			</div>
 			<SpeedDialogue items={items} />
+			<Sidebar
+				visible={newGamePanel}
+				position='right'
+				onHide={() => setNewGamePanel(false)}
+			>
+				<GameCreate />
+			</Sidebar>
 		</div>
 	);
 };

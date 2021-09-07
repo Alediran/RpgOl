@@ -33,6 +33,10 @@
         "BoardMode:Play": "Games you play",
         "BoardMode:General": "General boards",
         "BoardMode:Owner": "Owner",
-        "BoardMode:Posts": "Posts"
+        "BoardMode:Posts": "Posts",
+        "NewGame": "Create new game",
+        "Title": "Title",
+        "Alias": "GM Alias",
+        "Categories": "Categories"
     }
 }

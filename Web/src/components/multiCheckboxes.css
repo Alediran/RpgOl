@@ -1,0 +1,7 @@
+.horizontal {
+	flex-wrap: wrap;
+}
+
+.padded {
+	padding: 5px;
+}
