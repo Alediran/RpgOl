@@ -61,7 +61,7 @@
   <ItemGroup>
     <Build Include="Users.sql" />
     <Build Include="Boards.sql" />
-    <Build Include="BoardsPlayers.sql" />
+    <Build Include="Players.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RpgOlDb.publish.xml" />

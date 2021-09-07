@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import UserType from '../../model/enums/user-type';
 import UserLoginDto from '../../model/user/user-login.dto';
-import UserSessionDto, { UserType } from '../../model/user/user-session.dto';
+import UserDto from '../../model/user/user.dto';
 import UserService from '../../services/user.service';
 
 const userService: UserService = new UserService();
@@ -14,7 +15,7 @@ enum Status {
 export interface SessionState {
 	status: Status;
 	isLogged: boolean;
-	user: UserSessionDto;
+	user: UserDto;
 	error?: string;
 }
 
@@ -36,7 +37,7 @@ type FetchError = {
 };
 
 export const logUser = createAsyncThunk<
-	UserSessionDto,
+	UserDto,
 	UserLoginDto,
 	{ rejectValue: FetchError }
 >('user/login', async (user: UserLoginDto, thunkApi) => {
@@ -54,7 +55,7 @@ export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
 	reducers: {
-		userReturns(state, action: PayloadAction<UserSessionDto>) {
+		userReturns(state, action: PayloadAction<UserDto>) {
 			const { payload } = action;
 			state.status = Status.logged;
 			state.isLogged = true;

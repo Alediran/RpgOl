@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[Players]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [UserId] UNIQUEIDENTIFIER NOT NULL, 
+    [BoardId] UNIQUEIDENTIFIER NOT NULL, 
+    [Name] NVARCHAR(100) NOT NULL, 
+    [LastPost] DATETIME NULL, 
+    [LastLog] DATETIME NULL, 
+    [Tag] NVARCHAR(50) NOT NULL DEFAULT 'Player', 
+    CONSTRAINT [FK_Players_Boards] FOREIGN KEY (BoardId) REFERENCES Boards(Id), 
+    CONSTRAINT [FK_Players_Users] FOREIGN KEY (UserId) REFERENCES Users(Id) 
+)

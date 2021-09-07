@@ -1,9 +1,9 @@
-import UserSessionDto from '../user/user-session.dto';
+import UserDto from '../user/user.dto';
 
 type BoardDto = {
 	id: string;
 	Title: string;
-	Owner: UserSessionDto;
+	Owner: UserDto;
 	IsDeleted: boolean;
 	IsGeneral: boolean;
 };

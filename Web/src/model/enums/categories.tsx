@@ -1,0 +1,27 @@
+enum Categories {
+	Action,
+	Adventure,
+	Ancient,
+	Anime,
+	Apocaliptic,
+	Arena,
+	Comedy,
+	Contemporary,
+	Drama,
+	Eastern,
+	Fantasy,
+	Frontier,
+	Future,
+	Historical,
+	Horror,
+	Intrigue,
+	Medieval,
+	Punk,
+	SciFi,
+	Strategy,
+	Superhuman,
+	Supernatural,
+	Survival,
+}
+
+export default Categories;

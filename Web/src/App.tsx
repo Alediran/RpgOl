@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from './app/hooks';
 import { selectSession, userReturns } from './features/session/sessionSlice';
 import Login from './components/login';
 import Localize from './components/localize';
-import UserSessionDto from './model/user/user-session.dto';
+import UserDto from './model/user/user.dto';
 import Home from './pages/home';
 import Signup from './pages/signup';
 import { MenuItem } from 'primereact/menuitem';
@@ -36,10 +36,10 @@ const App = () => {
 		}
 
 		if (loggedInUser) {
-			const user: UserSessionDto = JSON.parse(loggedInUser);
+			const user: UserDto = JSON.parse(loggedInUser);
 			dispatch(userReturns(user));
 		}
-	}, []);
+	}, [dispatch]);
 
 	const itemsNotLogged = [{}];
 	const itemsLogged = [

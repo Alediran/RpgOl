@@ -26,5 +26,11 @@ namespace RpgOl.Api.Controllers
         {
             return await _boardService.GetBoardsAsync(userId);
         }
+
+        [HttpPost]
+        public async Task<int> CreateNewGame(BoardDto newGame)
+        {
+            return await _boardService.CreateNewGame(newGame);
+        }
     }
 }

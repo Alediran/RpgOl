@@ -27,7 +27,7 @@ namespace RpgOl.Api.Services
                 await _dbContext.Users.AddAsync(new() { Id = Guid.NewGuid(), User = userName, Password = password, Email = email, Birthday = birthday }, cancellationToken);
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
-            catch(Exception ex) { }
+            catch(Exception) { }
             return await GetByUsername(userName);
         }
 

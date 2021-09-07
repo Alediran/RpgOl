@@ -22,5 +22,16 @@ namespace RpgOl.Api.Services
             return await Task.FromResult(boards);
         }
 
+        public async Task<int> CreateNewGame(BoardDto newGame, System.Threading.CancellationToken cancellationToken = default)
+        {
+            try {
+                await _dbContext.Boards.AddAsync(newGame, cancellationToken);
+                return await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

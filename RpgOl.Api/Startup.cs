@@ -27,6 +27,8 @@ namespace API
             services.AddDbContext<RpgOl.Dal.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBoardService, BoardService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RpgOl API", Version = "v1" });

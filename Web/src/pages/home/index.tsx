@@ -1,15 +1,18 @@
 import { PrimeIcons } from 'primereact/api';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Localize from '../../components/localize';
 import SpeedDialogue from '../../components/SpeedDialogue';
 import { getBoards } from '../../features/board/boardSlice';
+import { selectSession } from '../../features/session/sessionSlice';
+import { selectUser } from '../../features/user/userSlice';
 import BoardDto from '../../model/board/board.dto';
 import Boards from './components/boards';
 
 const Home = (): JSX.Element => {
 	const [boards, setBoards] = useState<BoardDto[]>([]);
 	const dispatch = useAppDispatch();
+	const state = useAppSelector(selectSession);
 
 	const items = [
 		{ label: Localize['Dial:CreateGame'], icon: PrimeIcons.PENCIL },
@@ -19,7 +22,7 @@ const Home = (): JSX.Element => {
 		dispatch(getBoards('asdasd'))
 			.unwrap()
 			.then((data) => setBoards(data));
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div>
@@ -29,7 +32,7 @@ const Home = (): JSX.Element => {
 					<div className='col-12 md:col-6 lg:col-5 sm:flex-nowrap'>
 						<Boards
 							mode='own'
-							data={boards.filter((board) => (board.Owner.id = 'asd'))}
+							data={boards.filter((board) => (board.Owner.id = state.user.id))}
 						/>
 						<Boards mode='play' data={[]} />
 					</div>
