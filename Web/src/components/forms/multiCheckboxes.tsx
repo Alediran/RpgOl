@@ -1,6 +1,6 @@
 import './multiCheckboxes.css';
 import { Checkbox, CheckboxChangeParams } from 'primereact/checkbox';
-import ValuedOptions from '../model/static/valuedData';
+import ValuedOptions from '../../model/static/valuedOptions';
 
 type Props = {
 	mode: 'horizontal' | 'vertical';

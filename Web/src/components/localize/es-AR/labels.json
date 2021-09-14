@@ -37,6 +37,10 @@
         "NewGame": "Crear nuevo juego",
         "Title": "Título",
         "Alias": "Alias del MJ",
-        "Categories": "Categorias"
+        "Categories": "Categorias",
+        "System": "Sistema",
+        "SelectOption": "Selecciona una opción",
+        "CreateNewGame": "Crear juego nuevo",
+        "Cancel": "Cancel"
     }
 }

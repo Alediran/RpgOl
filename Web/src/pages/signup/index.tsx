@@ -6,8 +6,8 @@ import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
 import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
-import FloatingCalendarInput from '../../components/floatingCalendarInput';
-import FloatingLabelInput from '../../components/floatingLabelInput';
+import FloatingCalendarInput from '../../components/forms/floatingCalendarInput';
+import FloatingLabelInput from '../../components/forms/floatingLabelInput';
 import Localize from '../../components/localize';
 import UserCreateDto, {
 	validationSchema,
@@ -62,6 +62,7 @@ const Signup = () => {
 					severity: severity,
 					summary: summary,
 					life: life,
+					contentClassName: '',
 				});
 		});
 	};

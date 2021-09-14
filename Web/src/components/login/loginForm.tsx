@@ -1,16 +1,16 @@
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import UserLoginDto, {
 	validationSchema,
 } from '../../model/user/user-login.dto';
-import FloatingLabelInput from '../floatingLabelInput';
+import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
 import { useAppDispatch } from '../../app/hooks';
 import { logUser } from '../../features/session/sessionSlice';
-import { Checkbox } from 'primereact/checkbox';
 
 type Props = {
 	onHide: () => void;

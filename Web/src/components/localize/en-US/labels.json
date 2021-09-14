@@ -37,6 +37,10 @@
         "NewGame": "Create new game",
         "Title": "Title",
         "Alias": "GM Alias",
-        "Categories": "Categories"
+        "Categories": "Categories",
+        "System": "System",
+        "SelectOption": "Select an option",
+        "CreateNewGame": "Create new game",
+        "Cancel": "Cancel"
     }
 }

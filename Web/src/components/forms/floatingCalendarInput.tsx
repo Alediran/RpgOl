@@ -1,5 +1,5 @@
 import { Calendar, CalendarChangeParams } from 'primereact/calendar';
-import Localize from './localize';
+import Localize from '../localize';
 type Props = {
 	id: string;
 	label: string;

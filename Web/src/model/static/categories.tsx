@@ -1,4 +1,4 @@
-import ValuedOptions from './valuedData';
+import ValuedOptions from './valuedOptions';
 
 const Categories: ValuedOptions[] = [
 	{ value: 1, description: 'Action' },

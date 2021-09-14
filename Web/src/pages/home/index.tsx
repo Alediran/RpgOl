@@ -59,7 +59,7 @@ const Home = (): JSX.Element => {
 				position='right'
 				onHide={() => setNewGamePanel(false)}
 			>
-				<GameCreate />
+				<GameCreate onCancel={() => setNewGamePanel(false)} />
 			</Sidebar>
 		</div>
 	);
