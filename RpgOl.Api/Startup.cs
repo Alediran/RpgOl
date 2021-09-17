@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
 using HotChocolate;
-using HotChocolate.AspNetCore;
-using HotChocolate.AspNetCore.Playground;
+using Okta.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +26,22 @@ namespace API
         {
             services.AddControllers();
             services.AddPooledDbContextFactory<RpgOl.Dal.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            
-            services.AddGraphQLServer().AddQueryType<Query>();
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
+                options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
+                options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
+            })
+            .AddOktaWebApi(new OktaWebApiOptions()
+            {
+                OktaDomain = "https://dev-81092132.okta.com"
+            });
+
+            services.AddAuthorization();
+
+            services.AddGraphQLServer().AddAuthorization().AddDefaultTransactionScopeHandler().AddQueryType<Query>();
+            //.AddMutationType<Mutation>()
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -47,6 +59,9 @@ namespace API
                         .AllowCredentials();
                 });
             });
+
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,17 +70,13 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UsePlayground(new PlaygroundOptions
-                {
-                    QueryPath = "/api",
-                    Path = "/playground"
-                });
             }
             
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

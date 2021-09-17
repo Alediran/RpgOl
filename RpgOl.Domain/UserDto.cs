@@ -1,7 +1,9 @@
-﻿using System;
+﻿using HotChocolate.AspNetCore.Authorization;
+using System;
 
 namespace RpgOl.Domain
 {
+    [Authorize]
     public class UserDto : Entity<Guid>
     {
         public string User { get; set; }

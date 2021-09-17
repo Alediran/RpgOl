@@ -1,9 +1,9 @@
 ﻿#nullable enable
+using HotChocolate.AspNetCore.Authorization;
 using System;
-using System.Collections.Generic;
-
 namespace RpgOl.Domain
 {
+    [Authorize]
     public class BoardDto : Entity<Guid>
     {
         public string Title { get; set; }
