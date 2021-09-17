@@ -1,18 +1,20 @@
 using System;
 using System.Linq;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using RpgOl.Api.Services;
+using RpgOl.Api.GraphQl;
 
 namespace API
 {
     public class Startup
-    {        
+    {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,15 +26,9 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<RpgOl.Dal.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IBoardService, BoardService>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RpgOl API", Version = "v1" });
-            });
+            services.AddPooledDbContextFactory<RpgOl.Dal.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            
+            services.AddGraphQLServer().AddQueryType<Query>();
 
             services.AddCors(options =>
             {
@@ -59,20 +55,23 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RpgOl API"));
+                app.UsePlayground(new PlaygroundOptions
+                {
+                    QueryPath = "/api",
+                    Path = "/playground"
+                });
             }
-
+            
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
 
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
-            {                
-                endpoints.MapControllers();
+            {
+                endpoints.MapGraphQL();
             });
-        }        
+        }
     }
 }

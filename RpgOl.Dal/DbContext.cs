@@ -7,10 +7,6 @@ namespace RpgOl.Dal
 {
     public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public DbContext()
-        {
-        }
-
         public DbContext(DbContextOptions<DbContext> options)
             : base(options)
         {
@@ -56,7 +52,7 @@ namespace RpgOl.Dal
 
                 entity.HasOne(e => e.Owner);
 
-                entity.HasMany(e => e.Players);
+               // entity.HasMany(e => e.Players);
 
                 entity.Property(e => e.IsDeleted)
                     .IsRequired();
