@@ -83,8 +83,7 @@ namespace RpgOl.Dal
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnName("User");
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.UserType).HasDefaultValueSql("((3))");
             });

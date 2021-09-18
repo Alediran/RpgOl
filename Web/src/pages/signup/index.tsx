@@ -14,6 +14,7 @@ import UserCreateDto, {
 } from '../../model/user/user-create.dto';
 import { useAppDispatch } from '../../app/hooks';
 import { createUser } from '../../features/user/userSlice';
+import { useQuery } from '@apollo/client';
 
 const Signup = () => {
 	const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ const Signup = () => {
 		return errors[name]?.message;
 	};
 
+	const post = () => {};
 	const onSubmit = (data: UserCreateDto) => {
 		dispatch(createUser(data)).then((result) => {
 			var severity = '';
