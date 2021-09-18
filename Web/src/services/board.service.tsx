@@ -3,7 +3,7 @@ import BoardCreateNewGameDto from '../model/board/board-create.dto';
 import BoardDto from '../model/board/board.dto';
 
 export default class BoardService {
-	apiUrl = 'https://localhost:5001';
+	apiUrl = process.env.REACT_APP_API_URL;
 
 	GetBoards = async (userId: string) => {
 		const result = await axios.get<BoardDto[]>(

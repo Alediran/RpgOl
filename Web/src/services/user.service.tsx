@@ -3,7 +3,7 @@ import UserCreateDto from '../model/user/user-create.dto';
 import UserDto from '../model/user/user.dto';
 
 export default class UserService {
-	apiUrl = 'https://localhost:5001';
+	apiUrl = process.env.REACT_APP_API_URL;
 
 	CreateUser = async (user: UserCreateDto) => {
 		const result = await axios.post<UserCreateDto>(
