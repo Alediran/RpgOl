@@ -10,6 +10,12 @@ generates:
       - "typescript-graphql-files-modules"
       - "typescript-document-nodes"
       - "fragment-matcher"
+    config:
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      apolloReactHooksImportFrom: "@apollo/client"
   ./graphql.schema.json:
     plugins:
       - "introspection"
