@@ -15,14 +15,14 @@ namespace RpgOl.Api.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<BoardDto>> GetBoardsAsync(Guid userId)
+        public async Task<List<Board>> GetBoardsAsync(Guid userId)
         {
-            var boards = _dbContext.Boards.Where(q => q.IsGeneral || q.Owner.Id == userId).ToList();
+            var boards = _dbContext.Boards.Where(q => q.IsGeneral || q.OwnerId == userId).ToList();
 
             return await Task.FromResult(boards);
         }
 
-        public async Task<int> CreateNewGame(BoardDto newGame, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<int> CreateNewGame(Board newGame, System.Threading.CancellationToken cancellationToken = default)
         {
             try {
                 await _dbContext.Boards.AddAsync(newGame, cancellationToken);

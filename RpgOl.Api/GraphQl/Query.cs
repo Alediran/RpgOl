@@ -12,9 +12,9 @@ namespace RpgOl.Api.GraphQl
         { }
 
         [UseDbContext(typeof(DbContext))]
-        public IQueryable<BoardDto> Boards([ScopedService] DbContext dbContext) => dbContext.Boards;
+        public IQueryable<Board> Boards([ScopedService] DbContext dbContext) => dbContext.Boards;
 
         [UseDbContext(typeof(DbContext))]
-        public IQueryable<UserDto> Users([ScopedService] DbContext dbContext) => dbContext.Users;
+        public IQueryable<User> Users([ScopedService] DbContext dbContext) => dbContext.Users;
     }
 }
