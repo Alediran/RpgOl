@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { gql, useQuery } from '@apollo/react-hooks';
-import UserCreateDto from '../model/user/user-create.dto';
+import UserCreateDto from '../model/validation/user-create.validation';
 import UserDto from '../model/user/user.dto';
 
 export default class UserService {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import BoardCreateNewGameDto from '../../model/board/board-create.dto';
+import BoardCreateNewGameDto from '../../model/validation/board-create.validation';
 import BoardDto from '../../model/board/board.dto';
 import BoardService from '../../services/board.service';
 

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import Localize from '../../components/localize';
 import errorMap from '../error.map';
-import { valuedOptionsSchema } from '../static/valuedOptions';
+import { valuedOptionsSchema } from './valued-options.validation';
 
 z.setErrorMap(errorMap);
 

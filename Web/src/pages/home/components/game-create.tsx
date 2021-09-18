@@ -9,8 +9,8 @@ import Localize from '../../../components/localize';
 import Systems from '../../../model/static/systems';
 import BoardCreateNewGameDto, {
 	validationSchema,
-} from '../../../model/board/board-create.dto';
-import ValuedOptions from '../../../model/static/valuedOptions';
+} from '../../../model/validation/board-create.validation';
+import ValuedOptions from '../../../model/validation/valued-options.validation';
 import Categories from '../../../model/static/categories';
 import FloatingMultiSelect from '../../../components/forms/multiSelect';
 import { Button } from 'primereact/button';

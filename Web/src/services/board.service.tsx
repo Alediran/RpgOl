@@ -1,5 +1,5 @@
 import axios from 'axios';
-import BoardCreateNewGameDto from '../model/board/board-create.dto';
+import BoardCreateNewGameDto from '../model/validation/board-create.validation';
 import BoardDto from '../model/board/board.dto';
 
 export default class BoardService {

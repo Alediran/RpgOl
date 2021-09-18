@@ -11,7 +11,7 @@ import FloatingLabelInput from '../../components/forms/floatingLabelInput';
 import Localize from '../../components/localize';
 import UserCreateDto, {
 	validationSchema,
-} from '../../model/user/user-create.dto';
+} from '../../model/validation/user-create.validation';
 import { useAppDispatch } from '../../app/hooks';
 import { createUser } from '../../features/user/userSlice';
 

@@ -1,4 +1,4 @@
-import ValuedOptions from './valuedOptions';
+import ValuedOptions from '../validation/valued-options.validation';
 
 const Categories: ValuedOptions[] = [
 	{ value: 1, description: 'Action' },

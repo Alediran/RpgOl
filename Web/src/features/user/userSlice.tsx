@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import UserDto from '../../model/user/user-create.dto';
+import UserDto from '../../model/validation/user-create.validation';
 import UserService from '../../services/user.service';
 
 const userService: UserService = new UserService();

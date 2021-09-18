@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import UserLoginDto, {
 	validationSchema,
-} from '../../model/user/user-login.dto';
+} from '../../model/validation/user-login.validation';
 import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
