@@ -1,9 +1,30 @@
 import axios from 'axios';
+import { gql, useQuery } from '@apollo/react-hooks';
 import UserCreateDto from '../model/user/user-create.dto';
 import UserDto from '../model/user/user.dto';
 
 export default class UserService {
 	apiUrl = process.env.REACT_APP_API_URL;
+
+	GET_USER = gql`
+		{
+			users {
+				userName
+				userType
+			}
+		}
+	`;
+
+	GetUsers = async () => {
+		const { data, error, loading } = useQuery(this.GET_USER);
+
+		if (loading) {
+			if (error) {
+			}
+		} else {
+			return data;
+		}
+	};
 
 	CreateUser = async (user: UserCreateDto) => {
 		const result = await axios.post<UserCreateDto>(
