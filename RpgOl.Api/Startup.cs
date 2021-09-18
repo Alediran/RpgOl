@@ -35,13 +35,13 @@ namespace API
             })
             .AddOktaWebApi(new OktaWebApiOptions()
             {
-                OktaDomain = "https://dev-81092132.okta.com"
-            });
+                OktaDomain = Configuration["App:AuthenticationServer"]
+            }); 
 
             services.AddAuthorization();
 
-            services.AddGraphQLServer().AddAuthorization().AddDefaultTransactionScopeHandler().AddQueryType<Query>();
-            //.AddMutationType<Mutation>()
+            services.AddGraphQLServer().AddAuthorization().AddDefaultTransactionScopeHandler().AddQueryType<Query>().AddMutationType<Mutation>();
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>

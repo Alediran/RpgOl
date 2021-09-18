@@ -1,5 +1,6 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
+using HotChocolate.Types;
 using RpgOl.Dal;
 using RpgOl.Domain;
 using System.Linq;
@@ -16,5 +17,8 @@ namespace RpgOl.Api.GraphQl
 
         [UseDbContext(typeof(DbContext))]
         public IQueryable<User> Users([ScopedService] DbContext dbContext) => dbContext.Users;
-    }
+
+        [UseDbContext(typeof(DbContext))]
+        public IQueryable<Player> Players([ScopedService] DbContext dbContext) => dbContext.Players;
+    }   
 }
