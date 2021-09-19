@@ -9,14 +9,18 @@ import UserLoginDto, {
 import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
+import { useValidateUserLazyQuery } from '../../api/generated-types';
 import { useAppDispatch } from '../../app/hooks';
-import { logUser } from '../../features/session/sessionSlice';
+import { userLogged } from '../../features/session/sessionSlice';
+import { useEffect } from 'react';
 
 type Props = {
 	onHide: () => void;
 };
+
 const LoginForm = (props: Props) => {
 	const { onHide } = props;
+	const [validateUser, { loading, error, data }] = useValidateUserLazyQuery();
 	const dispatch = useAppDispatch();
 
 	const initialValues: UserLoginDto = {
@@ -38,8 +42,20 @@ const LoginForm = (props: Props) => {
 		return errors[name]?.message;
 	};
 
-	const onSubmit = (data: UserLoginDto) => {
-		dispatch(logUser(data)).finally(() => onHide());
+	useEffect(() => {
+		if (data && data.validateUser) {
+			console.log('User Validated');
+			const user = { ...data.validateUser, password: '', players: [] };
+
+			dispatch(userLogged(user));
+			onHide();
+		}
+	}, [dispatch, onHide, data]);
+
+	const onSubmit = (user: UserLoginDto) => {
+		validateUser({
+			variables: { userName: user.userName, password: user.password },
+		});
 	};
 
 	return (

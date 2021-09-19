@@ -1,11 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../../api/generated-types';
 import { RootState } from '../../app/store';
-import UserType from '../../model/static/user-type';
-import UserLoginDto from '../../model/validation/user-login.validation';
-import UserDto from '../../model/user/user.dto';
-import UserService from '../../services/user.service';
-
-const userService: UserService = new UserService();
 
 enum Status {
 	idle,
@@ -15,8 +10,8 @@ enum Status {
 export interface SessionState {
 	status: Status;
 	isLogged: boolean;
-	user: UserDto;
 	error?: string;
+	user: User;
 }
 
 const initialState: SessionState = {
@@ -25,10 +20,11 @@ const initialState: SessionState = {
 	user: {
 		id: '',
 		userName: '',
+		birthday: '',
+		password: '',
 		email: '',
-		birthday: new Date(),
-		persist: false,
-		userType: UserType.User,
+		userType: 0,
+		players: [],
 	},
 };
 
@@ -36,12 +32,12 @@ type FetchError = {
 	message: string;
 };
 
-export const logUser = createAsyncThunk<
-	UserDto,
+/*export const logUser = createAsyncThunk<
+	User,
 	UserLoginDto,
 	{ rejectValue: FetchError }
 >('user/login', async (user: UserLoginDto, thunkApi) => {
-	const result = await userService.ValidateUser(user.userName, user.password);
+	const result = await ValidateUser(user.userName, user.password);
 
 	if (result.status !== 200)
 		return thunkApi.rejectWithValue({
@@ -49,13 +45,19 @@ export const logUser = createAsyncThunk<
 		});
 
 	return { ...result.data, persist: user.persist };
-});
+});*/
 
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
 	reducers: {
-		userReturns(state, action: PayloadAction<UserDto>) {
+		/*userReturns(state, action: PayloadAction<User>) {
+			const { payload } = action;
+			state.status = Status.logged;
+			state.isLogged = true;
+			//state.user = payload;
+		},*/
+		userLogged(state, action: PayloadAction<User>) {
 			const { payload } = action;
 			state.status = Status.logged;
 			state.isLogged = true;
@@ -63,7 +65,7 @@ export const sessionSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(logUser.pending, (state) => {
+		/*builder.addCase(logUser.pending, (state) => {
 			state.status = Status.logging;
 		});
 
@@ -81,11 +83,11 @@ export const sessionSlice = createSlice({
 		builder.addCase(logUser.rejected, (state, { payload }) => {
 			state.error = payload?.message;
 			state.status = Status.idle;
-		});
+		});*/
 	},
 });
 
-export const { userReturns } = sessionSlice.actions;
+export const { userLogged } = sessionSlice.actions;
 export const selectSession = (state: RootState) => state.session;
 
 export default sessionSlice.reducer;

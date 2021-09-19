@@ -40,7 +40,7 @@ namespace API
 
             services.AddAuthorization();
 
-            services.AddGraphQLServer().AddAuthorization().AddDefaultTransactionScopeHandler().AddQueryType<Query>().AddMutationType<Mutation>();
+            services.AddGraphQLServer().AddAuthorization().AddQueryType<Query>().AddMutationType<Mutation>();
 
             services.AddCors(options =>
             {

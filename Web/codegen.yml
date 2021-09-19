@@ -1,21 +1,20 @@
 overwrite: true
+watch: true
 schema: "https://localhost:5001/graphql?sdl"
+documents: './src/**/*.graphql'
+    
 generates:
-  src/api/index.d.ts:
+  ./src/api/schema.graphql:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-resolvers"
-      - "typescript-react-apollo"
-      - "typescript-graphql-files-modules"
-      - "typescript-document-nodes"
-      - "fragment-matcher"
+      - schema-ast
+  ./src/api/schema.json:
+    plugins:
+      - introspection
+  ./src/api/generated-types.tsx:
     config:
-      skipTypename: false
       withHooks: true
-      withHOC: false
-      withComponent: false
-      apolloReactHooksImportFrom: "@apollo/client"
-  ./graphql.schema.json:
+      avoidOptionals: true
     plugins:
-      - "introspection"
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

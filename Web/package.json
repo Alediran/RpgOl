@@ -5,8 +5,11 @@
   "dependencies": {
     "@apollo/client": "^3.4.12",
     "@apollo/react-hooks": "^4.0.0",
+    "@graphql-codegen/add": "^3.1.0",
     "@graphql-codegen/introspection": "^2.1.0",
+    "@graphql-codegen/schema-ast": "^2.2.0",
     "@graphql-codegen/typescript": "^2.2.2",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.1.4",
     "@graphql-codegen/typescript-graphql-files-modules": "^2.1.0",
     "@graphql-codegen/typescript-operations": "^2.1.4",
     "@graphql-codegen/typescript-react-apollo": "^3.1.4",
@@ -38,8 +41,7 @@
     "zod": "^3.8.1"
   },
   "scripts": {
-    "prestart": "npm run generate",
-    "start": "env-cmd -f env/.env.development npm run start:generate",
+    "start": "start npm run generate && env-cmd -f env/.env.development npm run start:generate",
     "start:generate": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -73,6 +75,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.1.4",
     "@graphql-codegen/typescript-resolvers": "2.2.1",
     "@types/react-router-dom": "^5.1.8",
+    "concurrently": "^6.2.1",
     "cross-env": "^7.0.3"
   }
 }

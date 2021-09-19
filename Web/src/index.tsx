@@ -5,12 +5,20 @@ import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+	cache: new InMemoryCache(),
+	uri: `${process.env.REACT_APP_API_URL}/graphql`,
+});
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<ApolloProvider client={client}>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</ApolloProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

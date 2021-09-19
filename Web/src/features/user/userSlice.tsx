@@ -1,9 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import UserDto from '../../model/validation/user-create.validation';
-import UserService from '../../services/user.service';
-
-const userService: UserService = new UserService();
 
 export enum UserStatus {
 	idle,
@@ -25,7 +21,7 @@ const initialState: UserState = {
 	status: UserStatus.idle,
 };
 
-export const createUser = createAsyncThunk<
+/*export const createUser = createAsyncThunk<
 	UserDto,
 	UserDto,
 	{ rejectValue: FetchError }
@@ -38,14 +34,19 @@ export const createUser = createAsyncThunk<
 		});
 
 	return result.data;
-});
+});*/
+
+/*export const listUsers = createAsyncThunk<User | undefined>(
+	'user/list',
+	async () => {}
+);*/
 
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(createUser.pending, (state) => {
+		/*builder.addCase(createUser.pending, (state) => {
 			state.status = UserStatus.saving;
 		});
 
@@ -56,7 +57,7 @@ export const userSlice = createSlice({
 		builder.addCase(createUser.rejected, (state, { payload }) => {
 			state.error = payload?.message;
 			state.status = UserStatus.error;
-		});
+		});*/
 	},
 });
 

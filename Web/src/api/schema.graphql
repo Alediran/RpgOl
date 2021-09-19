@@ -1,0 +1,103 @@
+directive @authorize(
+  """
+  Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field.
+  """
+  apply: ApplyPolicy! = BEFORE_RESOLVER
+
+  """
+  The name of the authorization policy that determines access to the annotated resource.
+  """
+  policy: String
+
+  """Roles that are allowed to access the annotated resource."""
+  roles: [String!]
+) on FIELD_DEFINITION | OBJECT | SCHEMA
+
+"""
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+"""
+directive @defer(
+  """Deferred when true."""
+  if: Boolean
+
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to.
+  """
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
+"""
+directive @stream(
+  """Streamed when true."""
+  if: Boolean!
+
+  """The initial elements that shall be send down to the consumer."""
+  initialCount: Int!
+
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to.
+  """
+  label: String
+) on FIELD
+
+enum ApplyPolicy {
+  AFTER_RESOLVER
+  BEFORE_RESOLVER
+}
+
+type Board {
+  id: Uuid!
+  isDeleted: Boolean!
+  isGeneral: Boolean!
+  ownerId: Uuid!
+  players: [Player]
+  title: String
+}
+
+"""The `DateTime` scalar represents an ISO-8601 compliant date time type."""
+scalar DateTime
+
+type Mutation {
+  createUser(user: UserCreateInput): User
+}
+
+type Player {
+  board: Board
+  boardId: Uuid!
+  id: Uuid!
+  lastLog: DateTime
+  lastPost: DateTime
+  name: String
+  tag: String
+  user: User
+  userId: Uuid!
+}
+
+type Query {
+  boards: [Board]
+  players: [Player]
+  users: [User]
+  validateUser(password: String, userName: String): User
+}
+
+type User {
+  birthday: DateTime!
+  email: String
+  id: Uuid!
+  password: String
+  players: [Player]
+  userName: String
+  userType: Int!
+}
+
+input UserCreateInput {
+  birthday: DateTime!
+  email: String
+  password: String
+  userName: String
+  userType: Int!
+}
+
+scalar Uuid

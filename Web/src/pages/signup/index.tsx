@@ -13,21 +13,26 @@ import UserCreateDto, {
 	validationSchema,
 } from '../../model/validation/user-create.validation';
 import { useAppDispatch } from '../../app/hooks';
-import { createUser } from '../../features/user/userSlice';
+import {
+	useCreateUserMutation,
+	UserCreateInput,
+} from '../../api/generated-types';
+import UserType from '../../model/static/user-type';
 
 const Signup = () => {
 	const dispatch = useAppDispatch();
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);
+	const [addUser, { loading, error, data }] = useCreateUserMutation();
 
 	const initialValues: UserCreateDto = {
-		User: '',
-		Email: '',
-		Password: '',
-		Birthday: undefined,
+		userName: '',
+		email: '',
+		password: '',
+		birthday: undefined,
 		confirm: '',
-		Accept: false,
+		accept: false,
 	};
 
 	const {
@@ -44,27 +49,15 @@ const Signup = () => {
 	};
 
 	const onSubmit = (data: UserCreateDto) => {
-		dispatch(createUser(data)).then((result) => {
-			var severity = '';
-			var summary = '';
-			const life = 3000;
+		const user: UserCreateInput = {
+			userName: data.userName,
+			password: data.password,
+			email: data.email,
+			birthday: data.birthday,
+			userType: UserType.User,
+		};
 
-			if (result.meta.requestStatus === 'fulfilled') {
-				severity = 'success';
-				summary = Localize['Submit:SignupSuccess'];
-			} else {
-				severity = 'error';
-				summary = Localize['Submit:SignupError'];
-			}
-
-			if (toast.current)
-				toast.current.show({
-					severity: severity,
-					summary: summary,
-					life: life,
-					contentClassName: '',
-				});
-		});
+		addUser({ variables: { user: user } });
 	};
 
 	return (
@@ -74,7 +67,7 @@ const Signup = () => {
 				<div className='p-fluid'>
 					<div className='p-field'>
 						<Controller
-							name='User'
+							name='userName'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -92,7 +85,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='Email'
+							name='email'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -111,7 +104,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='Password'
+							name='password'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -149,7 +142,7 @@ const Signup = () => {
 					</div>
 					<div className='p-field'>
 						<Controller
-							name='Birthday'
+							name='birthday'
 							control={control}
 							render={({ field, fieldState }) => (
 								<FloatingCalendarInput
@@ -169,7 +162,7 @@ const Signup = () => {
 					</div>
 					<div>
 						<Controller
-							name='Accept'
+							name='accept'
 							control={control}
 							render={({ field, fieldState }) => (
 								<span>

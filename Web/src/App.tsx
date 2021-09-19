@@ -9,13 +9,11 @@ import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { PrimeIcons } from 'primereact/api';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectSession, userReturns } from './features/session/sessionSlice';
+import { selectSession } from './features/session/sessionSlice';
 import Login from './components/login';
 import Localize from './components/localize';
-import UserDto from './model/user/user.dto';
 import Home from './pages/home';
 import Signup from './pages/signup';
-import { MenuItem } from 'primereact/menuitem';
 import Admin from './pages/admin';
 
 const App = () => {
@@ -35,10 +33,10 @@ const App = () => {
 			loggedInUser = sessionStorage.getItem('user');
 		}
 
-		if (loggedInUser) {
-			const user: UserDto = JSON.parse(loggedInUser);
+		/*if (loggedInUser) {
+			const user = JSON.parse(loggedInUser);
 			dispatch(userReturns(user));
-		}
+		}*/
 	}, [dispatch]);
 
 	const itemsNotLogged = [{}];
@@ -69,7 +67,7 @@ const App = () => {
 					}
 					end={
 						session.isLogged ? (
-							session.user.userName
+							<p>Logged</p> //session.user.userName
 						) : (
 							<Button
 								onClick={() => setShowLogin(true)}

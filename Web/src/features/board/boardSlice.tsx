@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import BoardCreateNewGameDto from '../../model/validation/board-create.validation';
-import BoardDto from '../../model/board/board.dto';
 import BoardService from '../../services/board.service';
 
 const boardService = new BoardService();
@@ -24,8 +23,8 @@ const initialState: BoardState = {
 	status: BoardStatus.idle,
 };
 
-export const getBoards = createAsyncThunk<
-	BoardDto[],
+/*export const getBoards = createAsyncThunk<
+	Board[],
 	string,
 	{ rejectValue: FetchError }
 >('board/get', async (userId: string, thunkApi) => {
@@ -40,7 +39,7 @@ export const getBoards = createAsyncThunk<
 });
 
 export const createNewGame = createAsyncThunk<
-	BoardDto,
+	Board,
 	BoardCreateNewGameDto,
 	{ rejectValue: FetchError }
 >('board/create', async (board: BoardCreateNewGameDto, thunkApi) => {
@@ -52,14 +51,14 @@ export const createNewGame = createAsyncThunk<
 		});
 
 	return result.data;
-});
+});*/
 
 export const boardSlice = createSlice({
 	name: 'board',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder
+		/*builder
 			.addCase(getBoards.pending, (state) => {
 				state.status = BoardStatus.loading;
 			})
@@ -69,7 +68,7 @@ export const boardSlice = createSlice({
 			.addCase(getBoards.rejected, (state, { payload }) => {
 				state.status = BoardStatus.idle;
 				state.error = payload?.message;
-			});
+			});*/
 	},
 });
 
