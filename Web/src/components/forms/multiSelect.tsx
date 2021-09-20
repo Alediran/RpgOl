@@ -1,5 +1,4 @@
 import { MultiSelect, MultiSelectChangeParams } from 'primereact/multiselect';
-import { classNames } from 'primereact/utils';
 import ValuedOptions from '../../model/validation/valued-options.validation';
 
 type Props = {

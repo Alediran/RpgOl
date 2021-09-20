@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import { PrimeIcons } from 'primereact/api';
 import { Sidebar } from 'primereact/sidebar';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Localize from '../../components/localize';
 import SpeedDialogue from '../../components/SpeedDialogue';
-import { selectSession } from '../../features/session/sessionSlice';
 import GameCreate from './components/game-create';
 
 const Home = (): JSX.Element => {
-	const state = useAppSelector(selectSession);
-	const dispatch = useAppDispatch();
-
 	const [newGamePanel, setNewGamePanel] = useState(false);
 
 	const items = [

@@ -20,7 +20,6 @@ import {
 import UserType from '../../model/static/user-type';
 
 const Signup = () => {
-	const dispatch = useAppDispatch();
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);

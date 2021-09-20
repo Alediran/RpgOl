@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../api/generated-types';
+import { User, ValidateUserQuery } from '../../api/generated-types';
 import { RootState } from '../../app/store';
 
 enum Status {
@@ -11,20 +11,20 @@ export interface SessionState {
 	status: Status;
 	isLogged: boolean;
 	error?: string;
-	user: User;
+	user: ValidateUserQuery;
 }
 
 const initialState: SessionState = {
 	status: Status.idle,
 	isLogged: false,
 	user: {
-		id: '',
-		userName: '',
-		birthday: '',
-		password: '',
-		email: '',
-		userType: 0,
-		players: [],
+		validateUser: {
+			id: '',
+			userName: '',
+			birthday: '',
+			email: '',
+			userType: 0,
+		},
 	},
 };
 
@@ -57,7 +57,7 @@ export const sessionSlice = createSlice({
 			state.isLogged = true;
 			//state.user = payload;
 		},*/
-		userLogged(state, action: PayloadAction<User>) {
+		userLogged(state, action: PayloadAction<ValidateUserQuery>) {
 			const { payload } = action;
 			state.status = Status.logged;
 			state.isLogged = true;

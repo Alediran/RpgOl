@@ -9,10 +9,13 @@ import UserLoginDto, {
 import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
-import { useValidateUserLazyQuery } from '../../api/generated-types';
+import {
+	useValidateUserLazyQuery,
+	ValidateUserQuery,
+} from '../../api/generated-types';
 import { useAppDispatch } from '../../app/hooks';
 import { userLogged } from '../../features/session/sessionSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
 	onHide: () => void;
@@ -20,7 +23,11 @@ type Props = {
 
 const LoginForm = (props: Props) => {
 	const { onHide } = props;
-	const [validateUser, { loading, error, data }] = useValidateUserLazyQuery();
+	const [validateUser, { loading, error, data }] = useValidateUserLazyQuery({
+		onCompleted: (data) => onComplete(data),
+	});
+	const [persist, setPersist] = useState(false);
+
 	const dispatch = useAppDispatch();
 
 	const initialValues: UserLoginDto = {
@@ -42,20 +49,22 @@ const LoginForm = (props: Props) => {
 		return errors[name]?.message;
 	};
 
-	useEffect(() => {
-		if (data && data.validateUser) {
-			console.log('User Validated');
-			const user = { ...data.validateUser, password: '', players: [] };
-
-			dispatch(userLogged(user));
-			onHide();
-		}
-	}, [dispatch, onHide, data]);
-
 	const onSubmit = (user: UserLoginDto) => {
 		validateUser({
 			variables: { userName: user.userName, password: user.password },
 		});
+	};
+
+	const onComplete = (data: ValidateUserQuery) => {
+		if (data.validateUser !== null) {
+			console.log('User is validated', data);
+			dispatch(userLogged(data));
+
+			if (persist) localStorage.setItem('user', JSON.stringify(data));
+			else sessionStorage.setItem('user', JSON.stringify(data));
+
+			onHide();
+		}
 	};
 
 	return (
@@ -107,7 +116,10 @@ const LoginForm = (props: Props) => {
 								<span>
 									<Checkbox
 										inputId={field.name}
-										onChange={(e) => field.onChange(e.checked)}
+										onChange={(e) => {
+											field.onChange(e.checked);
+											setPersist(e.checked);
+										}}
 										checked={field.value}
 									/>
 									<label htmlFor='accept'>{Localize['Login:Persist']}</label>
