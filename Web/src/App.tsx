@@ -9,7 +9,7 @@ import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { PrimeIcons } from 'primereact/api';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectSession } from './features/session/sessionSlice';
+import { selectSession, userLogged } from './features/session/sessionSlice';
 import Login from './components/login';
 import Localize from './components/localize';
 import Home from './pages/home';
@@ -33,10 +33,10 @@ const App = () => {
 			loggedInUser = sessionStorage.getItem('user');
 		}
 
-		/*if (loggedInUser) {
+		if (loggedInUser) {
 			const user = JSON.parse(loggedInUser);
-			dispatch(userReturns(user));
-		}*/
+			dispatch(userLogged(user));
+		}
 	}, [dispatch]);
 
 	const itemsNotLogged = [{}];

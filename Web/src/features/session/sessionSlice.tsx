@@ -51,12 +51,6 @@ export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
 	reducers: {
-		/*userReturns(state, action: PayloadAction<User>) {
-			const { payload } = action;
-			state.status = Status.logged;
-			state.isLogged = true;
-			//state.user = payload;
-		},*/
 		userLogged(state, action: PayloadAction<ValidateUserQuery>) {
 			const { payload } = action;
 			state.status = Status.logged;
