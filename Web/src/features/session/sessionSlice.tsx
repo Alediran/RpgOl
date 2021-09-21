@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, ValidateUserQuery } from '../../api/generated-types';
+import { ValidateUserQuery } from '../../api/generated-types';
 import { RootState } from '../../app/store';
 
 enum Status {
@@ -32,21 +32,6 @@ type FetchError = {
 	message: string;
 };
 
-/*export const logUser = createAsyncThunk<
-	User,
-	UserLoginDto,
-	{ rejectValue: FetchError }
->('user/login', async (user: UserLoginDto, thunkApi) => {
-	const result = await ValidateUser(user.userName, user.password);
-
-	if (result.status !== 200)
-		return thunkApi.rejectWithValue({
-			message: 'Error while login user',
-		});
-
-	return { ...result.data, persist: user.persist };
-});*/
-
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
@@ -58,27 +43,7 @@ export const sessionSlice = createSlice({
 			state.user = payload;
 		},
 	},
-	extraReducers: (builder) => {
-		/*builder.addCase(logUser.pending, (state) => {
-			state.status = Status.logging;
-		});
-
-		builder.addCase(logUser.fulfilled, (state, { payload }) => {
-			state.status = Status.logged;
-			state.user = payload;
-			state.isLogged = true;
-
-			console.log('User is ', payload);
-			if (payload.persist)
-				localStorage.setItem('user', JSON.stringify(payload));
-			else sessionStorage.setItem('user', JSON.stringify(payload));
-		});
-
-		builder.addCase(logUser.rejected, (state, { payload }) => {
-			state.error = payload?.message;
-			state.status = Status.idle;
-		});*/
-	},
+	extraReducers: (builder) => {},
 });
 
 export const { userLogged } = sessionSlice.actions;

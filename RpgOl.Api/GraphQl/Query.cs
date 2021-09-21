@@ -29,5 +29,13 @@ namespace RpgOl.Api.GraphQl
 
             return user;
         }
+
+        [UseDbContext(typeof(Dal.DbContext))]
+        public async Task<bool> UserExists([ScopedService] Dal.DbContext dbContext, string userName)
+        {
+            var user = await dbContext.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            return user != null;
+        }
     }   
 }

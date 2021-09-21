@@ -15,7 +15,7 @@ import {
 } from '../../api/generated-types';
 import { useAppDispatch } from '../../app/hooks';
 import { userLogged } from '../../features/session/sessionSlice';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
 	onHide: () => void;
