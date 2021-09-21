@@ -67,7 +67,7 @@ const App = () => {
 					}
 					end={
 						session.isLogged ? (
-							<p>Logged</p> //session.user.userName
+							session.user.validateUser?.userName
 						) : (
 							<Button
 								onClick={() => setShowLogin(true)}
