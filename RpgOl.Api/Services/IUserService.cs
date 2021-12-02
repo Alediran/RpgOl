@@ -6,8 +6,8 @@ namespace RpgOl.Api.Services
 {
     public interface IUserService
     {
-        Task<UserDto> GetByUsername(string userName);
-        Task<UserDto> CreateUser(string userName, string email, string password, DateTime birthday, System.Threading.CancellationToken cancellationToken = default);
-        Task<UserDto> ValidateUser(string userName, string password);
+        Task<User> GetByUsername(string userName);
+        Task<User> CreateUser(string userName, string email, string password, DateTime birthday, System.Threading.CancellationToken cancellationToken = default);
+        Task<User> ValidateUser(string userName, string password);
     }
 }

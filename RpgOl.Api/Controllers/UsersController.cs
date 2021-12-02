@@ -19,15 +19,15 @@ namespace RpgOl.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<UserDto> Validate(string userName, string password)
+        public async Task<User> Validate(string userName, string password)
         {
             return await _userService.ValidateUser(userName, password);
         }
 
         [HttpPost]
-        public async Task<UserDto> CreateUser(UserDto user)
+        public async Task<User> CreateUser(User user)
         {
-            return await _userService.CreateUser(user.User, user.Email, user.Password, user.Birthday);
+            return await _userService.CreateUser(user.Name, user.Email, user.Password, user.Birthday);
         }
 
         [HttpGet]

@@ -13,10 +13,12 @@ namespace RpgOl.Domain
         }
 
         public string Title { get; set; }
+        
         public Guid OwnerId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsGeneral { get; set; }
 
+        public virtual User Owner { get; set; }
         public virtual ICollection<Player> Players { get; set; }
     }
 }

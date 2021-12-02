@@ -40,6 +40,12 @@ namespace RpgOl.Dal
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(e => e.Owner)
+                    .WithMany(p => p.Boards)
+                    .HasForeignKey(d => d.OwnerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Boards_Users");
             });
 
             modelBuilder.Entity<Player>(entity =>
@@ -86,7 +92,7 @@ namespace RpgOl.Dal
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.Property(e => e.UserName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(200);
 
