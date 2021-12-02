@@ -4,7 +4,6 @@ import { Sidebar } from 'primereact/sidebar';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Localize from '../../components/localize';
 import SpeedDialogue from '../../components/SpeedDialogue';
-import { getBoards } from '../../features/board/boardSlice';
 import { selectSession } from '../../features/session/sessionSlice';
 import BoardDto from '../../model/board/board.dto';
 import Boards from './components/boards';

@@ -13,13 +13,14 @@ import UserCreateDto, {
 	validationSchema,
 } from '../../model/user/user-create.dto';
 import { useAppDispatch } from '../../app/hooks';
-import { createUser } from '../../features/user/userSlice';
+import { useCreateUserMutation } from '../../services/userService';
 
 const Signup = () => {
 	const dispatch = useAppDispatch();
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);
+	const [createUser, createUserResponse] = useCreateUserMutation();
 
 	const initialValues: UserCreateDto = {
 		User: '',
@@ -44,27 +45,28 @@ const Signup = () => {
 	};
 
 	const onSubmit = (data: UserCreateDto) => {
-		dispatch(createUser(data)).then((result) => {
-			var severity = '';
-			var summary = '';
-			const life = 3000;
+		var severity = '';
+		var summary = '';
+		const life = 3000;
 
-			if (result.meta.requestStatus === 'fulfilled') {
-				severity = 'success';
-				summary = Localize['Submit:SignupSuccess'];
-			} else {
+		createUser(data)
+			.catch(() => {
 				severity = 'error';
 				summary = Localize['Submit:SignupError'];
-			}
-
-			if (toast.current)
-				toast.current.show({
-					severity: severity,
-					summary: summary,
-					life: life,
-					contentClassName: '',
-				});
-		});
+			})
+			.then(() => {
+				severity = 'success';
+				summary = Localize['Submit:SignupSuccess'];
+			})
+			.finally(() => {
+				if (toast.current)
+					toast.current.show({
+						severity: severity,
+						summary: summary,
+						life: life,
+						contentClassName: '',
+					});
+			});
 	};
 
 	return (

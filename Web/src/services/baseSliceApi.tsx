@@ -3,7 +3,7 @@ import { RootState } from '../app/store';
 
 const baseUrl = 'https://localhost:5001/api/';
 
-export const baseApi = createApi({
+export const baseSliceApi = createApi({
 	reducerPath: 'baseApi',
 	tagTypes: ['board', 'session', 'user'],
 	endpoints: () => ({}),

@@ -10,14 +10,15 @@ import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
 import { useAppDispatch } from '../../app/hooks';
-import { logUser } from '../../features/session/sessionSlice';
+import { useValidateUserQuery } from '../../services/userService';
 
 type Props = {
 	onHide: () => void;
 };
-const LoginForm = (props: Props) => {
+const LoginForm: React.FC<Props> = (props: Props) => {
 	const { onHide } = props;
 	const dispatch = useAppDispatch();
+	const { data: user } = useValidateUserQuery();
 
 	const initialValues: UserLoginDto = {
 		userName: '',

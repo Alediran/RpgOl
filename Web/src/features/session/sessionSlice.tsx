@@ -1,11 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import UserType from '../../model/static/user-type';
-import UserLoginDto from '../../model/user/user-login.dto';
 import UserDto from '../../model/user/user.dto';
-import UserService from '../../services/user.service';
-
-const userService: UserService = new UserService();
 
 enum Status {
 	idle,
@@ -32,25 +28,6 @@ const initialState: SessionState = {
 	},
 };
 
-type FetchError = {
-	message: string;
-};
-
-export const logUser = createAsyncThunk<
-	UserDto,
-	UserLoginDto,
-	{ rejectValue: FetchError }
->('user/login', async (user: UserLoginDto, thunkApi) => {
-	const result = await userService.ValidateUser(user.userName, user.password);
-
-	if (result.status !== 200)
-		return thunkApi.rejectWithValue({
-			message: 'Error while login user',
-		});
-
-	return { ...result.data, persist: user.persist };
-});
-
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
@@ -62,27 +39,7 @@ export const sessionSlice = createSlice({
 			state.user = payload;
 		},
 	},
-	extraReducers: (builder) => {
-		builder.addCase(logUser.pending, (state) => {
-			state.status = Status.logging;
-		});
-
-		builder.addCase(logUser.fulfilled, (state, { payload }) => {
-			state.status = Status.logged;
-			state.user = payload;
-			state.isLogged = true;
-
-			console.log('User is ', payload);
-			if (payload.persist)
-				localStorage.setItem('user', JSON.stringify(payload));
-			else sessionStorage.setItem('user', JSON.stringify(payload));
-		});
-
-		builder.addCase(logUser.rejected, (state, { payload }) => {
-			state.error = payload?.message;
-			state.status = Status.idle;
-		});
-	},
+	extraReducers: (builder) => {},
 });
 
 export const { userReturns } = sessionSlice.actions;

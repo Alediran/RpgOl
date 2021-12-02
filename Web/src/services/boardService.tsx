@@ -1,8 +1,8 @@
-import { baseApi } from './baseApi';
+import { baseSliceApi } from './baseSliceApi';
 import BoardDto from '../model/board/board.dto';
 import BoardCreateNewGameDto from '../model/board/board-create.dto';
 
-export const boardApi = baseApi.injectEndpoints({
+export const boardApi = baseSliceApi.injectEndpoints({
 	endpoints: (build) => ({
 		getBoards: build.query<BoardDto[], string>({
 			query: (userId) => `board?userId=${userId}`,

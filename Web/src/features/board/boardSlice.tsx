@@ -2,9 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import BoardCreateNewGameDto from '../../model/board/board-create.dto';
 import BoardDto from '../../model/board/board.dto';
-import BoardService from '../../services/board.service';
-
-const boardService = new BoardService();
 
 export enum BoardStatus {
 	idle,
@@ -24,7 +21,7 @@ const initialState: BoardState = {
 	status: BoardStatus.idle,
 };
 
-export const getBoards = createAsyncThunk<
+/*export const getBoards = createAsyncThunk<
 	BoardDto[],
 	string,
 	{ rejectValue: FetchError }
@@ -52,14 +49,14 @@ export const createNewGame = createAsyncThunk<
 		});
 
 	return result.data;
-});
+});*/
 
 export const boardSlice = createSlice({
 	name: 'board',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder
+		/*builder
 			.addCase(getBoards.pending, (state) => {
 				state.status = BoardStatus.loading;
 			})
@@ -69,7 +66,7 @@ export const boardSlice = createSlice({
 			.addCase(getBoards.rejected, (state, { payload }) => {
 				state.status = BoardStatus.idle;
 				state.error = payload?.message;
-			});
+			});*/
 	},
 });
 
