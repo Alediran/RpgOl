@@ -21,4 +21,4 @@ export const userApi = baseSliceApi.injectEndpoints({
 	overrideExisting: false,
 });
 
-export const { useValidateUserQuery, useCreateUserMutation } = userApi;
+export const { useLazyValidateUserQuery, useCreateUserMutation } = userApi;
