@@ -3,8 +3,8 @@ import { RootState } from '../app/store';
 
 const baseUrl = 'https://localhost:5001/api/';
 
-export const baseSliceApi = createApi({
-	reducerPath: 'baseApi',
+export const api = createApi({
+	reducerPath: 'api',
 	tagTypes: ['board', 'session', 'user'],
 	endpoints: () => ({}),
 	baseQuery: fetchBaseQuery({

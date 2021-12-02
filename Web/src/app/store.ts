@@ -3,18 +3,18 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
 import boardSlice from '../features/board/boardSlice';
 import sessionSlice from '../features/session/sessionSlice';
 import userSlice from '../features/user/userSlice';
-import { baseSliceApi } from '../services/baseSliceApi';
+import { api } from '../services';
 
 const store = configureStore({
   reducer: {
     session: sessionSlice,
     user: userSlice,
     board: boardSlice,
-    [baseSliceApi.reducerPath]: baseSliceApi.reducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(baseSliceApi.middleware)
+      .concat(api.middleware)
 });
 
 setupListeners(store.dispatch);

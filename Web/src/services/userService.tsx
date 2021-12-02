@@ -1,9 +1,9 @@
-import { baseSliceApi } from './baseSliceApi';
+import { api } from '.';
 import UserCreateDto from '../model/user/user-create.dto';
 import UserDto from '../model/user/user.dto';
 import UserLoginDto from '../model/user/user-login.dto';
 
-export const userApi = baseSliceApi.injectEndpoints({
+export const userApi = api.injectEndpoints({
 	endpoints: (build) => ({
 		validateUser: build.query<UserDto, UserLoginDto>({
 			query: (user) =>

@@ -8,10 +8,6 @@ export enum UserStatus {
 	error,
 }
 
-type FetchError = {
-	message: string;
-};
-
 export interface UserState {
 	status: UserStatus;
 	error?: string;
