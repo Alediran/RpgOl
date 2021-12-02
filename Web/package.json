@@ -26,6 +26,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-transition-group": "^4.4.2",
+    "tozod": "^3.0.0",
     "typescript": "~4.1.5",
     "zod": "^3.11.6"
   },

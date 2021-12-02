@@ -12,14 +12,17 @@ import Localize from '../../components/localize';
 import UserCreateDto, {
 	validationSchema,
 } from '../../model/user/user-create.dto';
-import { useCreateUserMutation } from '../../services/userService';
+import {
+	useCreateUserMutation,
+	useLazyUserExistsQuery,
+} from '../../services/userService';
 
 const Signup = () => {
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);
 	const [createUser] = useCreateUserMutation();
-
+	const [userExists, userExistsResult] = useLazyUserExistsQuery();
 	const initialValues: UserCreateDto = {
 		User: '',
 		Email: '',
@@ -32,9 +35,9 @@ const Signup = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { errors },
+		reset,
+		formState: { errors, isDirty },
 	} = useForm<UserCreateDto>({
-		resolver: zodResolver(validationSchema),
 		defaultValues: initialValues,
 	});
 
@@ -76,13 +79,20 @@ const Signup = () => {
 						<Controller
 							name='User'
 							control={control}
+							rules={{
+								required: 'Is Required',
+								validate: () => userExistsResult.data === true,
+							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
 									id={field.name}
 									type='input'
 									label={Localize.Username}
 									value={field.value}
-									onChange={field.onChange}
+									onChange={() => {
+										field.onChange;
+										userExists(field.value);
+									}}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
 									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
