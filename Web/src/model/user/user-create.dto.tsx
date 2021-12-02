@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import Localize from '../../components/localize';
 import errorMap from '../error.map';
-
+import { userApi } from '../../services/userService';
 z.setErrorMap(errorMap);
 
 export const validationSchema = z

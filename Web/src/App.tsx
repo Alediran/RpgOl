@@ -15,7 +15,6 @@ import Localize from './components/localize';
 import UserDto from './model/user/user.dto';
 import Home from './pages/home';
 import Signup from './pages/signup';
-import { MenuItem } from 'primereact/menuitem';
 import Admin from './pages/admin';
 
 const App = () => {
@@ -30,8 +29,6 @@ const App = () => {
 
 	useEffect(() => {
 		var loggedInUser = localStorage.getItem('user');
-
-		console.log('Is user logged previously?', loggedInUser);
 
 		if (!loggedInUser) {
 			loggedInUser = sessionStorage.getItem('user');
