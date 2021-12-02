@@ -4,14 +4,15 @@ import Localize from '../../../components/localize';
 
 type Props = {
 	mode: 'own' | 'play' | 'general';
-	data: any[];
+	data?: any[];
+	loading?: boolean;
 };
 
 const Boards = (props: Props) => {
-	const { mode, data } = props;
+	const { mode, data, loading } = props;
 
 	return (
-		<DataTable value={data} className='p-datatable-sm'>
+		<DataTable loading={loading} value={data} className='p-datatable-sm'>
 			<Column
 				header={
 					mode === 'own'

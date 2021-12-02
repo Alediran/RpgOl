@@ -22,13 +22,13 @@ namespace RpgOl.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<BoardDto>> GetBoardsAsync(Guid userId)
+        public async Task<List<Board>> GetBoardsAsync(Guid userId)
         {
             return await _boardService.GetBoardsAsync(userId);
         }
 
         [HttpPost]
-        public async Task<int> CreateNewGame(BoardDto newGame)
+        public async Task<int> CreateNewGame(Board newGame)
         {
             return await _boardService.CreateNewGame(newGame);
         }

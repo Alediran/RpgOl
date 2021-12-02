@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using RpgOl.Domain;
 
 #nullable disable
@@ -16,14 +17,62 @@ namespace RpgOl.Dal
         {
         }
 
-        public virtual DbSet<UserDto> Users { get; set; }
-        public virtual DbSet<BoardDto> Boards { get; set; }
+        public virtual DbSet<Board> Boards { get; set; }
+        public virtual DbSet<Player> Players { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=RpgOlDb");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Scaffolding:ConnectionString", "Data Source=(local);Initial Catalog=RpgOlDb;Integrated Security=true");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<UserDto>(entity =>
+            modelBuilder.Entity<Board>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Player>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.LastLog).HasColumnType("datetime");
+
+                entity.Property(e => e.LastPost).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Tag)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasDefaultValueSql("('Player')");
+
+                entity.HasOne(d => d.Board)
+                    .WithMany(p => p.Players)
+                    .HasForeignKey(d => d.BoardId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Players_Boards");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Players)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Players_Users");
+            });
+
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -31,38 +80,17 @@ namespace RpgOl.Dal
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsFixedLength(true);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.Property(e => e.User)
+                entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.Property(e => e.UserType)
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity<BoardDto>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.HasOne(e => e.Owner);
-
-                entity.HasMany(e => e.Players);
-
-                entity.Property(e => e.IsDeleted)
-                    .IsRequired();
-
-                entity.Property(e => e.IsGeneral)
-                    .IsRequired();
+                entity.Property(e => e.UserType).HasDefaultValueSql("((3))");
             });
 
             OnModelCreatingPartial(modelBuilder);

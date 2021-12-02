@@ -12,15 +12,13 @@ import Localize from '../../components/localize';
 import UserCreateDto, {
 	validationSchema,
 } from '../../model/user/user-create.dto';
-import { useAppDispatch } from '../../app/hooks';
 import { useCreateUserMutation } from '../../services/userService';
 
 const Signup = () => {
-	const dispatch = useAppDispatch();
 	const currentDate = new Date();
 	const yearRange = `1900:${currentDate.getFullYear()}`;
 	const toast = useRef<Toast>(null);
-	const [createUser, createUserResponse] = useCreateUserMutation();
+	const [createUser] = useCreateUserMutation();
 
 	const initialValues: UserCreateDto = {
 		User: '',

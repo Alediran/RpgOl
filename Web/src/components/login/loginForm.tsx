@@ -10,7 +10,8 @@ import FloatingLabelInput from '../forms/floatingLabelInput';
 import Localize from '../localize';
 import { classNames } from 'primereact/utils';
 import { useAppDispatch } from '../../app/hooks';
-import { userApi } from '../../services/userService';
+import { useLazyValidateUserQuery } from '../../services/userService';
+import { userValidated } from '../../features/session/sessionSlice';
 
 type Props = {
 	onHide: () => void;
@@ -18,8 +19,12 @@ type Props = {
 const LoginForm: React.FC<Props> = (props: Props) => {
 	const { onHide } = props;
 	const dispatch = useAppDispatch();
-	const [validateUser, result, lastPromiseInfo] =
-		userApi.useLazyValidateUserQuery();
+	const [validateUser, result, lastPromiseInfo] = useLazyValidateUserQuery();
+
+	if (result.isSuccess) {
+		onHide();
+		dispatch(userValidated(result.data));
+	}
 
 	const initialValues: UserLoginDto = {
 		userName: '',
@@ -41,7 +46,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 	};
 
 	const onSubmit = (data: UserLoginDto) => {
-		validateUser(data).finally(() => onHide());
+		validateUser(data);
 	};
 
 	return (

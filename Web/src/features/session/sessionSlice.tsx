@@ -32,7 +32,7 @@ export const sessionSlice = createSlice({
 	name: 'session',
 	initialState,
 	reducers: {
-		userReturns(state, action: PayloadAction<UserDto>) {
+		userValidated(state, action: PayloadAction<UserDto>) {
 			const { payload } = action;
 			state.status = Status.logged;
 			state.isLogged = true;
@@ -42,7 +42,7 @@ export const sessionSlice = createSlice({
 	extraReducers: (builder) => {},
 });
 
-export const { userReturns } = sessionSlice.actions;
+export const { userValidated } = sessionSlice.actions;
 export const selectSession = (state: RootState) => state.session;
 
 export default sessionSlice.reducer;

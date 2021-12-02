@@ -4,5 +4,6 @@
     [Title] NVARCHAR(100) NOT NULL, 
     [OwnerId] UNIQUEIDENTIFIER NOT NULL, 
     [IsDeleted] BIT NOT NULL DEFAULT 0, 
-    [IsGeneral] BIT NOT NULL DEFAULT 0
+    [IsGeneral] BIT NOT NULL DEFAULT 0, 
+    CONSTRAINT [FK_Boards_Users] FOREIGN KEY (OwnerId) REFERENCES [Users]([Id])
 )

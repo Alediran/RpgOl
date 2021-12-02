@@ -9,7 +9,7 @@ import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { PrimeIcons } from 'primereact/api';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { selectSession, userReturns } from './features/session/sessionSlice';
+import { selectSession, userValidated } from './features/session/sessionSlice';
 import Login from './components/login';
 import Localize from './components/localize';
 import UserDto from './model/user/user.dto';
@@ -31,13 +31,15 @@ const App = () => {
 	useEffect(() => {
 		var loggedInUser = localStorage.getItem('user');
 
+		console.log('Is user logged previously?', loggedInUser);
+
 		if (!loggedInUser) {
 			loggedInUser = sessionStorage.getItem('user');
 		}
 
 		if (loggedInUser) {
 			const user: UserDto = JSON.parse(loggedInUser);
-			dispatch(userReturns(user));
+			dispatch(userValidated(user));
 		}
 	}, [dispatch]);
 
