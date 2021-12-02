@@ -9,6 +9,9 @@ export const userApi = baseSliceApi.injectEndpoints({
 			query: (user) =>
 				`user?userName=${user.userName}&password=${user.password}`,
 		}),
+		userExists: build.query<boolean, string>({
+			query: (userName) => `user/exist?userName=${userName}`,
+		}),
 		createUser: build.mutation<UserCreateDto, UserCreateDto>({
 			query: (user) => ({
 				url: `user`,
@@ -21,4 +24,8 @@ export const userApi = baseSliceApi.injectEndpoints({
 	overrideExisting: false,
 });
 
-export const { useLazyValidateUserQuery, useCreateUserMutation } = userApi;
+export const {
+	useLazyValidateUserQuery,
+	useLazyUserExistsQuery,
+	useCreateUserMutation,
+} = userApi;

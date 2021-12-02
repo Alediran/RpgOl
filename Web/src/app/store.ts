@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
 import boardSlice from '../features/board/boardSlice';
 import sessionSlice from '../features/session/sessionSlice';
 import userSlice from '../features/user/userSlice';
@@ -15,6 +16,8 @@ const store = configureStore({
     getDefaultMiddleware()
       .concat(baseSliceApi.middleware)
 });
+
+setupListeners(store.dispatch);
 
 export default store;
 

@@ -1,23 +1,20 @@
 import { z } from 'zod';
 import Localize from '../../components/localize';
-import UserService from '../../services/user.service';
 import errorMap from '../error.map';
+import { useLazyUserExistsQuery } from '../../services/userService';
 
 z.setErrorMap(errorMap);
 
-const userService = new UserService();
+const [userExists, result, lastPromiseInfo] = useLazyUserExistsQuery();
 
 export const validationSchema = z
 	.object({
 		User: z
 			.string()
 			.min(8, { message: Localize['Validation:UserName'] })
-			.refine(
-				async (val) => (await userService.UserExists(val)).data === false,
-				{
-					message: Localize['Validation:UserExists'],
-				}
-			),
+			.refine(async (val) => true === false, {
+				message: Localize['Validation:UserExists'],
+			}),
 		Email: z.string().email({ message: Localize['Validation:InvalidEmail'] }),
 		Password: z.string().min(1, { message: Localize['Validation:Required'] }),
 		confirm: z.string().min(1, { message: Localize['Validation:Required'] }),

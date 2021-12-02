@@ -18,7 +18,8 @@ type Props = {
 const LoginForm: React.FC<Props> = (props: Props) => {
 	const { onHide } = props;
 	const dispatch = useAppDispatch();
-	const [trigger, result, lastPromiseInfo] = userApi.useLazyValidateUserQuery();
+	const [validateUser, result, lastPromiseInfo] =
+		userApi.useLazyValidateUserQuery();
 
 	const initialValues: UserLoginDto = {
 		userName: '',
@@ -40,7 +41,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 	};
 
 	const onSubmit = (data: UserLoginDto) => {
-		trigger(data).finally(() => onHide());
+		validateUser(data).finally(() => onHide());
 	};
 
 	return (
