@@ -81,7 +81,9 @@ const Signup = () => {
 							control={control}
 							rules={{
 								required: 'Is Required',
-								validate: () => userExistsResult.data === true,
+								validate: () => {
+									console.log("User exists?", userExistsResult);
+									return userExistsResult.data === true;},
 							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -89,9 +91,9 @@ const Signup = () => {
 									type='input'
 									label={Localize.Username}
 									value={field.value}
-									onChange={() => {
-										field.onChange;
-										userExists(field.value);
+									onChange={(e) => {
+										field.onChange(e);
+										userExists(e.currentTarget.value);
 									}}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
 									labelClassName={classNames({ 'p-error': errors[field.name] })}

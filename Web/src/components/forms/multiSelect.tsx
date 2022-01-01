@@ -1,4 +1,4 @@
-import { MultiSelect, MultiSelectChangeParams } from 'primereact/multiselect';
+import { MultiSelect, MultiSelectChangeParams, MultiSelectDisplayType } from 'primereact/multiselect';
 import ValuedOptions from '../../model/static/valuedOptions';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 	value?: any;
 	placeholder?: string;
 	className?: string;
-	display?: string;
+	display?: MultiSelectDisplayType;
 	onChange?: (e: MultiSelectChangeParams) => void;
 };
 

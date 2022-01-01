@@ -10,7 +10,7 @@ export const userApi = api.injectEndpoints({
 				`user?userName=${user.userName}&password=${user.password}`,
 		}),
 		userExists: build.query<boolean, string>({
-			query: (userName) => `user/exist?userName=${userName}`,
+			query: (userName) => `user/exists?userName=${userName}`,
 		}),
 		createUser: build.mutation<UserCreateDto, UserCreateDto>({
 			query: (user) => ({

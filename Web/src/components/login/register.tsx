@@ -1,6 +1,6 @@
 import { Card } from 'primereact/card';
 import Localize from '../localize';
-import { useHistory } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
 type Props = {
@@ -9,10 +9,10 @@ type Props = {
 
 const RegisterCard = (props: Props) => {
 	const { onHide } = props;
-	let history = useHistory();
+	const navigate = useNavigate();
 
 	const signUp = () => {
-		history.push('/signup');
+		navigate('/signup');
 		onHide();
 	};
 

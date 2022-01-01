@@ -4,7 +4,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { PrimeIcons } from 'primereact/api';
@@ -79,11 +79,11 @@ const App = () => {
 					}
 				/>
 
-				<Switch>
-					<Route exact path='/' component={Home} />
-					<Route path='/signup' component={Signup} />
-					<Route path='/admin' component={Admin} />
-				</Switch>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/signup' element={<Signup />} />
+					<Route path='/admin' element={<Admin />} />
+				</Routes>
 				<Login visible={showLogin} onHide={() => setShowLogin(false)} />
 			</Router>
 		</div>
