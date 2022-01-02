@@ -21,6 +21,7 @@
         "Validation:InvalidEmail": "Dirección de email invalida",
         "Validation:PassswordsNotMatching": "Las contraseñas no son iguales",
         "Validation:UserExists": "El usuario ya existe",
+        "Validation:MailExists": "El email ya esta registrado para otra cuenta",
         "Validation:UndefinedDate": "Por favor seleccione su fecha de cumpleaños",
         "Submit:SignupSuccess": "Cuenta creada exitosamente",
         "Submit:SignupError": "Error creando tu cuenta",

@@ -23,6 +23,8 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var elsaSection = Configuration.GetSection("Elsa");
+
             services.AddControllers();
             services.AddDbContext<RpgOl.Dal.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
@@ -33,6 +35,12 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RpgOl API", Version = "v1" });
             });
+
+            services
+                .AddElsa(elsa => elsa
+                    .AddHttpActivities(elsaSection.GetSection("Server").Bind));
+
+            services.AddElsaApiEndpoints();
 
             services.AddCors(options =>
             {
@@ -51,6 +59,8 @@ namespace API
                         .AllowCredentials();
                 });
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +73,8 @@ namespace API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RpgOl API"));
             }
 
+            app.UseStaticFiles();
+            app.UseHttpActivities();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
@@ -72,6 +84,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {                
                 endpoints.MapControllers();
+
             });
         }        
     }

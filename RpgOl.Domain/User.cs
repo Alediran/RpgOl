@@ -17,7 +17,7 @@ namespace RpgOl.Domain
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
         public UserType UserType { get; set; }
-
+        public bool Validated { get; set; }
         public virtual ICollection<Player> Players { get; set; }
 
         public virtual ICollection<Board> Boards { get; set; }

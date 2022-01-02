@@ -37,5 +37,11 @@ namespace RpgOl.Api.Services
             user.Password = string.Empty;
             return user;
         }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u =>u.Email == email);
+            return user;
+        }
     }
 }

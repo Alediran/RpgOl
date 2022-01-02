@@ -12,6 +12,9 @@ export const userApi = api.injectEndpoints({
 		userExists: build.query<boolean, string>({
 			query: (userName) => `user/exists?userName=${userName}`,
 		}),
+		mailExists: build.query<boolean, string>({
+			query: (email) => `user/mailexists?email=${email}`,
+		}),
 		createUser: build.mutation<UserCreateDto, UserCreateDto>({
 			query: (user) => ({
 				url: `user`,
@@ -27,5 +30,6 @@ export const userApi = api.injectEndpoints({
 export const {
 	useLazyValidateUserQuery,
 	useLazyUserExistsQuery,
+	useLazyMailExistsQuery,
 	useCreateUserMutation,
 } = userApi;

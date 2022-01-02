@@ -39,5 +39,12 @@ namespace RpgOl.Api.Controllers
             return await _userService.GetByUsername(userName) != null;
         }
 
+        [HttpGet]
+        [Route("mailexists")]
+        public async Task<bool> MailExist(string email)
+        {
+            return await _userService.GetByEmail(email) != null;
+        }
+
     }
 }

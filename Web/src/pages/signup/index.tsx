@@ -11,8 +11,10 @@ import Localize from '../../components/localize';
 import UserCreateDto from '../../model/user/user-create.dto';
 import {
 	useCreateUserMutation,
+	useLazyMailExistsQuery,
 	useLazyUserExistsQuery,
 } from '../../services/userService';
+import { emailPattern } from '../../utils/regex';
 
 const Signup = () => {
 	const currentDate = new Date();
@@ -20,6 +22,8 @@ const Signup = () => {
 	const toast = useRef<Toast>(null);
 	const [createUser] = useCreateUserMutation();
 	const [userExists, userExistsResult] = useLazyUserExistsQuery();
+	const [mailExists, mailExistsResult] = useLazyMailExistsQuery();
+
 	const initialValues: UserCreateDto = {
 		Name: '',
 		Email: '',
@@ -78,7 +82,7 @@ const Signup = () => {
 			<Toast position='top-right' ref={toast} />
 			<Card title={Localize.CreateUser}>
 				<div className='fluid'>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='Name'
 							control={control}
@@ -106,12 +110,19 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='Email'
 							control={control}
 							rules={{
-								required: Localize['Validation:Required']
+								required: Localize['Validation:Required'],
+								validate: {									
+									exists: () => !mailExistsResult.data || Localize['Validation:MailExists'],
+								},
+								pattern: {
+									value: emailPattern,
+									message: Localize['Validation:InvalidEmail']
+								}
 							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -120,7 +131,10 @@ const Signup = () => {
 									label={Localize.Email}
 									feedback={false}
 									value={field.value}
-									onChange={field.onChange}
+									onChange={(e) => {
+										field.onChange(e);
+										mailExists(e.currentTarget.value);
+									}}
 									className={classNames({ 'p-invalid': fieldState.invalid })}
 									labelClassName={classNames({ 'p-error': errors[field.name] })}
 									errors={getFormErrorMessage(field.name)}
@@ -128,7 +142,7 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='Password'
 							control={control}
@@ -150,7 +164,7 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='confirm'
 							control={control}
@@ -172,7 +186,7 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='Birthday'
 							control={control}
@@ -195,7 +209,7 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='field'>
+					<div className='field form-spacing'>
 						<Controller
 							name='Accept'
 							control={control}
