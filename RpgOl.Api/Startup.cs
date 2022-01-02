@@ -1,3 +1,4 @@
+using Elsa.Persistence.EntityFramework.Core.Extensions;
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
@@ -38,9 +39,13 @@ namespace API
 
             services
                 .AddElsa(elsa => elsa
-                    .AddHttpActivities(elsaSection.GetSection("Server").Bind));
+                    .AddHttpActivities(elsaSection.GetSection("Server").Bind)
+                    .UseEntityFrameworkPersistence(ef => ef.UseSqlServer(Configuration.GetConnectionString("Default")))
+                    );
 
             services.AddElsaApiEndpoints();
+
+            services.AddRazorPages();
 
             services.AddCors(options =>
             {
@@ -84,6 +89,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {                
                 endpoints.MapControllers();
+
+                endpoints.MapFallbackToPage("/_Host");
 
             });
         }        

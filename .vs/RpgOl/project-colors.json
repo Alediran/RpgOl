@@ -15,7 +15,27 @@
       "ProjectGuid": "8a793a8a-da86-4a03-9374-54714f6ea14a",
       "DisplayName": "RpoOl.Dal",
       "ColorIndex": 2
+    },
+    "516c7c76-0b7d-4a05-ad38-11ca86b42dbe": {
+      "ProjectGuid": "516c7c76-0b7d-4a05-ad38-11ca86b42dbe",
+      "DisplayName": "RpgOl.Contracts",
+      "ColorIndex": 3
+    },
+    "e6dc9dcd-3e13-4dbd-bde2-24df4597c67a": {
+      "ProjectGuid": "e6dc9dcd-3e13-4dbd-bde2-24df4597c67a",
+      "DisplayName": "RpgOl.Domain",
+      "ColorIndex": 4
+    },
+    "737dc5fa-689e-4817-8353-52591ac9c049": {
+      "ProjectGuid": "737dc5fa-689e-4817-8353-52591ac9c049",
+      "DisplayName": "RpOl.Admin",
+      "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 6
 }

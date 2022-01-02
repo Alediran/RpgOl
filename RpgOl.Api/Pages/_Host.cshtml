@@ -1,8 +1,6 @@
 ﻿@page "/"
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
 @{
-    var serverUrl = Configuration.GetSection("ElsaServer");
+    var serverUrl = $"{Request.Scheme}://{Request.Host}";
 }
 <!DOCTYPE html>
 <html lang="en">
