@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RpgOl.Contracts\RpgOl.Contracts.csproj" />
     <ProjectReference Include="..\RpgOl.Dal\RpoOl.Dal.csproj" />
     <ProjectReference Include="..\RpgOl.Domain\RpgOl.Domain.csproj" />
     <ProjectReference Include="..\RpoOl.Core\RpoOl.Core.csproj" />

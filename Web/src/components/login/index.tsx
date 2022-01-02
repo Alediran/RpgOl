@@ -1,8 +1,7 @@
 import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
+import { Link } from 'react-router-dom';
 import Localize from '../localize';
 import LoginForm from './loginForm';
-import RegisterCard from './register';
 
 type Props = {
 	visible: boolean;
@@ -13,11 +12,13 @@ const Login = (props: Props) => {
 	const { visible, onHide } = props;
 
 	return (
-		<Dialog header={Localize.AccessTitle} visible={visible} onHide={onHide}>
-			<div className='p-d-flex'>
+		<Dialog header={Localize.SignIn} visible={visible} onHide={onHide}>
+			<div className='flex'>
 				<LoginForm onHide={onHide} />
-				<Divider layout='vertical' />
-				<RegisterCard onHide={onHide} />
+			</div>
+			<div className='flex'>
+				<div>{Localize.NewTo}</div>&nbsp;
+				<div><Link to='signup' onClick={onHide}>{Localize.SignUpNow}</Link></div>
 			</div>
 		</Dialog>
 	);

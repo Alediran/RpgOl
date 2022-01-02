@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RpgOl.Api.Services;
+using RpgOl.Contracts;
 using RpgOl.Domain;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace RpgOl.Api.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUserService _userService;
+
         public UsersController(ILogger<UsersController> logger, IUserService userService)
         {
             _logger = logger;
@@ -25,7 +27,7 @@ namespace RpgOl.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(UserCreateDTO user)
         {
             return await _userService.CreateUser(user.Name, user.Email, user.Password, user.Birthday);
         }

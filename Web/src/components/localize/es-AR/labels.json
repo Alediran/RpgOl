@@ -4,6 +4,7 @@
         "AccessTitle": "Ingresa en Role Online",  
         "Login": "Ingresar",
         "SignUp": "Registrarse",
+        "SignIn": "Ingresar",
         "Username": "Usuario",
         "Password": "Contraseña",
         "NewUsers": "Nuevo usuario",
@@ -15,7 +16,7 @@
         "BirthDate": "Fecha de nacimiento",
         "Agree": "Acepto los términos y condiciones",
         "Submit": "Enviar",
-        "Validation:Required": "Obligatorio",
+        "Validation:Required": "Es obligatorio",
         "Validation:UserName": "El usuario debe tener al menos 8 caracteres",
         "Validation:InvalidEmail": "Dirección de email invalida",
         "Validation:PassswordsNotMatching": "Las contraseñas no son iguales",
@@ -23,7 +24,7 @@
         "Validation:UndefinedDate": "Por favor seleccione su fecha de cumpleaños",
         "Submit:SignupSuccess": "Cuenta creada exitosamente",
         "Submit:SignupError": "Error creando tu cuenta",
-        "Login:Persist": "Desea mantener abierta su sesión?",
+        "Login:Persist": "Recordarme",
         "Menu:User": "Usuario",
         "Menu:UserPreferences": "Preferencias de usuario",
         "Menu:Logout": "Salir",        
@@ -41,6 +42,9 @@
         "System": "Sistema",
         "SelectOption": "Selecciona una opción",
         "CreateNewGame": "Crear juego nuevo",
-        "Cancel": "Cancel"
+        "Cancel": "Cancel",
+        "Reset": "Reiniciar",
+        "NewTo": "Nuevo en Role Online?",
+        "SignUpNow": "Registrate ahora."
     }
 }

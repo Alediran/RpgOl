@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
@@ -9,9 +8,7 @@ import { classNames } from 'primereact/utils';
 import FloatingCalendarInput from '../../components/forms/floatingCalendarInput';
 import FloatingLabelInput from '../../components/forms/floatingLabelInput';
 import Localize from '../../components/localize';
-import UserCreateDto, {
-	validationSchema,
-} from '../../model/user/user-create.dto';
+import UserCreateDto from '../../model/user/user-create.dto';
 import {
 	useCreateUserMutation,
 	useLazyUserExistsQuery,
@@ -24,7 +21,7 @@ const Signup = () => {
 	const [createUser] = useCreateUserMutation();
 	const [userExists, userExistsResult] = useLazyUserExistsQuery();
 	const initialValues: UserCreateDto = {
-		User: '',
+		Name: '',
 		Email: '',
 		Password: '',
 		Birthday: undefined,
@@ -36,9 +33,11 @@ const Signup = () => {
 		control,
 		handleSubmit,
 		reset,
+		clearErrors,
 		formState: { errors, isDirty },
 	} = useForm<UserCreateDto>({
 		defaultValues: initialValues,
+		reValidateMode: 'onChange'
 	});
 
 	const getFormErrorMessage = (name: keyof UserCreateDto) => {
@@ -70,20 +69,25 @@ const Signup = () => {
 			});
 	};
 
+	const onReset = () => {		
+		reset();
+	}
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Toast position='top-right' ref={toast} />
 			<Card title={Localize.CreateUser}>
-				<div className='p-fluid'>
-					<div className='p-field'>
+				<div className='fluid'>
+					<div className='field'>
 						<Controller
-							name='User'
+							name='Name'
 							control={control}
 							rules={{
-								required: 'Is Required',
-								validate: () => {
-									console.log("User exists?", userExistsResult);
-									return userExistsResult.data === true;},
+								required: Localize['Validation:Required'],
+								validate: {
+									minLength: v => v.length >= 7 || Localize['Validation:UserName'],
+									exists: () => !userExistsResult.data || Localize['Validation:UserExists'],
+								}
 							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
@@ -102,10 +106,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='p-field'>
+					<div className='field'>
 						<Controller
 							name='Email'
 							control={control}
+							rules={{
+								required: Localize['Validation:Required']
+							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
 									id={field.name}
@@ -121,10 +128,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='p-field'>
+					<div className='field'>
 						<Controller
 							name='Password'
 							control={control}
+							rules={{
+								required: Localize['Validation:Required']
+							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
 									id={field.name}
@@ -140,10 +150,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='p-field'>
+					<div className='field'>
 						<Controller
 							name='confirm'
 							control={control}
+							rules={{
+								required: Localize['Validation:Required']
+							}}
 							render={({ field, fieldState }) => (
 								<FloatingLabelInput
 									id={field.name}
@@ -159,10 +172,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div className='p-field'>
+					<div className='field'>
 						<Controller
 							name='Birthday'
 							control={control}
+							rules={{
+								required: Localize['Validation:Required']
+							}}
 							render={({ field, fieldState }) => (
 								<FloatingCalendarInput
 									id={field.name}
@@ -179,10 +195,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div>
+					<div className='field'>
 						<Controller
 							name='Accept'
 							control={control}
+							rules={{
+								required: Localize['Validation:Required']
+							}}
 							render={({ field, fieldState }) => (
 								<span>
 									<Checkbox
@@ -202,8 +221,13 @@ const Signup = () => {
 							)}
 						/>
 					</div>
-					<div>
-						<Button label={Localize.Submit} type='submit' />
+					<div className='flex flex-row'>
+						<div className='mr-2'>
+							<Button label={Localize.Submit} type='submit' />
+						</div>
+						<div>
+							<Button label={Localize.Reset} className="p-button-outlined p-button-secondary" onClick={onReset}/>
+						</div>
 					</div>
 				</div>
 			</Card>

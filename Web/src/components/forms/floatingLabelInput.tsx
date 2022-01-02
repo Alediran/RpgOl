@@ -48,12 +48,12 @@ const FloatingLabelInput = (props: Props) => {
 							className={className}
 						/>
 					)}
-					<label htmlFor={id} className={labelClassName}>
+					<label htmlFor={id}>
 						{label}
 					</label>
 				</span>
 			</div>
-			<div className='error-section'>
+			<div className='error-section' hidden={errors? errors.length <= 0 : true}>
 				<small className='p-error'>{errors}</small>
 			</div>
 		</div>

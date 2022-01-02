@@ -5,7 +5,17 @@
       "ProjectGuid": "9b2b9b2e-804f-4870-b2c9-0a36409a0320",
       "DisplayName": "RpgOl.Db",
       "ColorIndex": 0
+    },
+    "8d362b09-7a70-405d-b164-6bcf18b398ae": {
+      "ProjectGuid": "8d362b09-7a70-405d-b164-6bcf18b398ae",
+      "DisplayName": "RpgOl.Api",
+      "ColorIndex": 1
+    },
+    "8a793a8a-da86-4a03-9374-54714f6ea14a": {
+      "ProjectGuid": "8a793a8a-da86-4a03-9374-54714f6ea14a",
+      "DisplayName": "RpoOl.Dal",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 3
 }

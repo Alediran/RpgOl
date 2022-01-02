@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgOl.Domain", "RpgOl.Domain\RpgOl.Domain.csproj", "{E6DC9DCD-3E13-4DBD-BDE2-24DF4597C67A}"
 EndProject
@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpoOl.Dal", "RpgOl.Dal\RpoO
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RpgOl.Db", "RpoOl.Db\RpgOl.Db.sqlproj", "{9B2B9B2E-804F-4870-B2C9-0A36409A0320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpoOl.Core", "RpoOl.Core\RpoOl.Core.csproj", "{93D1EB7C-ED79-4AEA-962F-D573B52F1FC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpoOl.Core", "RpoOl.Core\RpoOl.Core.csproj", "{93D1EB7C-ED79-4AEA-962F-D573B52F1FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgOl.Contracts", "RpgOl.Contracts\RpgOl.Contracts.csproj", "{516C7C76-0B7D-4A05-AD38-11CA86B42DBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{93D1EB7C-ED79-4AEA-962F-D573B52F1FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D1EB7C-ED79-4AEA-962F-D573B52F1FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D1EB7C-ED79-4AEA-962F-D573B52F1FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{516C7C76-0B7D-4A05-AD38-11CA86B42DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{516C7C76-0B7D-4A05-AD38-11CA86B42DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{516C7C76-0B7D-4A05-AD38-11CA86B42DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{516C7C76-0B7D-4A05-AD38-11CA86B42DBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
