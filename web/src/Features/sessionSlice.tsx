@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { SessionTokenDto } from 'Types/Authentication';
 
 interface SessionState {
-  userId?: string
+  userId?: string,
+  token?: SessionTokenDto
 }
 
 const initialState: SessionState = {
@@ -14,8 +16,11 @@ const sessionSlice = createSlice({
     setUser: (state, action: PayloadAction<string>) => {
       state.userId = action.payload;
     },
+    setToken: (state, action: PayloadAction<SessionTokenDto>) => {
+      state.token = action.payload;
+    }
   }
 })
 
-export const { setUser } = sessionSlice.actions;
+export const { setUser, setToken } = sessionSlice.actions;
 export default sessionSlice.reducer;

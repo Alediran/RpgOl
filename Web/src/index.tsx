@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AuthProvider authority='https://localhost:44384' client_id='RpgOl_App' redirect_uri='http://localhost:3000'>
+    <AuthProvider authority='https://localhost:44384' client_id='RpgOl_App' redirect_uri='http://localhost:4200' scope='RpgOl openid role' post_logout_redirect_uri='http://localhost:4200'>
       <Provider store={store}>
         <App />
       </Provider>

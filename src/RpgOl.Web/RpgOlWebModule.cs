@@ -56,7 +56,7 @@ namespace RpgOl.Web;
     typeof(AbpSettingManagementWebModule),
     typeof(AbpHttpClientIdentityModelWebModule),
     typeof(AbpIdentityWebModule),
-    typeof(AbpTenantManagementWebModule),
+    typeof(AbpTenantManagementWebModule),    
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
     )]

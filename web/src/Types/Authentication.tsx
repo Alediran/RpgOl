@@ -8,9 +8,22 @@ export interface AuthenticationDto {
   scope: string;
 }
 
-export interface TokenResponse {
+export interface SessionTokenDto {
   access_token: string;
-  expires_in: number;
+  expires_at?: number;
+  id_token?: string;
+  scope?: string;
+  session_state: string | null;
   token_type: string;
-  scope: string;
+  expired?: boolean;
+  expires_in?: number;
+}
+
+export interface UserDetailsDto {
+  id: string;
+  userName: string;
+  name: string;
+  surname: string;
+  email: string;
+  emailConfirmed: boolean
 }

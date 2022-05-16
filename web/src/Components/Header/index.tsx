@@ -1,16 +1,26 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Menubar } from 'primereact/menubar';
 import { Menu } from 'primereact/menu';
 import { MenuItem } from "primereact/menuitem";
 import { useAuth } from "react-oidc-context";
 import { Button } from "primereact/button";
 import { PrimeIcons } from 'primereact/api';
+import { useLazyGetUserDetailsQuery } from "Services/User";
+import { useAppSelector } from "App/Hooks";
 interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({}) => {
-  const {isAuthenticated, signinRedirect, signoutRedirect } = useAuth();
+  const { isAuthenticated, signinRedirect, signoutRedirect } = useAuth();
+  const [getUserDetails] = useLazyGetUserDetailsQuery();
+  const { userId } = useAppSelector((state) => state.session);
   const menuRef = useRef<Menu>(null);
+
+  
+  useEffect(() => {
+    if (userId) getUserDetails(userId)
+  }, [userId])
+
   const menu: Array<MenuItem> = []
 
   const userMenu: Array<MenuItem> = [
