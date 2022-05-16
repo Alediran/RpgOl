@@ -10,9 +10,14 @@ import { AuthProvider } from 'react-oidc-context';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <AuthProvider authority='https://localhost:44384' client_id='RpgOl_App' redirect_uri='http://localhost:4200' scope='RpgOl openid role' post_logout_redirect_uri='http://localhost:4200'>
+    <AuthProvider authority={process.env.REACT_APP_AUTHORITY!} 
+      client_id={process.env.REACT_APP_CLIENT_ID!} 
+      redirect_uri={process.env.REACT_APP_REDIRECT_URL!} 
+      scope='RpgOl openid role' 
+      post_logout_redirect_uri={process.env.REACT_APP_REDIRECT_URL!}>
       <Provider store={store}>
         <App />
       </Provider>
