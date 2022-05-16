@@ -2,13 +2,16 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
 import { api } from 'Services/Index'
 
+// Slices
+import sessionSlice from 'Features/sessionSlice';
+
 const store = configureStore({
   reducer: {
+    session: sessionSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(api.middleware)
+    getDefaultMiddleware().concat(api.middleware)
 });
 
 setupListeners(store.dispatch);

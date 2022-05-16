@@ -5,15 +5,18 @@ import App from './App';
 import store from './App/Store';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from 'react-oidc-context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AuthProvider authority='https://localhost:44384' client_id='RpgOl_App' redirect_uri='http://localhost:3000'>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace RpgOl.Migrations
 {
     [DbContext(typeof(RpgOlDbContext))]
-    [Migration("20220514042646_Initial")]
+    [Migration("20220515190847_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
