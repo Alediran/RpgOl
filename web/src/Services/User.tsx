@@ -1,5 +1,5 @@
+import { api } from "Services";
 import { UserDetailsDto } from "Types/Authentication";
-import { api } from "./Index";
 
 export const userApi = api.injectEndpoints({
   endpoints: (build) => ({

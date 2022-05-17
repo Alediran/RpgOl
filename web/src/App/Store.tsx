@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
-import { api } from 'Services/Index'
+import { api } from 'Services'
 
 // Slices
 import sessionSlice from 'Features/sessionSlice';
