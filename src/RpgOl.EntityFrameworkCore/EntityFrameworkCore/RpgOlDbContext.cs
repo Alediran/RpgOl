@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RpgOl.BoardCategories;
+using RpgOl.Boards;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -20,6 +22,7 @@ namespace RpgOl.EntityFrameworkCore;
 [ConnectionStringName("Default")]
 public class RpgOlDbContext :
     AbpDbContext<RpgOlDbContext>,
+    IRpgOlDbContext,
     IIdentityDbContext,
     ITenantManagementDbContext
 {
@@ -52,6 +55,9 @@ public class RpgOlDbContext :
 
     #endregion
 
+    public DbSet<Board> Boards { get; set; }
+    public DbSet<BoardCategory> BoardCategories { get; set; }
+
     public RpgOlDbContext(DbContextOptions<RpgOlDbContext> options)
         : base(options)
     {
@@ -75,11 +81,6 @@ public class RpgOlDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(RpgOlConsts.DbTablePrefix + "YourEntities", RpgOlConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.ConfigureRpgOl();
     }
 }
