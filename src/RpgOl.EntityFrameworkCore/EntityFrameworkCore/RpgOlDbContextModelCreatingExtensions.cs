@@ -57,7 +57,7 @@ namespace RpgOl.EntityFrameworkCore
 
             builder.Entity<Character>(e =>
             {
-                e.ToTable(nameof(Post));
+                e.ToTable(nameof(Character));
                 e.ConfigureByConvention();
 
                 e.HasMany(p => p.Posts).WithOne().HasForeignKey(f => f.CharacterId);
