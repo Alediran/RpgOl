@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RpgOl.Migrations
 {
-    public partial class Initial : Migration
+    public partial class BaseEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -459,7 +459,7 @@ namespace RpgOl.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IdentityServerPersistedGrants", x => x.Key);
-                });
+                });           
 
             migrationBuilder.CreateTable(
                 name: "AbpAuditLogActions",
@@ -1008,7 +1008,7 @@ namespace RpgOl.Migrations
                         principalTable: "IdentityServerIdentityResources",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
+                });            
 
             migrationBuilder.CreateTable(
                 name: "AbpEntityPropertyChanges",
@@ -1225,7 +1225,7 @@ namespace RpgOl.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_IdentityServerPersistedGrants_SubjectId_SessionId_Type",
                 table: "IdentityServerPersistedGrants",
-                columns: new[] { "SubjectId", "SessionId", "Type" });
+                columns: new[] { "SubjectId", "SessionId", "Type" });           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
