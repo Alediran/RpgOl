@@ -15,7 +15,7 @@ namespace RpgOl.Characters
         public virtual Guid UserId { get; protected set; }
         public virtual string Name { get; protected set;}
         public virtual string Description { get; protected set;}
-        public virtual List<Group> Groups { get; protected set; }
-        public virtual List<Post> Posts { get; protected set; }
+        public virtual ICollection<Group> Groups { get; protected set; }
+        public virtual ICollection<Post> Posts { get; protected set; }
     }
 }

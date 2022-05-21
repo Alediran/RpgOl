@@ -12,11 +12,11 @@ namespace RpgOl.BoardCategories
     {
         public virtual string Name { get; protected set; }
         public virtual string Description { get; protected set; }
-        public virtual List<Board> Boards { get; protected set; }
+        public virtual ICollection<Board> Boards { get; protected set; }
 
         protected BoardCategory()
         {
-            Boards = new();
+           
         }
     }
 }

@@ -23,11 +23,6 @@ namespace RpgOl.EntityFrameworkCore
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Board));
                 e.ConfigureByConvention();
-
-                e.HasMany(p => p.BoardCategories).WithMany(p => p.Boards);
-                e.HasMany(p => p.Groups).WithOne().HasForeignKey(f => f.BoardId);
-                e.HasMany(p => p.Threads).WithOne().HasForeignKey(f => f.BoardId);
-                e.HasMany(p => p.Characters).WithOne().HasForeignKey(f => f.BoardId);
             });
 
             builder.Entity<BoardCategory>(e =>
@@ -40,26 +35,18 @@ namespace RpgOl.EntityFrameworkCore
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Group));
                 e.ConfigureByConvention();
-
-                e.HasMany(p => p.Threads).WithOne().HasForeignKey(f => f.GroupId);
             });
 
             builder.Entity<Thread>(e =>
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Thread));
                 e.ConfigureByConvention();
-
-                e.HasMany(p => p.Posts).WithOne().HasForeignKey(f => f.ThreadId);
             });
 
             builder.Entity<Character>(e =>
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Character));
-                e.ConfigureByConvention();
-
-                e.HasMany(p => p.Groups).WithMany(p => p.Characters);
-                e.HasMany(p => p.Posts).WithOne().HasForeignKey(f => f.CharacterId);
-                
+                e.ConfigureByConvention();                
             });
 
             builder.Entity<Post>(e =>

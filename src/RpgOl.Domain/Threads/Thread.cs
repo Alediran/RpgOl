@@ -13,11 +13,10 @@ namespace RpgOl.Threads
         public virtual string Name { get; protected set; }
         public virtual Guid BoardId { get; protected set; }
         public virtual Guid GroupId { get; protected set; }
-        public virtual List<Post> Posts { get; protected set; }
+        public virtual ICollection<Post> Posts { get; protected set; }
 
         protected Thread()
         {
-            Posts = new();
         }
 
         public void AddPost(Post post)

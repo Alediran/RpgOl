@@ -17,14 +17,13 @@ namespace RpgOl.Boards
         public virtual string Name { get; protected set; }
         public virtual BoardType Type { get; protected set; } = BoardType.Game;
         public virtual GameSystem GameSystem { get; protected set; }
-        public virtual List<BoardCategory> BoardCategories { get; protected set; }
-        public virtual List<Character> Characters { get; protected set; }
-        public virtual List<Group> Groups { get; protected set; }
-        public virtual List<Thread> Threads { get; protected set; }
+        public virtual ICollection<BoardCategory> BoardCategories { get; protected set; }
+        public virtual ICollection<Character> Characters { get; protected set; }
+        public virtual ICollection<Group> Groups { get; protected set; }
+        public virtual ICollection<Thread> Threads { get; protected set; }
 
         protected Board()
         {
-            BoardCategories = new();
         }
 
         public void AddCategory(BoardCategory boardCategory)

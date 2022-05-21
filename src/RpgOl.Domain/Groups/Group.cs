@@ -13,7 +13,7 @@ namespace RpgOl.Groups
     {
         public virtual string Name { get; protected set; }
         public virtual Guid BoardId { get; protected set; }
-        public virtual List<Thread> Threads { get; protected set; }
-        public virtual List<Character> Characters { get; protected set; }
+        public virtual ICollection<Thread> Threads { get; protected set; }
+        public virtual ICollection<Character> Characters { get; protected set; }
     }
 }
