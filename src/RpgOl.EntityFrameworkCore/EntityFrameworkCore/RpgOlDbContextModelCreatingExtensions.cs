@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RpgOl.BoardCategories;
 using RpgOl.Boards;
 using RpgOl.Characters;
+using RpgOl.Database;
 using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -23,7 +21,7 @@ namespace RpgOl.EntityFrameworkCore
 
             builder.Entity<Board>(e =>
             {
-                e.ToTable(nameof(Board));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(Board));
                 e.ConfigureByConvention();
 
                 e.HasMany(p => p.BoardCategories).WithMany(p => p.Boards);
@@ -34,22 +32,21 @@ namespace RpgOl.EntityFrameworkCore
 
             builder.Entity<BoardCategory>(e =>
             {
-                e.ToTable(nameof(BoardCategory));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(BoardCategory));
                 e.ConfigureByConvention();
             });
 
             builder.Entity<Group>(e =>
             {
-                e.ToTable(nameof(Group));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(Group));
                 e.ConfigureByConvention();
 
                 e.HasMany(p => p.Threads).WithOne().HasForeignKey(f => f.GroupId);
-                e.HasMany(p => p.Characters).WithMany(p => p.Groups);
             });
 
             builder.Entity<Thread>(e =>
             {
-                e.ToTable(nameof(Thread));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(Thread));
                 e.ConfigureByConvention();
 
                 e.HasMany(p => p.Posts).WithOne().HasForeignKey(f => f.ThreadId);
@@ -57,15 +54,17 @@ namespace RpgOl.EntityFrameworkCore
 
             builder.Entity<Character>(e =>
             {
-                e.ToTable(nameof(Character));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(Character));
                 e.ConfigureByConvention();
 
+                e.HasMany(p => p.Groups).WithMany(p => p.Characters);
                 e.HasMany(p => p.Posts).WithOne().HasForeignKey(f => f.CharacterId);
+                
             });
 
             builder.Entity<Post>(e =>
             {
-                e.ToTable(nameof(Post));
+                e.ToTable(DatabaseConsts.TablePrefix + nameof(Post));
                 e.ConfigureByConvention();
             });
         }
