@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RpgOl.BoardCategories;
 using RpgOl.Boards;
+using RpgOl.Characters;
+using RpgOl.Groups;
+using RpgOl.Posts;
+using RpgOl.Threads;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -57,6 +61,10 @@ public class RpgOlDbContext :
 
     public DbSet<Board> Boards { get; set; }
     public DbSet<BoardCategory> BoardCategories { get; set; }
+    public DbSet<Thread> Threads { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Character> Characters { get; set; }
 
     public RpgOlDbContext(DbContextOptions<RpgOlDbContext> options)
         : base(options)
