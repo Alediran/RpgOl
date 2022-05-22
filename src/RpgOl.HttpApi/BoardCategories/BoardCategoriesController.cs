@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 namespace RpgOl.BoardCategories
 {
     [ApiController]
-    [Route("api/boardcategories")]
-    internal class BoardCategoriesController : RpgOlController, IBoardCategoriesAppService
+    [Area("board-categories")]
+    [ControllerName("BoardCategories")]
+    [Route("api/board-categories")]
+    public class BoardCategoriesController : RpgOlController, IBoardCategoriesAppService
     {
         private readonly IBoardCategoriesAppService _boardCategoriesAppService;
         
@@ -28,14 +30,13 @@ namespace RpgOl.BoardCategories
         }
 
         [HttpPost]
-        [Route("create")]
         public async Task<BoardCategoryDto> CreateAsync(CreateBoardCategoryDto input, CancellationToken cancellationToken = default)
         {
             return await _boardCategoriesAppService.CreateAsync(input, cancellationToken);
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             await _boardCategoriesAppService.DeleteAsync(id, cancellationToken);

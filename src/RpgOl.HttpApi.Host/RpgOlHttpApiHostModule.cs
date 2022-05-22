@@ -87,10 +87,10 @@ public class RpgOlHttpApiHostModule : AbpModule
 
     private void ConfigureConventionalControllers()
     {
-        Configure<AbpAspNetCoreMvcOptions>(options =>
+       /* Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(RpgOlApplicationModule).Assembly);
-        });
+        }); */
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
