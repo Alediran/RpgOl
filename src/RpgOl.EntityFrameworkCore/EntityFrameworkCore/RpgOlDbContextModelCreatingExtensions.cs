@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RpgOl.BoardCategories;
 using RpgOl.Boards;
 using RpgOl.Characters;
@@ -8,6 +7,7 @@ using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
 using System;
+using System.Collections.Generic;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -23,6 +23,8 @@ namespace RpgOl.EntityFrameworkCore
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Board));
                 e.ConfigureByConvention();
+
+                e.HasMany(e => e.BoardCategories).WithMany(e => e.Boards);
             });
 
             builder.Entity<BoardCategory>(e =>

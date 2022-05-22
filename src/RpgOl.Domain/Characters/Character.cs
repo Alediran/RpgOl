@@ -16,6 +16,5 @@ namespace RpgOl.Characters
         public virtual string Name { get; protected set;}
         public virtual string Description { get; protected set;}
         public virtual ICollection<Group> Groups { get; protected set; }
-        public virtual ICollection<Post> Posts { get; protected set; }
     }
 }

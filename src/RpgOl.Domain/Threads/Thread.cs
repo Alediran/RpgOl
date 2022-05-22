@@ -17,6 +17,7 @@ namespace RpgOl.Threads
 
         protected Thread()
         {
+            
         }
 
         public void AddPost(Post post)
