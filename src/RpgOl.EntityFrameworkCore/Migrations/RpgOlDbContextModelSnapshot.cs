@@ -219,7 +219,7 @@ namespace RpgOl.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CharacterId")
+                    b.Property<Guid?>("CharacterId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationTime")
@@ -256,6 +256,8 @@ namespace RpgOl.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
 
                     b.HasIndex("ThreadId");
 
@@ -2290,6 +2292,11 @@ namespace RpgOl.Migrations
 
             modelBuilder.Entity("RpgOl.Posts.Post", b =>
                 {
+                    b.HasOne("RpgOl.Characters.Character", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("RpgOl.Threads.Thread", null)
                         .WithMany("Posts")
                         .HasForeignKey("ThreadId")
@@ -2595,6 +2602,8 @@ namespace RpgOl.Migrations
             modelBuilder.Entity("RpgOl.Characters.Character", b =>
                 {
                     b.Navigation("Groups");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("RpgOl.Threads.Thread", b =>
