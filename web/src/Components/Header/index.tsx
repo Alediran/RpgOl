@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import React, { useEffect, useRef } from "react";
 import { Menubar } from 'primereact/menubar';
 import { Menu } from 'primereact/menu';
@@ -8,19 +9,19 @@ import { PrimeIcons } from 'primereact/api';
 import { useLazyGetUserDetailsQuery } from "Services/User";
 import { useAppSelector } from "App/Hooks";
 
-interface HeaderProps {
+type Props = {
 }
 
-export const Header: React.FC<HeaderProps> = ({}) => {
+const Header: React.FC<Props> = ({}) => {
   const { isAuthenticated, signinRedirect, signoutRedirect } = useAuth();
-  const [getUserDetails] = useLazyGetUserDetailsQuery();
+  const [ getUserDetails ] = useLazyGetUserDetailsQuery();
   const { userId } = useAppSelector((state) => state.session);
   const menuRef = useRef<Menu>(null);
 
   
   useEffect(() => {
     if (userId) getUserDetails(userId)
-  }, [userId])
+  }, [getUserDetails, userId])
 
   const menu: Array<MenuItem> = []
 
@@ -45,3 +46,5 @@ export const Header: React.FC<HeaderProps> = ({}) => {
       </div> 
     : <Button onClick={() => signinRedirect()}>Log in</Button>}/>
 }
+
+export default Header;

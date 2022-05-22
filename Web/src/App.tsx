@@ -4,7 +4,7 @@ import { useAuth } from 'react-oidc-context';
 import { useAppDispatch } from 'App/Hooks';
 
 // Elements
-import { Header } from 'Components/Header';
+import Header from 'Components/Header';
 
 // Style
 import 'primeicons/primeicons.css';
@@ -13,6 +13,10 @@ import 'primereact/resources/themes/nova/theme.css';
 import './App.css';
 import { setToken, setUser } from 'Features/sessionSlice';
 import { SessionTokenDto } from 'Types/Authentication';
+
+// Pages
+import Home from 'Pages/Home';
+import Admin from 'Pages/Admin';
 
 function App() {
   const {activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user} = useAuth();
@@ -42,6 +46,8 @@ function App() {
       return <div>Signing you in...</div>;
     case "signoutRedirect":
       return <div>Signing you out...</div>;
+    default:
+      break;
   }
 
   if (authenticationLoading) {
@@ -53,11 +59,12 @@ function App() {
   }  
 
   return (
-    <div className="App">      
+    <div className="App">  
+      <Header />    
       <BrowserRouter>
         <Routes>      
-          <Route path='/' element={<Header />}>
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </div>
