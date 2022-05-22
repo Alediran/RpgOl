@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace RpgOl.Boards
+namespace RpgOl.BoardCategories
 {
-    public interface IBoardRepository : IRepository<Board, Guid>
+    public interface IBoardCategoriesRepository : IRepository<BoardCategory, Guid>
     {
     }
 }

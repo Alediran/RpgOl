@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BoardCategories\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
