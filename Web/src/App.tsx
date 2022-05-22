@@ -57,7 +57,7 @@ function App() {
       <BrowserRouter>
         <Routes>      
           <Route path='/' element={<Header />}>
-          </Route>          
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
