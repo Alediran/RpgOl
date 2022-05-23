@@ -23,6 +23,8 @@
       "Validation:UserExists": "El usuario ya existe",
       "Validation:MailExists": "El email ya esta registrado para otra cuenta",
       "Validation:UndefinedDate": "Por favor seleccione su fecha de cumpleaños",
+      "Submit:BoardCategoryCreatedSuccess": "Categoria creada",
+      "Submit:BoardCategoryCreatedFail": "Error creando categoria",
       "Submit:DeleteSuccessful": "Borrado exitoso",
       "Submit:DeleteFailed": "Error al borrar",
       "Submit:SignupSuccess": "Cuenta creada exitosamente",

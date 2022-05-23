@@ -6,23 +6,23 @@ export const boardCategoriesApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAll: build.query<Array<BoardCategoryDto>, void>({
       query: () => 'board-categories/all',
-      providesTags: ['board-categories']
+      providesTags: ['board-categories-all']
     }),
     getPagedSorted: build.query<PagedResultDto<BoardCategoryDto>, BoardCategoryInput>({
       query: (input) => {
         let query = '';
 
-        if (input.filterText) query += `FilterText=${input.filterText}`;
+        query += `SkipCount=${input.skipCount}`;
 
-        if (input.sortField) query += query.length > 0 ? `&Sorting=${input.sortField} ${input.sortOrder === 1 ? 'ASC' : 'DESC'}` : 
-          `Sorting=${input.sortField} ${input.sortOrder === 1 ? 'ASC' : 'DESC'}`;
+        query += `&MaxResultCount=${input.maxResultCount}`;
 
-        if (input.skipCount) query += query.length > 0 ? `&SkipCount=${input.skipCount}` : `SkipCount=${input.skipCount}`;
+        if (input.filterText) query += `&FilterText=${input.filterText}`;
 
-        if (input.maxResultCount) query += query.length > 0 ? `&MaxResultCount=${input.maxResultCount}` : `MaxResultCount=${input.maxResultCount}`;
+        if (input.sortField) query += `&Sorting=${input.sortField} ${input.sortOrder === 1 ? 'ASC' : 'DESC'}`;        
         
         return `board-categories?${query}`
-      }
+      },
+      providesTags: ['board-categories']
     }),
     // Mutations 
     create: build.mutation<BoardCategoryDto, CreateBoardCategoryDto>({

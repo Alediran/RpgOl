@@ -23,6 +23,8 @@
       "Validation:UserExists": "The user already exist",
       "Validation:MailExists": "The email is already assigned to an account",
       "Validation:UndefinedDate": "Please select your birthday",
+      "Submit:BoardCategoryCreatedSuccess": "Category successfully created",
+      "Submit:BoardCategoryCreatedFail": "Error while creating category",
       "Submit:SignupSuccess": "Signup Successfull",
       "Submit:SignupError": "Error creating your account",
       "Submit:DeleteSuccessful": "Successfully deleted",

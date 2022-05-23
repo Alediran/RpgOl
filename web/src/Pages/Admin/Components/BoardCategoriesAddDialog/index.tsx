@@ -8,6 +8,9 @@ import { InputText } from 'primereact/inputtext';
 import Localize from "Components/Localize/Index";
 import { CreateBoardCategoryDto } from "Types/BoardCategories";
 import LeftLabelInput from "Components/FormInputs/LeftLabelInput";
+import { useAppDispatch } from "App/Hooks";
+import { showToast } from "Features/notificationSlice";
+import { NotificationSeverity } from "Types/Enums";
 import styles from "./index.module.css";
 
 interface BoardCategoriesAddDialogProps {
@@ -16,14 +19,16 @@ interface BoardCategoriesAddDialogProps {
 }
 
 const BoardCategoriesAddDialog: React.FC<BoardCategoriesAddDialogProps> = ({visible, onHide}) => {
-  const [createCategory ] = useCreateMutation();
-
+  const [createCategory ] = useCreateMutation();  
   const {handleSubmit, control} = useForm<CreateBoardCategoryDto>({defaultValues: {name: '', description: ''}});
+  const dispatch = useAppDispatch();
   
   const onSubmit = handleSubmit((data) => {
-    createCategory(data);
+    createCategory(data).unwrap()
+      .then(() => dispatch(showToast({severity: NotificationSeverity.success, summary: Localize["Submit:BoardCategoryCreatedSuccess"], detail: ''})))
+      .catch(() => dispatch(showToast({severity: NotificationSeverity.error, summary: Localize["Submit:BoardCategoryCreatedFail"], detail: ''})));
     onHide();
-  }, (data) => console.log("Invalid", data));
+  });
 
   return <Dialog visible={visible} header='Add Board Category' onHide={onHide}>  
     <form onSubmit={onSubmit}>      

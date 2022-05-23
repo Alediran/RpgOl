@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import React, { useState } from 'react';
 import { PrimeIcons } from 'primereact/api';
+import { Skeleton } from 'primereact/skeleton';
 import { DataTable, DataTablePFSEvent } from 'primereact/datatable';
 import { useDeleteMutation, useGetPagedSortedQuery } from 'Services/BoardCategories';
 import { Column } from 'primereact/column';
@@ -14,6 +15,8 @@ import { NotificationSeverity } from 'Types/Enums';
 import { useAppDispatch } from 'App/Hooks';
 import BoardCategoriesAddDialog from '../BoardCategoriesAddDialog';
 import styles from './index.module.css';
+
+
 
 const BoardCategories: React.FC<{}> = ({}) => {  
   const [showCreateCategory, setShowCreateCategory] = useState(false);
@@ -31,40 +34,45 @@ const BoardCategories: React.FC<{}> = ({}) => {
     setSelectedId(id);
   }
 
-  const onPage = (e: DataTablePFSEvent) => {
-    setBoardInput({
+  const onPageSort = (e: DataTablePFSEvent) => {
+    const changedBoardInput: BoardCategoryInput = {
+      ...boardInput,
+      skipCount: e.first,
+      maxResultCount: e.rows,
       sortField: e.sortField,
-      sortOrder: e.sortOrder,
-      skipCount: e.page ? e.page * e.rows : 0 * e.rows,
-      maxResultCount: e.rows
-    })
+      sortOrder: e.sortOrder
+    };
+
+    console.log("Board input", changedBoardInput);
+    setBoardInput(changedBoardInput)
   }
 
+  const bodyTemplate = (rowData: BoardCategoryDto, field: keyof(BoardCategoryDto)) => isLoading ? <Skeleton /> : <div>{rowData[field].toString()}</div>
+
   const actionBodyTemplate = (rowData: BoardCategoryDto) => (
-    <Button icon={PrimeIcons.TRASH} className='p-button-rounded' onClick={() => boardConfirmDelete(rowData.id)}/>
+    isLoading ? <Skeleton /> : <Button icon={PrimeIcons.TRASH} className='p-button-rounded' onClick={() => boardConfirmDelete(rowData.id)}/>
   );
 
-  if (isLoading) return <div />
-  
-  if (isFetching) return <div />
-  
   return <div>
-    <div>Board Categories component</div>
     <Toolbar className="mb-4" 
       left={<Button icon={PrimeIcons.PLUS} label='Add Category' title='Add Category' type='button' onClick={() => setShowCreateCategory(true)}/>} 
     />
-    <DataTable value={boardCategories?.items} paginator 
-      paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-      currentPageReportTemplate={`${Localize.Showing} {first} ${Localize.To.toLowerCase()} {last} ${Localize.Of.toLowerCase()} {totalRecords}`}
-      rows={boardInput.maxResultCount} onPage={onPage}
-      rowsPerPageOptions={[10,20,50]}
+    <DataTable lazy value={boardCategories?.items} totalRecords={boardCategories?.totalCount}
+      onSort={onPageSort}
       sortField={boardInput.sortField}
       sortOrder={boardInput.sortOrder}
+      paginator
+      paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+      currentPageReportTemplate={`${Localize.Showing} {first} ${Localize.To.toLowerCase()} {last} ${Localize.Of.toLowerCase()} {totalRecords}`}
+      first={boardInput.skipCount}
+      rows={boardInput.maxResultCount}
+      rowsPerPageOptions={[10,20,50]}
+      onPage={onPageSort}
     >
-      <Column field='name' header='Name' />
-      <Column field='description' header='Description' />
+      <Column sortable field='name' header='Name' body={(e) => bodyTemplate(e,'name')}/>
+      <Column sortable field='description' header='Description' body={(e) => bodyTemplate(e,'description')} />
       <Column header='Actions' body={actionBodyTemplate} />
-    </DataTable>   
+    </DataTable>       
     <BoardCategoriesAddDialog visible={showCreateCategory} onHide={() => setShowCreateCategory(false)} />
     <ConfirmDialog visible={showConfirm} onHide={() =>setShowConfirm(false)} header={Localize.Confirmation} message={Localize.AreYouSure} 
       accept={() => {
