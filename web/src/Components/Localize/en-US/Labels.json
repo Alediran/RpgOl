@@ -25,6 +25,8 @@
       "Validation:UndefinedDate": "Please select your birthday",
       "Submit:SignupSuccess": "Signup Successfull",
       "Submit:SignupError": "Error creating your account",
+      "Submit:DeleteSuccessful": "Successfully deleted",
+      "Submit:DeleteFailed": "Failed to delete",
       "Login:Persist": "Remember me",
       "Menu:User": "User",
       "Menu:UserPreferences": "User Preferences",
@@ -43,9 +45,18 @@
       "System": "System",
       "SelectOption": "Select an option",
       "CreateNewGame": "Create new game",
+      "Save": "Save",
       "Cancel": "Cancel",
       "Reset": "Reset",
       "NewTo": "New to Role Online?",
-      "SignUpNow": "Sign up now."
+      "SignUpNow": "Sign up now.",
+      "Name": "Name",
+      "Description": "Description",
+      "Delete": "Delete",
+      "Confirmation": "Confirmation",
+      "AreYouSure": "Are you sure you want to proceeed?",
+      "Showing": "Showing",
+      "To": "To",
+      "Of": "Of"
   }
 }

@@ -1,4 +1,4 @@
-import { api } from "Services";
+import  api from "Services";
 import { UserDetailsDto } from "Types/Authentication";
 
 export const userApi = api.injectEndpoints({

@@ -1,31 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuth } from 'react-oidc-context';
-import { useAppDispatch } from 'App/Hooks';
 
 // Elements
+import { Toast } from 'primereact/toast';
 import Header from 'Components/Header';
 
 // Style
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/nova/theme.css';
+import 'primeflex/primeflex.css';
 import './App.css';
-import { setToken, setUser } from 'Features/sessionSlice';
 import { SessionTokenDto } from 'Types/Authentication';
 
 // Pages
 import Home from 'Pages/Home';
 import Admin from 'Pages/Admin';
+import BoardCategories from 'Pages/Admin/Components/BoardCategories';
+
+// Events
+import { dismissToast } from 'Features/notificationSlice';
+import { useAppDispatch, useAppSelector } from 'App/Hooks';
 
 function App() {
   const {activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user} = useAuth();
+  const toast = useRef<Toast>(null);
+  const { detail, isOpen, position, severity, summary} = useAppSelector(state => state.notification);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (user) {
-      dispatch(setUser(user.profile.sub))
-      
+    const token = localStorage.getItem('token-oidc');
+    
+    if (!token && user) {
       const sessionToken: SessionTokenDto = {
         access_token: user.access_token,
         expires_at: user.expires_at,
@@ -37,9 +44,17 @@ function App() {
         expires_in: user.expires_in
       }
 
-      dispatch(setToken(sessionToken))
+      localStorage.setItem('token-oidc', JSON.stringify(sessionToken));
     }
-  }, [dispatch, isAuthenticated, user])
+  }, [isAuthenticated, user])
+
+  useEffect(() => {
+    if (toast.current) {
+      if (isOpen) toast.current.show({severity, summary, detail, life: 3000})
+      else toast.current.clear()
+    }
+  }, [detail, isOpen, severity, summary])
+
 
   switch (activeNavigator) {
     case "signinSilent":
@@ -64,9 +79,15 @@ function App() {
       <BrowserRouter>
         <Routes>      
           <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="admin" element={<Admin />} >
+            <Route path="categories" element={<BoardCategories />} />
+          </Route>
         </Routes>
       </BrowserRouter>
+      <Toast 
+        ref={toast} 
+        onHide={() => dispatch(dismissToast())} 
+        position={position}/>
     </div>
   );
 }

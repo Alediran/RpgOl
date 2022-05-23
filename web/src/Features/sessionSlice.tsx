@@ -13,12 +13,18 @@ const sessionSlice = createSlice({
   name: 'session',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
-      state.userId = action.payload;
-    },
+    setUser: (state, action: PayloadAction<string>) => ({
+        ...state,
+        userId: action.payload,
+      }),
     setToken: (state, action: PayloadAction<SessionTokenDto>) => {
-      state.token = action.payload;
-    }
+      console.log("Saving the Token", action.payload);
+      
+      return {
+        ...state,
+        token: action.payload,
+      }
+    },
   }
 })
 

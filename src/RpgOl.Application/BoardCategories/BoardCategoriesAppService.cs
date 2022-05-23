@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace RpgOl.BoardCategories
@@ -25,13 +27,38 @@ namespace RpgOl.BoardCategories
             return ObjectMapper.Map<List<BoardCategory>, List<BoardCategoryDto>>(await _boardCategoriesRepository.GetListAsync());
         }
 
+        public async Task<PagedResultDto<BoardCategoryDto>> GetPagedBoardCategoriesAsync(GetBoardCategoryInput input)
+        {
+            try
+            {
+                var items = await _boardCategoriesRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, false);
+
+                return new PagedResultDto<BoardCategoryDto>
+                {
+                    TotalCount = await _boardCategoriesRepository.GetCountAsync(),
+                    Items = ObjectMapper.Map<List<BoardCategory>, List<BoardCategoryDto>>(items)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new UserFriendlyException("Error while retrieving Board Categories", "CODE 500", innerException: ex);
+            }
+        }
+
         [Authorize(RpgOlPermissions.BoardCategories.Create)]
         public async Task<BoardCategoryDto> CreateAsync(CreateBoardCategoryDto input, CancellationToken cancellationToken = default)
         {
-            var entity = ObjectMapper.Map<CreateBoardCategoryDto, BoardCategory>(input);
-            await _boardCategoriesRepository.InsertAsync(entity, true, cancellationToken);
+            try
+            {
+                var entity = ObjectMapper.Map<CreateBoardCategoryDto, BoardCategory>(input);
+                await _boardCategoriesRepository.InsertAsync(entity, true, cancellationToken);
 
-            return ObjectMapper.Map<BoardCategory, BoardCategoryDto>(entity);
+                return ObjectMapper.Map<BoardCategory, BoardCategoryDto>(entity);
+            }
+            catch(Exception ex)
+            {
+                throw new UserFriendlyException("Error while creating a new Category", "CODE 500", innerException: ex);
+            }
         }
 
         [Authorize(RpgOlPermissions.BoardCategories.Delete)]

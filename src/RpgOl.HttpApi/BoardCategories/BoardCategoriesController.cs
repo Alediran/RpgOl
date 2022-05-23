@@ -6,17 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 
 namespace RpgOl.BoardCategories
 {
-    [ApiController]
+    [RemoteService(Name = "BoardCategories")]
     [Area("board-categories")]
     [ControllerName("BoardCategories")]
     [Route("api/board-categories")]
     public class BoardCategoriesController : RpgOlController, IBoardCategoriesAppService
     {
         private readonly IBoardCategoriesAppService _boardCategoriesAppService;
-        
+
         public BoardCategoriesController(IBoardCategoriesAppService boardCategoriesAppService)
         {
             _boardCategoriesAppService = boardCategoriesAppService;
@@ -27,6 +29,12 @@ namespace RpgOl.BoardCategories
         public async Task<IList<BoardCategoryDto>> GetBoardCategoriesAsync()
         {
             return await _boardCategoriesAppService.GetBoardCategoriesAsync();
+        }
+
+        [HttpGet]
+        public async Task<PagedResultDto<BoardCategoryDto>> GetPagedBoardCategoriesAsync(GetBoardCategoryInput input)
+        {
+            return await _boardCategoriesAppService.GetPagedBoardCategoriesAsync(input);
         }
 
         [HttpPost]
