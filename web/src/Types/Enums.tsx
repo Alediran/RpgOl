@@ -5,3 +5,15 @@ export enum NotificationSeverity {
   warning = 'warning',
   success = 'success'
 }
+
+export enum BoardTypes {
+  General,
+  Game
+}
+
+export enum GameSystem {
+  DungeonsAndDragons,
+  Exalted,
+  OldWorldOfDarkness,
+  NewWorldOfDarkness
+}

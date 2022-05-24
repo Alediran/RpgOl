@@ -24,7 +24,7 @@ namespace RpgOl.BoardCategories
 
         public async Task<IList<BoardCategoryDto>> GetBoardCategoriesAsync()
         {
-            return ObjectMapper.Map<List<BoardCategory>, List<BoardCategoryDto>>(await _boardCategoriesRepository.GetListAsync());
+            return ObjectMapper.Map<IList<BoardCategory>, IList<BoardCategoryDto>>(await _boardCategoriesRepository.GetListAsync());
         }
 
         public async Task<PagedResultDto<BoardCategoryDto>> GetPagedBoardCategoriesAsync(GetBoardCategoryInput input)

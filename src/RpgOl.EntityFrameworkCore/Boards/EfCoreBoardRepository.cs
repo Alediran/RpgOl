@@ -1,4 +1,6 @@
-﻿using RpgOl.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RpgOl.EntityFrameworkCore;
+using RpgOl.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,15 @@ namespace RpgOl.Boards
     {
         public EfCoreBoardRepository(IDbContextProvider<IRpgOlDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public async Task<IList<Board>> GetAll(Guid userId)
+        {
+            var query = (await GetDbSetAsync())
+                .Where(q => q.Type == BoardType.General || 
+                    (q.Type == BoardType.Game && q.CreatorId == userId));
+
+            return await query.ToListAsync();
         }
     }
 }

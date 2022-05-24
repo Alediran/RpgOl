@@ -9,5 +9,6 @@ namespace RpgOl.Boards
 {
     public interface IBoardRepository : IRepository<Board, Guid>
     {
+        Task<IList<Board>> GetAll(Guid userId);
     }
 }
