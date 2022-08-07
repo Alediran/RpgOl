@@ -19,6 +19,7 @@ namespace RpgOl.Boards
 
         public async Task<IList<Board>> GetAll(Guid userId)
         {
+            // Change to a View once Player/Lurker games are implemented
             var query = (await GetDbSetAsync())
                 .Where(q => q.Type == BoardType.General || 
                     (q.Type == BoardType.Game && q.CreatorId == userId));
