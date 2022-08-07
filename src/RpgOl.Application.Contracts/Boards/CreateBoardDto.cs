@@ -1,9 +1,7 @@
-﻿using RpgOl.BoardCategories;
-using RpgOl.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Volo.Abp.Application.Dtos;
+using RpgOl.Enums;
+
 namespace RpgOl.Boards
 {
     public class CreateBoardDto 
@@ -11,6 +9,6 @@ namespace RpgOl.Boards
         public string Name { get; set; }
         public BoardType Type { get; set; }
         public GameSystem GameSystem { get; set; }
-        public List<BoardCategoryDto> BoardCategories { get; set; }
+        public List<Guid> BoardCategories { get; set; }
     }
 }
