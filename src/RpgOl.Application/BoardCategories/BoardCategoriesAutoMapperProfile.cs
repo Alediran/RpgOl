@@ -12,6 +12,8 @@ namespace RpgOl.BoardCategories
         public BoardCategoriesAutoMapperProfile()
         {
             CreateMap<CreateBoardCategoryDto, BoardCategory>();
+
+            CreateMap<BoardCategoryDto, BoardCategory>();
             CreateMap<BoardCategory, BoardCategoryDto>();
         }
     }
