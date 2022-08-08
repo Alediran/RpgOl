@@ -61,7 +61,7 @@ namespace RpgOl.Boards
         {
             try
             {
-                var items = await _boardRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, false);
+                var items = await _boardRepository.GetAll(CurrentUser.Id.Value, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
 
                 return new PagedResultDto<BoardDto>
                 {
