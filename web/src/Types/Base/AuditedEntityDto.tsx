@@ -1,4 +1,4 @@
-import CreationAuditedEntityDto from "Types/CreationAuditedEntityDto";
+import CreationAuditedEntityDto from "Types/Base/CreationAuditedEntityDto";
 
 export default interface AuditedEntityDto extends CreationAuditedEntityDto {
   lastModificationTime: Date;

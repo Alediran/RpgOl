@@ -1,13 +1,8 @@
-import FullAuditedEntityDto from "Types/FullAuditedEntityDto";
-import PagedAndSortedResultRequestDto from "./PagedAndSortedResultRequestDto";
+import FullAuditedEntityDto from "Types/Base/FullAuditedEntityDto";
 
 export interface CreateBoardCategoryDto {
   name: string;
   description: string;
-}
-
-export interface BoardCategoryInput extends PagedAndSortedResultRequestDto {
-  filterText?: string;
 }
 
 export interface BoardCategoryDto extends FullAuditedEntityDto, CreateBoardCategoryDto {}

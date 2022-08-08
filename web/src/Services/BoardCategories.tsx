@@ -1,6 +1,7 @@
-import api  from "Services";
-import { BoardCategoryDto, BoardCategoryInput, CreateBoardCategoryDto } from "Types/BoardCategories";
-import PagedResultDto from "Types/PagedResultDto";
+import api, { generateFilteredPagedAndSortedQuery }  from "Services";
+import { BoardCategoryDto, CreateBoardCategoryDto } from "Types/BoardCategories";
+import PagedResultDto from "Types/Base/PagedResultDto";
+import FilteredPagedAndSortedRequestDto from "Types/Output/FilteredPagedAndSortedRequestDto";
 
 export const boardCategoriesApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -8,20 +9,8 @@ export const boardCategoriesApi = api.injectEndpoints({
       query: () => 'board-categories/all',
       providesTags: ['board-categories-all']
     }),
-    getPagedSorted: build.query<PagedResultDto<BoardCategoryDto>, BoardCategoryInput>({
-      query: (input) => {
-        let query = '';
-
-        query += `SkipCount=${input.skipCount}`;
-
-        query += `&MaxResultCount=${input.maxResultCount}`;
-
-        if (input.filterText) query += `&FilterText=${input.filterText}`;
-
-        if (input.sortField) query += `&Sorting=${input.sortField} ${input.sortOrder === 1 ? 'ASC' : 'DESC'}`;        
-        
-        return `board-categories?${query}`
-      },
+    getPagedSorted: build.query<PagedResultDto<BoardCategoryDto>, FilteredPagedAndSortedRequestDto>({
+      query: (input) => `board-categories?${generateFilteredPagedAndSortedQuery(input)}`,
       providesTags: ['board-categories']
     }),
     // Mutations 

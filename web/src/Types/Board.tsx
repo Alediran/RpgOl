@@ -1,5 +1,5 @@
-import EntityDto from "Types/EntityDto";
-import FullAuditedEntityDto from "Types/FullAuditedEntityDto";
+import EntityDto from "Types/Base/EntityDto";
+import FullAuditedEntityDto from "Types/Base/FullAuditedEntityDto";
 import { BoardCategoryDto } from "Types/BoardCategories";
 import { BoardTypes, GameSystem } from "Types/Enums";
 

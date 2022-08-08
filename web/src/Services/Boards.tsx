@@ -1,12 +1,46 @@
-import  api from "Services";
-import { BoardDto } from "Types/Board";
+import  api, { generateFilteredPagedAndSortedQuery } from "Services";
+import PagedResultDto from "Types/Base/PagedResultDto";
+import { BoardDto, CreateBoardDto, UpdateBoardDto } from "Types/Board";
+import FilteredPagedAndSortedRequestDto from "Types/Output/FilteredPagedAndSortedRequestDto";
 
 export const boardsApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getBoards: build.query<Array<BoardDto>, string>({
-      query: (input) => ``,
+    getBoardById: build.query<BoardDto, string>({
+      query: (id) => `boards/${id}`,
+    }),
+    getAllBoards: build.query<Array<BoardDto>, void>({
+      query: () => 'boards/all',
+      providesTags: ['boards']
+    }),
+    getAllBoardsPaged: build.query<PagedResultDto<BoardDto>, FilteredPagedAndSortedRequestDto>({
+      query: (input) => `boards?${generateFilteredPagedAndSortedQuery(input)}`,
+      providesTags: ['boards']
+    }),
+
+    // Mutations 
+    createBoard: build.mutation<BoardDto, CreateBoardDto>({
+      query: (payload) => ({
+        url: 'boards',
+        method: 'POST',
+        body: payload
+      }),
+      invalidatesTags: ['boards']
+    }),
+    updateBoard: build.mutation<BoardDto, UpdateBoardDto>({
+      query: (payload) => ({
+        url: 'boards',
+        method: 'PATCH',
+        body: payload
+      })
+    }),
+    deleteBoard: build.mutation<void, string>({
+      query: (id) => ({
+        url: `boards/${id}`,
+        method: 'DELETE',
+
+      })
     })
   })
 })
 
-export const { useGetBoardsQuery} = boardsApi
+export const { useGetBoardByIdQuery} = boardsApi

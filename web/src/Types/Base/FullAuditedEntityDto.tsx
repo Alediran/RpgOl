@@ -1,4 +1,4 @@
-import AuditedEntityDto from "Types/AuditedEntityDto";
+import AuditedEntityDto from "Types/Base/AuditedEntityDto";
 
 export default interface FullAuditedEntityDto extends AuditedEntityDto{
   isDeleted: boolean;
