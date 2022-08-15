@@ -13,7 +13,7 @@ using Volo.Abp.Application.Services;
 namespace RpgOl.BoardCategories
 {
     [Authorize(RpgOlPermissions.BoardCategories.Default)]
-    public class BoardCategoriesAppService : ApplicationService, IBoardCategoriesAppService
+    public class BoardCategoriesAppService : RpgOlAppService, IBoardCategoriesAppService
     {
         private readonly IBoardCategoriesRepository _boardCategoriesRepository;
 

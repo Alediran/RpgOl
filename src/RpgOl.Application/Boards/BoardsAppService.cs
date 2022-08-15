@@ -9,7 +9,7 @@ using Volo.Abp.Application.Services;
 
 namespace RpgOl.Boards
 {
-    public class BoardsAppService : ApplicationService, IBoardsAppService
+    public class BoardsAppService : RpgOlAppService, IBoardsAppService
     {
         private readonly IBoardRepository _boardRepository;
         private readonly IBoardCategoriesRepository _boardCategoriesRepository;
@@ -65,8 +65,8 @@ namespace RpgOl.Boards
 
                 return new PagedResultDto<BoardDto>
                 {
-                    TotalCount = await _boardRepository.GetCountAsync(),
-                    Items = ObjectMapper.Map<List<Board>, List<BoardDto>>(items)
+                    Items = ObjectMapper.Map<List<Board>, List<BoardDto>>(items),
+                    TotalCount = await _boardRepository.GetCountAsync(cancellationToken)
                 };
             }
             catch (Exception ex)

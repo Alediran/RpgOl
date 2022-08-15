@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Services;
 
 namespace RpgOl.Threads
 {
-    public class ThreadsAppService : ApplicationService, IThreadsAppService
+    public class ThreadsAppService : RpgOlAppService, IThreadsAppService
     {
         private readonly IThreadsRepository _threadsRepository;
 
