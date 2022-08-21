@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp;
 
@@ -15,10 +16,23 @@ namespace RpgOl.Threads
     [Route("api/threads")]
     public class ThreadsController : RpgOlController, IThreadsAppService
     {
-        [HttpGet]
-        public Task<IList<ThreadDto>> GetListAsync(Guid boardId)
+        private readonly IThreadsAppService _threadsAppService;
+
+        public ThreadsController(IThreadsAppService threadsAppService)
         {
-            throw new NotImplementedException();
+            _threadsAppService = threadsAppService;
+        }
+
+        [HttpPost]
+        public async Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default)
+        {
+            return await _threadsAppService.CreateAsync(input, cancellationToken);
+        }
+
+        [HttpGet]
+        public async Task<IList<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
+        {
+            return await _threadsAppService.GetListAsync(boardId, cancellationToken);
         }
     }
 }

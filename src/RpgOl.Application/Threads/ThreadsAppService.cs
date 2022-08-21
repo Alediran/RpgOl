@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RpgOl.Threads
@@ -12,7 +13,16 @@ namespace RpgOl.Threads
         {
             _threadsRepository = threadsRepository;
         }
-        public async Task<IList<ThreadDto>> GetListAsync(Guid boardId)
+
+        public async Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default)
+        {
+            var entity = ObjectMapper.Map<CreateThreadDto, Thread>(input);
+
+            return ObjectMapper.Map<Thread, ThreadDto>(await _threadsRepository.InsertAsync(entity, cancellationToken: cancellationToken));
+
+        }
+
+        public async Task<IList<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
         {
             return ObjectMapper.Map<IList<Thread>, IList<ThreadDto>>(await _threadsRepository.GetAll(boardId));
         }
