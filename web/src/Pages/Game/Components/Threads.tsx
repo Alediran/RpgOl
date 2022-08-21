@@ -37,7 +37,7 @@ const Threads: React.FC<Props> = ({id, title}) => {
       <Column header={Localize.Replies} field='posts.length' />
     </DataTable>
     <Dialog header={Localize.NewThread} visible={threadModal} onHide={() => setThreadModal(false)}>
-      <CreateThread boardId={id} />
+      <CreateThread boardId={id} onSubmit={() => setThreadModal(false)} />
     </Dialog>
   </div>
 }

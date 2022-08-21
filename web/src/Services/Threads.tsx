@@ -4,7 +4,8 @@ import { CreateThreadDto, ThreadDto } from 'Types/Thread';
 export const threadsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getByBoardId: build.query<Array<ThreadDto>, string | undefined>({
-      query: (boardId) => `threads?boardId=${boardId}`
+      query: (boardId) => `threads?boardId=${boardId}`,
+      providesTags: ['threads']
     }),
 
     // Mutations
@@ -13,7 +14,8 @@ export const threadsApi = api.injectEndpoints({
         url: 'threads',
         method: 'POST',
         body: payload
-      })
+      }),
+      invalidatesTags: ['threads']
     })
   })
 

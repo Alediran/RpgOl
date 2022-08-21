@@ -6,7 +6,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 const api = createApi({
 	reducerPath: 'api',
-	tagTypes: ['board', 'board-categories', 'board-categories-all', 'session', 'user', 'boards'],
+	tagTypes: ['board', 'board-categories', 'board-categories-all', 'session', 'user', 'boards', 'threads'],
 	endpoints: () => ({}),
 	baseQuery: fetchBaseQuery({
 		baseUrl,

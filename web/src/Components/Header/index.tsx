@@ -15,7 +15,7 @@ type Props = {
 const Header: React.FC<Props> = ({}) => {
   const { isAuthenticated, signinRedirect, signoutRedirect } = useAuth();
   const [ getUserDetails ] = useLazyGetUserDetailsQuery();
-  const { userId } = useAppSelector((state) => state.session);
+  const { userId } = useAppSelector(state => state.session);
   const menuRef = useRef<Menu>(null);
 
   

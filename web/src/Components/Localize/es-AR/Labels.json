@@ -29,6 +29,8 @@
       "Submit:DeleteFailed": "Error al borrar",
       "Submit:SignupSuccess": "Cuenta creada exitosamente",
       "Submit:SignupError": "Error creando tu cuenta",
+      "Submit:ThreadCreatedSuccess": "Hilo creado exitosamente",
+      "Submit:ThreadCreatedFail": "Error creando hilo",
       "Login:Persist": "Recordarme",
       "Menu:User": "Usuario",
       "Menu:UserPreferences": "Preferencias de usuario",
@@ -65,6 +67,7 @@
       "GeneralBoards": "Tableros Públicos",
       "Replies": "Respuestas",
       "EmptyResults": "No se encontraron resultados",
-      "NewThread": "Crear nuevo hilo"
+      "NewThread": "Crear nuevo hilo",
+      "Group": "Grupo"
   }
 }

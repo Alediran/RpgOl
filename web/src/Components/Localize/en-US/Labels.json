@@ -29,6 +29,8 @@
       "Submit:SignupError": "Error creating your account",
       "Submit:DeleteSuccessful": "Successfully deleted",
       "Submit:DeleteFailed": "Failed to delete",
+      "Submit:ThreadCreatedSuccess": "Thread was successfully created",
+      "Submit:ThreadCreatedFail": "Error while creating thread",
       "Login:Persist": "Remember me",
       "Menu:User": "User",
       "Menu:UserPreferences": "User Preferences",
@@ -65,6 +67,7 @@
       "GeneralBoards": "General Boards",
       "Replies": "Replies",
       "EmptyResults": "No results were found",
-      "NewThread": "Create new thread"
+      "NewThread": "Create new thread",
+      "Group": "Group"
   }
 }

@@ -1,6 +1,5 @@
 /* eslint-disable react/function-component-definition */
 import { useAppSelector } from "App/Hooks";
-import { RootState } from "App/Store";
 import Localize from "Components/Localize/Index";
 import { Skeleton } from "primereact/skeleton";
 import React from "react";
@@ -9,7 +8,7 @@ import { BoardTypes } from "Types/Enums";
 
 const Boards: React.FC = () => {
   const {data: boards, isLoading: loadingBoards} = useGetAllBoardsQuery()
-  const { userId } = useAppSelector((state: RootState) => state.session);
+  const { userId } = useAppSelector(state => state.session);
 
   return <div>
     <div>

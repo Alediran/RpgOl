@@ -47,7 +47,7 @@ const BoardCategories: React.FC = () => {
     setBoardInput(changedBoardInput)
   }
 
-  const bodyTemplate = (rowData: BoardCategoryDto, field: keyof(BoardCategoryDto)) => isLoading ? <Skeleton /> : <div>{rowData[field].toString()}</div>
+  const bodyTemplate = (rowData: BoardCategoryDto, field: keyof(BoardCategoryDto)) => isLoading ? <Skeleton /> : <div>{rowData[field]?.toString()}</div>
 
   const actionBodyTemplate = (rowData: BoardCategoryDto) => (
     isLoading ? <Skeleton /> : <Button icon={PrimeIcons.TRASH} className='p-button-rounded' onClick={() => boardConfirmDelete(rowData.id)}/>

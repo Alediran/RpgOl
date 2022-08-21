@@ -5,11 +5,13 @@ import api from 'Services';
 // Slices
 import sessionSlice from 'Features/sessionSlice';
 import notificationSlice from 'Features/notificationSlice';
+import gameSlice from 'Features/gameSlice';
 
 const store = configureStore({
   reducer: {
     session: sessionSlice,
     notification: notificationSlice,
+    game: gameSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
