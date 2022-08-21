@@ -23,7 +23,7 @@ namespace RpgOl.Boards
         public async Task<BoardDto> CreateAsync(CreateBoardDto input, CancellationToken cancellationToken = default)
         {
             try
-            {
+            {   
                 var entity = ObjectMapper.Map<CreateBoardDto, Board>(input);
 
                 input.BoardCategories.ForEach(async (category) =>
@@ -54,14 +54,14 @@ namespace RpgOl.Boards
 
         public async Task<IList<BoardDto>> GetListAsync()
         {
-            return ObjectMapper.Map<IList<Board>, IList<BoardDto>>(await _boardRepository.GetAll(CurrentUser.Id.Value));
+            return ObjectMapper.Map<IList<Board>, IList<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id.Value));
         }
 
         public async Task<PagedResultDto<BoardDto>> GetPagedBoardsAsync(GetBoardInput input, CancellationToken cancellationToken = default)
         {
             try
             {
-                var items = await _boardRepository.GetAll(CurrentUser.Id.Value, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
+                var items = await _boardRepository.GetAllAsync(CurrentUser.Id.Value, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
 
                 return new PagedResultDto<BoardDto>
                 {
