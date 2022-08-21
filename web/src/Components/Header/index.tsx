@@ -23,7 +23,11 @@ const Header: React.FC<Props> = ({}) => {
     if (userId) getUserDetails(userId)
   }, [getUserDetails, userId])
 
-  const menu: Array<MenuItem> = []
+  const menu: Array<MenuItem> = [
+    {
+      label: 'TestMenu'
+    }
+  ]
 
   const userMenu: Array<MenuItem> = [
     { 

@@ -16,3 +16,16 @@ code {
   font-size: larger;
   font-weight: bold;
 }
+
+.header {
+  border: 1px solid black;
+}
+
+.container {
+  border-bottom: 1px solid black;
+}
+.row {
+  text-align: left;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}

@@ -55,7 +55,7 @@ const BoardCategories: React.FC = () => {
 
   return <div>
     <Toolbar className="mb-4" 
-      left={<Button icon={PrimeIcons.PLUS} label='Add Category' title='Add Category' type='button' onClick={() => setShowCreateCategory(true)}/>} 
+      right={<Button icon={PrimeIcons.PLUS} label='Add Category' title='Add Category' type='button' onClick={() => setShowCreateCategory(true)}/>} 
     />
     <DataTable lazy value={boardCategories?.items} totalRecords={boardCategories?.totalCount}
       onSort={onPageSort}
