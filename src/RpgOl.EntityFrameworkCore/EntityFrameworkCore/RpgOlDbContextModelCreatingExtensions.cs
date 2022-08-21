@@ -36,7 +36,7 @@ namespace RpgOl.EntityFrameworkCore
             builder.Entity<Group>(e =>
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Group));
-                e.ConfigureByConvention();
+                e.ConfigureByConvention();                
             });
 
             builder.Entity<Thread>(e =>
@@ -48,7 +48,9 @@ namespace RpgOl.EntityFrameworkCore
             builder.Entity<Character>(e =>
             {
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Character));
-                e.ConfigureByConvention();                
+                e.ConfigureByConvention();
+
+                e.HasMany(t => t.Groups).WithMany(t => t.Characters);
             });
 
             builder.Entity<Post>(e =>

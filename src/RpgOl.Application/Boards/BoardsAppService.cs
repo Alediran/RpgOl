@@ -52,9 +52,9 @@ namespace RpgOl.Boards
             return ObjectMapper.Map<Board, BoardDto>(await _boardRepository.GetAsync(id, true, cancellationToken));
         }
 
-        public async Task<IList<BoardDto>> GetListAsync()
+        public async Task<List<BoardDto>> GetListAsync()
         {
-            return ObjectMapper.Map<IList<Board>, IList<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id.Value));
+            return ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id.Value));
         }
 
         public async Task<PagedResultDto<BoardDto>> GetPagedBoardsAsync(GetBoardInput input, CancellationToken cancellationToken = default)

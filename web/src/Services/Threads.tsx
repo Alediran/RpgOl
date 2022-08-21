@@ -3,7 +3,7 @@ import { CreateThreadDto, ThreadDto } from 'Types/Thread';
 
 export const threadsApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getByBoardId: build.query<Array<ThreadDto>, string>({
+    getByBoardId: build.query<Array<ThreadDto>, string | undefined>({
       query: (boardId) => `threads?boardId=${boardId}`
     }),
 

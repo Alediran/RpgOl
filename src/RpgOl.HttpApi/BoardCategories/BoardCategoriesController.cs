@@ -26,7 +26,7 @@ namespace RpgOl.BoardCategories
 
         [HttpGet]
         [Route("all")]
-        public async Task<IList<BoardCategoryDto>> GetBoardCategoriesAsync()
+        public async Task<List<BoardCategoryDto>> GetBoardCategoriesAsync()
         {
             return await _boardCategoriesAppService.GetBoardCategoriesAsync();
         }

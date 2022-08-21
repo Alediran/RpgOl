@@ -5,7 +5,7 @@ import FilteredPagedAndSortedRequestDto from "Types/Output/FilteredPagedAndSorte
 
 export const boardsApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getBoardById: build.query<BoardDto, string>({
+    getBoardById: build.query<BoardDto, string | undefined>({
       query: (id) => `boards/${id}`,
     }),
     getAllBoards: build.query<Array<BoardDto>, void>({
@@ -43,4 +43,7 @@ export const boardsApi = api.injectEndpoints({
   })
 })
 
-export const { useGetBoardByIdQuery} = boardsApi
+export const { 
+  useGetBoardByIdQuery,
+  useGetAllBoardsQuery
+} = boardsApi

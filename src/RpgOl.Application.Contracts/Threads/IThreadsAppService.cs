@@ -8,7 +8,7 @@ namespace RpgOl.Threads
 {
     public interface IThreadsAppService : IApplicationService
     {
-        Task<IList<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default);
+        Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default);
 
         Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default);
     }

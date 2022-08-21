@@ -2,8 +2,6 @@
 using RpgOl.Controllers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -30,7 +28,7 @@ namespace RpgOl.Threads
         }
 
         [HttpGet]
-        public async Task<IList<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
+        public async Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
         {
             return await _threadsAppService.GetListAsync(boardId, cancellationToken);
         }

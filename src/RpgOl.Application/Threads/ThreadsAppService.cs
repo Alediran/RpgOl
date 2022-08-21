@@ -7,9 +7,9 @@ namespace RpgOl.Threads
 {
     public class ThreadsAppService : RpgOlAppService, IThreadsAppService
     {
-        private readonly IThreadsRepository _threadsRepository;
+        private readonly IThreadRepository _threadsRepository;
 
-        public ThreadsAppService(IThreadsRepository threadsRepository)
+        public ThreadsAppService(IThreadRepository threadsRepository)
         {
             _threadsRepository = threadsRepository;
         }
@@ -22,9 +22,9 @@ namespace RpgOl.Threads
 
         }
 
-        public async Task<IList<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
+        public async Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
         {
-            return ObjectMapper.Map<IList<Thread>, IList<ThreadDto>>(await _threadsRepository.GetAll(boardId));
+            return ObjectMapper.Map<List<Thread>, List<ThreadDto>>(await _threadsRepository.GetAll(boardId));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace RpgOl.BoardCategories
 {
     public interface IBoardCategoriesAppService : IApplicationService
     {
-        Task<IList<BoardCategoryDto>> GetBoardCategoriesAsync();
+        Task<List<BoardCategoryDto>> GetBoardCategoriesAsync();
         Task<PagedResultDto<BoardCategoryDto>> GetPagedBoardCategoriesAsync(GetBoardCategoryInput input);
         Task<BoardCategoryDto> CreateAsync(CreateBoardCategoryDto input, CancellationToken cancellationToken = default);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);

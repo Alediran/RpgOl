@@ -5,7 +5,7 @@ import store from 'App/Store';
 import { Provider } from 'react-redux';
 import { AuthProvider } from 'react-oidc-context';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+import './index.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

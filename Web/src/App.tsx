@@ -5,6 +5,7 @@ import { useAuth } from 'react-oidc-context';
 // Elements
 import { Toast } from 'primereact/toast';
 import Header from 'Components/Header';
+import { SessionTokenDto } from 'Types/Authentication';
 
 // Style
 import 'primeicons/primeicons.css';
@@ -12,12 +13,12 @@ import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
 import './App.css';
-import { SessionTokenDto } from 'Types/Authentication';
 
 // Pages
 import Home from 'Pages/Home';
 import Admin from 'Pages/Admin';
 import BoardCategories from 'Pages/Admin/Components/BoardCategories';
+import Game from 'Pages/Game';
 
 // Events
 import { dismissToast } from 'Features/notificationSlice';
@@ -82,6 +83,7 @@ function App() {
           <Route path="admin" element={<Admin />} >
             <Route path="categories" element={<BoardCategories />} />
           </Route>
+          <Route path='game/:id' element={<Game />} />
         </Routes>
       </BrowserRouter>
       <Toast 

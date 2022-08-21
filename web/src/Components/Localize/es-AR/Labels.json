@@ -59,6 +59,12 @@
       "AreYouSure": "Está seguro que desea continuar?",
       "Showing": "Mostrando",
       "To": "A",
-      "Of": "De"
+      "Of": "De",
+      "GamesYouOwn": "Tus juegos",
+      "GamesYouPlay": "Juegos en los que participas",
+      "GeneralBoards": "Tableros Públicos",
+      "Replies": "Respuestas",
+      "EmptyResults": "No se encontraron resultados",
+      "NewThread": "Crear nuevo hilo"
   }
 }

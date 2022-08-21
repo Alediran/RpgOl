@@ -9,21 +9,22 @@ import { Button } from 'primereact/button';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toolbar } from 'primereact/toolbar';
 import Localize from 'Components/Localize/Index';
-import { BoardCategoryDto, BoardCategoryInput } from 'Types/BoardCategories';
+import { BoardCategoryDto } from 'Types/BoardCategories';
 import { showToast } from 'Features/notificationSlice';
 import { NotificationSeverity } from 'Types/Enums';
 import { useAppDispatch } from 'App/Hooks';
+import PagedAndSortedRequestDto from 'Types/Output/PagedAndSortedRequestDto';
 import BoardCategoriesAddDialog from '../BoardCategoriesAddDialog';
 import styles from './index.module.css';
 
 
 
-const BoardCategories: React.FC<{}> = ({}) => {  
+const BoardCategories: React.FC = () => {  
   const [showCreateCategory, setShowCreateCategory] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedId, setSelectedId] = useState('');
   const dispatch = useAppDispatch();
-  const [boardInput, setBoardInput] = useState<BoardCategoryInput>({sortField: 'name', sortOrder: 1, skipCount: 0, maxResultCount: 10})
+  const [boardInput, setBoardInput] = useState<PagedAndSortedRequestDto>({sortField: 'name', sortOrder: 1, skipCount: 0, maxResultCount: 10})
   
   const {data: boardCategories, isLoading, isFetching } = useGetPagedSortedQuery(boardInput);
   const [deleteCategory] = useDeleteMutation();
@@ -35,7 +36,7 @@ const BoardCategories: React.FC<{}> = ({}) => {
   }
 
   const onPageSort = (e: DataTablePFSEvent) => {
-    const changedBoardInput: BoardCategoryInput = {
+    const changedBoardInput: PagedAndSortedRequestDto = {
       ...boardInput,
       skipCount: e.first,
       maxResultCount: e.rows,
@@ -43,7 +44,6 @@ const BoardCategories: React.FC<{}> = ({}) => {
       sortOrder: e.sortOrder
     };
 
-    console.log("Board input", changedBoardInput);
     setBoardInput(changedBoardInput)
   }
 

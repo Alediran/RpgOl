@@ -59,6 +59,12 @@
       "AreYouSure": "Are you sure you want to proceeed?",
       "Showing": "Showing",
       "To": "To",
-      "Of": "Of"
+      "Of": "Of",
+      "GamesYouOwn": "Games you own",
+      "GamesYouPlay": "Games you play in",
+      "GeneralBoards": "General Boards",
+      "Replies": "Replies",
+      "EmptyResults": "No results were found",
+      "NewThread": "Create new thread"
   }
 }
