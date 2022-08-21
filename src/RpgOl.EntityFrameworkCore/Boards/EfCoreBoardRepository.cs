@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RpgOl.EntityFrameworkCore;
 using RpgOl.Enums;
+using RpgOl.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace RpgOl.Boards
         {
             var dbContext = await GetDbContextAsync();
 
-            var query = (await GetDbSetAsync())
+            var query = (await GetQueryableAsync())
                 .Include(q => q.Characters.Where(q => q.UserId == userId))
                 .Where(q => q.Type == BoardType.General ||
                     (q.Type == BoardType.Game && q.CreatorId == userId) ||
@@ -39,6 +40,12 @@ namespace RpgOl.Boards
                 return await query.PageBy(skipCount, maxResultCount).ToListAsync();
 
             return await query.ToListAsync();
-        }        
+        }
+
+        public override async Task<IQueryable<Board>> WithDetailsAsync()
+        {
+            // Uses the extension method defined above
+            return (await GetQueryableAsync()).IncludeDetails(true);
+        }
     }
 }

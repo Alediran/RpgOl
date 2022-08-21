@@ -49,7 +49,14 @@ namespace RpgOl.Boards
 
         public async Task<BoardDto> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return ObjectMapper.Map<Board, BoardDto>(await _boardRepository.GetAsync(id, true, cancellationToken));
+            try
+            {
+                return ObjectMapper.Map<Board, BoardDto>(await _boardRepository.GetAsync(id, true, cancellationToken));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<BoardDto>> GetListAsync()

@@ -1,5 +1,6 @@
 ﻿using RpgOl.BoardCategories;
 using RpgOl.Enums;
+using RpgOl.Groups;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace RpgOl.Boards
         public BoardType Type { get; set; }
         public GameSystem GameSystem { get; set; }
         public List<BoardCategoryDto> BoardCategories { get; set; }
-
+        public List<GroupDto> Groups { get; set; }
         public BoardDto()
         {
             BoardCategories = new();
