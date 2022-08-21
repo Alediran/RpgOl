@@ -16,10 +16,16 @@ namespace RpgOl.Threads
 
         public async Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default)
         {
-            var entity = ObjectMapper.Map<CreateThreadDto, Thread>(input);
+            try
+            {
+                var entity = ObjectMapper.Map<CreateThreadDto, Thread>(input);
 
-            return ObjectMapper.Map<Thread, ThreadDto>(await _threadsRepository.InsertAsync(entity, cancellationToken: cancellationToken));
-
+                return ObjectMapper.Map<Thread, ThreadDto>(await _threadsRepository.InsertAsync(entity, cancellationToken: cancellationToken));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)

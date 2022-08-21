@@ -9,8 +9,12 @@ namespace RpgOl.Threads
         {
             CreateMap<Thread, ThreadDto>();
 
-            CreateMap<UpdateThreadDto, Thread>()
+            CreateMap<CreateThreadDto, Thread>()
                 .IgnoreFullAuditedObjectProperties();
+
+            CreateMap<UpdateThreadDto, Thread>()
+                .IgnoreFullAuditedObjectProperties()
+                .Ignore(x => x.Id);
         }
     }
 }

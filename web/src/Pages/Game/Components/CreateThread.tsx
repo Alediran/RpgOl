@@ -16,7 +16,7 @@ const CreateThread: React.FC<Props> = ({boardId}) => {
   const [newThread, setNewThread] = useState<CreateThreadDto>({
     name: '',
     boardId,
-    groupId: ''
+    groupId: '32625139-7fac-a47f-2f7d-3a058cb12f2b'
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -34,7 +34,7 @@ const Threads: React.FC<Props> = ({id, title}) => {
     } />
     <DataTable value={threads} responsiveLayout="scroll" emptyMessage={Localize.EmptyResults}>
       <Column header={Localize.Title} field='name' />
-      <Column header={Localize.Replies} />
+      <Column header={Localize.Replies} field='posts.length' />
     </DataTable>
     <Dialog header={Localize.NewThread} visible={threadModal} onHide={() => setThreadModal(false)}>
       <CreateThread boardId={id} />
