@@ -1,7 +1,7 @@
 import FullAuditedEntityDto from "Types/Base/FullAuditedEntityDto";
+import NamedDto from "./Base/NamedDto";
 
-export interface CreateBoardCategoryDto {
-  name: string;
+export interface CreateBoardCategoryDto extends NamedDto {
   description: string;
 }
 

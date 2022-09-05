@@ -31,6 +31,8 @@
       "Submit:SignupError": "Error creando tu cuenta",
       "Submit:ThreadCreatedSuccess": "Hilo creado exitosamente",
       "Submit:ThreadCreatedFail": "Error creando hilo",
+      "Submit:BoardCreatedSuccess": "Juego creado exitosamente",
+      "Submit:BoardCreatedFail": "Error al crear juego",
       "Login:Persist": "Recordarme",
       "Menu:User": "Usuario",
       "Menu:UserPreferences": "Preferencias de usuario",
@@ -68,6 +70,16 @@
       "Replies": "Respuestas",
       "EmptyResults": "No se encontraron resultados",
       "NewThread": "Crear nuevo hilo",
-      "Group": "Grupo"
+      "Group": "Grupo",
+      "Show": "Mostrar",
+      "Profile": "Perfil",
+      "Menu:Home": "Inicio",
+      "GameName": "Nombre del juego",
+      "GameSystem": "Sistema",
+      "DungeonsAndDragons": "Calabozos y Dragones",
+      "Exalted": "Exalted",
+      "OldWorldOfDarkness": "Viejo Mundo de Tinieblas",
+      "NewWorldOfDarkness": "Nuevo Mundo de Tinieblas",
+      "CreateGame": "Crear juego"
   }
 }

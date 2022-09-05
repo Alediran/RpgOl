@@ -12,8 +12,8 @@ export enum BoardTypes {
 }
 
 export enum GameSystem {
-  DungeonsAndDragons,
-  Exalted,
-  OldWorldOfDarkness,
-  NewWorldOfDarkness
+  DungeonsAndDragons = 0,
+  Exalted = 1,
+  OldWorldOfDarkness = 2,
+  NewWorldOfDarkness = 3
 }

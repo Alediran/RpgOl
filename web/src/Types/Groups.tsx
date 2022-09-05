@@ -1,7 +1,7 @@
 import EntityDto from "./Base/EntityDto";
+import NamedDto from "./Base/NamedDto";
 
-export interface CreateGroupDto {
-  name: string;
+export interface CreateGroupDto extends NamedDto {
   boardId: string;
 }
 

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuth } from 'react-oidc-context';
 
 // Elements
 import { Toast } from 'primereact/toast';
+import { Sidebar } from 'primereact/sidebar';
 import Header from 'Components/Header';
 import { SessionTokenDto } from 'Types/Authentication';
 
@@ -12,7 +13,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
-import './App.css';
+import './App.scss';
 
 // Pages
 import Home from 'Pages/Home';
@@ -23,12 +24,17 @@ import Game from 'Pages/Game';
 // Events
 import { dismissToast } from 'Features/notificationSlice';
 import { useAppDispatch, useAppSelector } from 'App/Hooks';
+import { setShowCreateGameSidePanel } from 'Features/gameSlice';
+import CreateGame from 'Components/CreateGame';
 
 function App() {
   const {activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user} = useAuth();
-  const toast = useRef<Toast>(null);
   const { detail, isOpen, position, severity, summary} = useAppSelector(state => state.notification);
+  const {showCreateGameSidePanel} = useAppSelector(state => state.game);
+
   const dispatch = useAppDispatch();
+  
+  const toast = useRef<Toast>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token-oidc');
@@ -75,21 +81,25 @@ function App() {
   }  
 
   return (
-    <div className="App">  
-      <Header />    
+    <div className="App"> 
       <BrowserRouter>
-        <Routes>      
-          <Route path="/" element={<Home />} />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />            
           <Route path="admin" element={<Admin />} >
             <Route path="categories" element={<BoardCategories />} />
           </Route>
           <Route path='game/:id' element={<Game />} />
         </Routes>
-      </BrowserRouter>
-      <Toast 
-        ref={toast} 
-        onHide={() => dispatch(dismissToast())} 
-        position={position}/>
+        <Sidebar visible={showCreateGameSidePanel} position="right" onHide={() => dispatch(setShowCreateGameSidePanel(false))}>
+          <CreateGame />
+        </Sidebar>        
+        <Toast 
+          ref={toast} 
+          onHide={() => dispatch(dismissToast())} 
+          position={position}
+        />
+      </BrowserRouter>      
     </div>
   );
 }

@@ -31,6 +31,8 @@
       "Submit:DeleteFailed": "Failed to delete",
       "Submit:ThreadCreatedSuccess": "Thread was successfully created",
       "Submit:ThreadCreatedFail": "Error while creating thread",
+      "Submit:BoardCreatedSuccess": "Game successfully created",
+      "Submit:BoardCreatedFail": "Error while creating game",
       "Login:Persist": "Remember me",
       "Menu:User": "User",
       "Menu:UserPreferences": "User Preferences",
@@ -68,6 +70,16 @@
       "Replies": "Replies",
       "EmptyResults": "No results were found",
       "NewThread": "Create new thread",
-      "Group": "Group"
+      "Group": "Group",
+      "Show": "Show",
+      "Profile": "Profile",
+      "Menu:Home": "Home",
+      "GameName": "Game Name",
+      "GameSystem": "Game System",
+      "DungeonsAndDragons": "Dungeons & Dragons",
+      "Exalted": "Exalted",
+      "OldWorldOfDarkness": "Old World of Darkness",
+      "NewWorldOfDarkness": "New World of Darkness",
+      "CreateGame": "Create Game"
   }
 }

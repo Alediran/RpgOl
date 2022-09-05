@@ -1,8 +1,8 @@
 import EntityDto from "./Base/EntityDto";
 import FullAuditedEntityDto from "./Base/FullAuditedEntityDto";
+import NamedDto from "./Base/NamedDto";
 
-export interface CreateThreadDto {
-  name: string;
+export interface CreateThreadDto extends NamedDto {
   boardId: string;
   groupId: string;
 }
