@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import React from "react";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 interface LeftLabelInputProps {
   name: string;

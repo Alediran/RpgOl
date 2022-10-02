@@ -80,6 +80,9 @@
       "Exalted": "Exalted",
       "OldWorldOfDarkness": "Viejo Mundo de Tinieblas",
       "NewWorldOfDarkness": "Nuevo Mundo de Tinieblas",
-      "CreateGame": "Crear juego"
+      "CreateGame": "Crear juego",
+      "Configuration": "Configuración",
+      "GameMaster": "Maestro del juego",
+      "Characters": "Personajes"
   }
 }

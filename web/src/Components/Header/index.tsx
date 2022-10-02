@@ -20,6 +20,7 @@ const Header: React.FC = () => {
   const menuRef = useRef<Menu>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { model } = useAppSelector(state => state.speedDial);  
   
   useEffect(() => {
     if (userId) getUserDetails(userId)
@@ -30,10 +31,6 @@ const Header: React.FC = () => {
       label: Localize["Menu:Home"],
       command: () => navigate('/')
     },
-    {
-      label: Localize.CreateNewGame,
-      command: () => dispatch(setShowCreateGameSidePanel(true))
-    }
   ]
 
   const userMenu: Array<MenuItem> = [
@@ -49,7 +46,7 @@ const Header: React.FC = () => {
     }
   ]
 
-  return <Menubar model={menu} 
+  return <Menubar model={model ? menu.concat(model) : menu} 
     end={isAuthenticated ? 
       <>
         <Menu model={userMenu} popup ref={menuRef} />

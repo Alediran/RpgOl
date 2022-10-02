@@ -6,12 +6,14 @@ import api from 'Services';
 import sessionSlice from 'Features/sessionSlice';
 import notificationSlice from 'Features/notificationSlice';
 import gameSlice from 'Features/gameSlice';
+import speedDialSlice from 'Features/speedDialSlice';
 
 const store = configureStore({
   reducer: {
     session: sessionSlice,
     notification: notificationSlice,
     game: gameSlice,
+    speedDial: speedDialSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -8,6 +8,7 @@ import React, { useRef } from "react";
 interface ActionMenuProps {
   items: Array<MenuItem>;
 }
+
 const ActionMenu: React.FC<ActionMenuProps> = ({items}) => {
   const menu = useRef<Menu>(null);
 

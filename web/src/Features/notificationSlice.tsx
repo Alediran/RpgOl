@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ToastPositionType } from "primereact/toast";
+import { ToastPositionType, ToastSeverityType } from "primereact/toast";
 import { NotificationSeverity } from "Types/Enums";
 
 interface NotificationState {
-  severity: NotificationSeverity;
+  severity?: ToastSeverityType;
   summary: string;
   detail: string;
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface NotificationState {
 }
 
 interface ShowToastParams {
-  severity: NotificationSeverity;
+  severity?: ToastSeverityType;
   summary: string;
   detail: string;
   position?: ToastPositionType;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuth } from 'react-oidc-context';
 
@@ -6,7 +6,21 @@ import { useAuth } from 'react-oidc-context';
 import { Toast } from 'primereact/toast';
 import { Sidebar } from 'primereact/sidebar';
 import Header from 'Components/Header';
+import CreateGame from 'Components/CreateGame';
 import { SessionTokenDto } from 'Types/Authentication';
+
+// Events
+import { useAppDispatch, useAppSelector } from 'App/Hooks';
+import { dismissToast } from 'Features/notificationSlice';
+import { setShowCreateGameSidePanel } from 'Features/gameSlice';
+
+// Pages
+import Home from 'Pages/Home';
+import Admin from 'Pages/Admin';
+import BoardCategories from 'Pages/Admin/Components/BoardCategories';
+import Game from 'Pages/Game';
+import Characters from 'Pages/Game/Components/Characters';
+import GameConfiguration from 'Pages/Game/Components/Configuration';
 
 // Style
 import 'primeicons/primeicons.css';
@@ -15,23 +29,11 @@ import 'primereact/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
 
-// Pages
-import Home from 'Pages/Home';
-import Admin from 'Pages/Admin';
-import BoardCategories from 'Pages/Admin/Components/BoardCategories';
-import Game from 'Pages/Game';
-
-// Events
-import { dismissToast } from 'Features/notificationSlice';
-import { useAppDispatch, useAppSelector } from 'App/Hooks';
-import { setShowCreateGameSidePanel } from 'Features/gameSlice';
-import CreateGame from 'Components/CreateGame';
-
 function App() {
-  const {activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user} = useAuth();
-  const { detail, isOpen, position, severity, summary} = useAppSelector(state => state.notification);
-  const {showCreateGameSidePanel} = useAppSelector(state => state.game);
-
+  const { activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user } = useAuth();
+  const { detail, isOpen, position, severity, summary } = useAppSelector(state => state.notification);
+  const { showCreateGameSidePanel } = useAppSelector(state => state.game);
+  
   const dispatch = useAppDispatch();
   
   const toast = useRef<Toast>(null);
@@ -61,8 +63,7 @@ function App() {
       else toast.current.clear()
     }
   }, [detail, isOpen, severity, summary])
-
-
+  
   switch (activeNavigator) {
     case "signinSilent":
       return <div>Signing you in...</div>;
@@ -89,16 +90,15 @@ function App() {
           <Route path="admin" element={<Admin />} >
             <Route path="categories" element={<BoardCategories />} />
           </Route>
-          <Route path='game/:id' element={<Game />} />
+          <Route path='game/:id' element={<Game />}>
+            <Route path='characters' element={<Characters />} />
+            <Route path='configuration' element={<GameConfiguration />} />
+          </Route>          
         </Routes>
         <Sidebar visible={showCreateGameSidePanel} position="right" onHide={() => dispatch(setShowCreateGameSidePanel(false))}>
           <CreateGame />
-        </Sidebar>        
-        <Toast 
-          ref={toast} 
-          onHide={() => dispatch(dismissToast())} 
-          position={position}
-        />
+        </Sidebar>         
+        <Toast ref={toast} onHide={() => dispatch(dismissToast())} position={position} />
       </BrowserRouter>      
     </div>
   );

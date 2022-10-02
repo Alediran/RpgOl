@@ -80,6 +80,9 @@
       "Exalted": "Exalted",
       "OldWorldOfDarkness": "Old World of Darkness",
       "NewWorldOfDarkness": "New World of Darkness",
-      "CreateGame": "Create Game"
+      "CreateGame": "Create Game",
+      "Configuration": "Configuration",
+      "GameMaster": "Game Master",
+      "Characters": "Characters"
   }
 }

@@ -8,9 +8,8 @@ import Localize from "Components/Localize/Index";
 import BoardRow from "./BoardRow";
 
 const Boards: React.FC = () => {
-  const {data: boards, isLoading: loadingBoards} = useGetAllBoardsQuery()
-  const { user } = useAuth()
-  console.log("User ID is ", user);
+  const {data: boards, isLoading: loadingBoards} = useGetAllBoardsQuery();
+  const { user } = useAuth();  
 
   return <div className='flex'>
     <div className="col-6">
