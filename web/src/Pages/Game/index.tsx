@@ -1,7 +1,9 @@
 /* eslint-disable react/function-component-definition */
 import React, { useEffect } from "react";
 import { useNavigate, useParams, useOutlet } from "react-router-dom";
-import { MenuItem, PrimeIcons } from "primereact";
+import { MenuItem } from "primereact/menuitem";
+import { PrimeIcons } from "primereact/api";
+
 import { useAppDispatch } from "App/Hooks";
 import useIsGameMaster from "App/useIsGameMaster";
 import { setMenu } from "Features/speedDialSlice";
