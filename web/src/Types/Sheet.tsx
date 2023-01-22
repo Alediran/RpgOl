@@ -12,6 +12,7 @@ export enum StructureComponentType {
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 export type StructureComponentDirection = 'horizontal' | 'vertical';
+export type StructureLabelPosition = 'top' | 'left' | 'right' | 'bottom';
 
 export interface SheetBase {
   id: string;
@@ -22,6 +23,7 @@ export interface SheetBase {
 export interface StructureComponentOptions {
   direction?: StructureComponentDirection;
   verticalLabel?: boolean;
+  labelPosition?: StructureLabelPosition;
   size?: StructureComponentSize;
   boldLabel?: boolean;
 }
