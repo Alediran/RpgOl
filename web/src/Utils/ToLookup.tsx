@@ -1,9 +1,6 @@
 import Localize from "Components/Localize/Index";
-import EntityDto from "Types/Base/EntityDto";
-import NamedDto from "Types/Base/NamedDto";
+import { NamedEntity } from "Types/Base/Lookup";
 import LookupDto from "Types/Output/LookupDto";
-
-interface NamedEntity extends EntityDto, NamedDto {}
 
 export default function mapEnumToLookup<T>(enumToDeconstruct: T): Array<LookupDto> {  
   return (Object.keys(enumToDeconstruct)

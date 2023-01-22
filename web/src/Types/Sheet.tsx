@@ -1,4 +1,46 @@
 import { GameSystem } from "./Enums";
+import LookupDto from "./Output/LookupDto";
+
+
+const alignments: Array<LookupDto> = [
+  {
+    value: 'LG',
+    label: "Lawful Good"
+  },
+  {
+    value: 'NG',
+    label: "Neutral Good"
+  },
+  {
+    value: 'CG',
+    label: "Chaotic Good"
+  },
+  {
+    value: 'LN',
+    label: "Lawful Neutral"
+  },
+  {
+    value: 'TN',
+    label: "True Neutral"
+  },
+  {
+    value: 'CN',
+    label: "Chaotic Neutral"
+  },
+  {
+    value: 'LE',
+    label: "Lawful Evil"
+  },
+  {
+    value: 'NE',
+    label: "Neutral Evil"
+  },
+  {
+    value: 'CE',
+    label: "Chaotic Evil"
+  }
+]
+
 
 
 // Character Sheets Structure types
@@ -8,6 +50,7 @@ export enum StructureComponentType {
   NumberInput,
   CheckInput,
   Calculated,
+  DropDown,
 }
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
@@ -35,6 +78,7 @@ export interface StructureComponent {
   
   type: StructureComponentType;
   options: StructureComponentOptions;
+  values?: Array<LookupDto>;
   children?: Array<StructureComponent>;
 }
 
@@ -44,6 +88,7 @@ export const mockSheet: SheetBase = {
   structure: [{
     id: 'id-1',
     key: 'header',
+    label: 'Header',
     type: StructureComponentType.Region,
     options: {
       direction: 'horizontal',
@@ -71,7 +116,8 @@ export const mockSheet: SheetBase = {
         id: 'id-4' ,
         key: 'alignment',
         label: 'Alignment',
-        type: StructureComponentType.TextInput,
+        type: StructureComponentType.DropDown,
+        values: alignments,
         options: { size: '2'}
       },
       {
@@ -86,12 +132,3 @@ export const mockSheet: SheetBase = {
     ]
   }]
 }
-
-
-// Character Sheets attribute types
-export interface CharacterAtribute {
-  id: string;
-  key: string;
-  value: string | number
-}
-
