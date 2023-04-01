@@ -14,7 +14,7 @@ const TextInput: React.FC<SheetRendererComponentProps> = ({component, system}) =
 
   return <div className={`flex align-items-end col-${options.size ?? '4'} ${styles.leftAlign}`}>
     <label htmlFor={id} className={`pr-1 ${options.boldLabel ? 'font-bold' : ''} `}>{label}</label>
-    <InputText id={id} key={key} className={`w-full ${styles[GameSystem[system]]}`} value={value ?? ''} onChange={(e) => dispatch(updateAttribute({key, value: e.target.value}))} />     
+    <InputText id={id} key={key} className={`w-full ${styles[GameSystem[system]]}`} value={(value as string) ?? ''} onChange={(e) => dispatch(updateAttribute({key, value: e.target.value}))} />     
   </div>
 }
 

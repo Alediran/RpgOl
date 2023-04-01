@@ -1,4 +1,4 @@
-export default interface LookupDto {
+export default interface LookupDto<T> {
   label: string;
-  value: string | number;
+  value: T;
 }

@@ -2,7 +2,7 @@ import { GameSystem } from "./Enums";
 import LookupDto from "./Output/LookupDto";
 
 
-const alignments: Array<LookupDto> = [
+const alignments: Array<LookupDto<string>> = [
   {
     value: 'LG',
     label: "Lawful Good"
@@ -41,6 +41,53 @@ const alignments: Array<LookupDto> = [
   }
 ]
 
+const classes: Array<LookupDto<StructureLookupClassValue>> = [
+  {
+    value: {id: 'barb', maxLevel: 20},
+    label: 'Barbarian'
+  },
+  {
+    value: {id: 'bard', maxLevel: 20},
+    label: 'Bard'
+  },
+  {
+    value: {id: 'cler', maxLevel: 20},
+    label: 'Cleric'
+  },
+  {
+    value: {id: 'drud', maxLevel: 20},
+    label: 'Druid'
+  },
+  {
+    value: {id: 'fght', maxLevel: 20},
+    label: 'Fighter'
+  },
+  {
+    value: {id: 'monk', maxLevel: 20},
+    label: 'Monk'
+  },
+  {
+    value: {id: 'pldn', maxLevel: 20},
+    label: 'Paladin'
+  },
+  {
+    value: {id: 'rngr', maxLevel: 20},
+    label: 'Ranger'
+  },
+  {
+    value: {id: 'rogu', maxLevel: 20},
+    label: 'Rogue'
+  },
+  {
+    value: {id: 'sorc', maxLevel: 20},
+    label: 'Sorcerer'
+  },
+  {
+    value: {id: 'wzrd', maxLevel: 20},
+    label: 'Wizard'
+  },
+]
+
 
 
 // Character Sheets Structure types
@@ -51,11 +98,14 @@ export enum StructureComponentType {
   CheckInput,
   Calculated,
   DropDown,
+  Image,
+  MultiSelectPill
 }
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 export type StructureComponentDirection = 'horizontal' | 'vertical';
 export type StructureLabelPosition = 'top' | 'left' | 'right' | 'bottom';
+export type StructureLookupClassValue = {id: string, maxLevel: number};
 
 export interface SheetBase {
   id: string;
@@ -78,7 +128,7 @@ export interface StructureComponent {
   
   type: StructureComponentType;
   options: StructureComponentOptions;
-  values?: Array<LookupDto>;
+  values?: Array<LookupDto<string | number | StructureLookupClassValue>>;
   children?: Array<StructureComponent>;
 }
 
@@ -86,49 +136,91 @@ export const mockSheet: SheetBase = {
   id: 'id',
   system: GameSystem.DungeonsAndDragons,
   structure: [{
-    id: 'id-1',
-    key: 'header',
-    label: 'Header',
+    id: 'header-1',
+    key: 'firstRow',    
     type: StructureComponentType.Region,
     options: {
-      direction: 'horizontal',
-      size: '6'
+      size: '12'
     },
-    children: [
-      {
-        id: 'id-2',
-        key: 'name',
-        label: 'Name',
-        type: StructureComponentType.TextInput,
-        options: {
-          boldLabel: true,
-          size: '12'
+    children: [{
+      id: 'id-1',
+      key: 'header',
+      label: 'Header',
+      type: StructureComponentType.Region,
+      options: {
+        direction: 'horizontal',
+        size: '8'
+      },
+      children: [
+        {
+          id: 'id-2',
+          key: 'name',
+          label: 'Name',
+          type: StructureComponentType.TextInput,
+          options: {
+            boldLabel: true,
+            size: '12'
+          },
         },
-      },
-      {
-        id: 'id-3',
-        key: 'race',
-        label: 'Race',
-        type: StructureComponentType.TextInput,
-        options: {}
-      },
-      {
-        id: 'id-4' ,
-        key: 'alignment',
-        label: 'Alignment',
-        type: StructureComponentType.DropDown,
-        values: alignments,
-        options: { size: '2'}
-      },
-      {
-        id: 'id-5',
-        key: 'description',
-        label: 'Description',
-        type: StructureComponentType.TextInput,
-        options: { 
-          size: '12'
+        {
+          id: 'class-1',
+          key: 'classes',
+          label: 'Classes/Level',
+          type: StructureComponentType.MultiSelectPill,
+          values: classes,
+          options: { size: '8'}
+        },
+        {
+          id: 'charLevel',
+          key: 'charLevel',
+          label: 'Character Level',
+          type: StructureComponentType.Calculated,
+          options: { 
+            size: '4'
+          }
+        },
+        {
+          id: 'id-3',
+          key: 'race',
+          label: 'Race',
+          type: StructureComponentType.TextInput,
+          options: {}
+        },
+        {
+          id: 'id-4' ,
+          key: 'alignment',
+          label: 'Alignment',
+          type: StructureComponentType.DropDown,
+          values: alignments,
+          options: { size: '2'}
+        },
+        {
+          id: 'id-5',
+          key: 'description',
+          label: 'Description',
+          type: StructureComponentType.TextInput,
+          options: { 
+            size: '12'
+          }
         }
-      }
-    ]
-  }]
+      ]
+    },
+    {
+      id: 'id-2-1',
+      key: 'pictureArea',
+      type: StructureComponentType.Region,
+      options: {
+        size: '4'
+      },
+      children: [{
+        id: 'pic-1',
+        key: 'picture',
+        type: StructureComponentType.Image,
+        options: {}
+      }]
+    }]
+  }
+
+  
+  ]
 }

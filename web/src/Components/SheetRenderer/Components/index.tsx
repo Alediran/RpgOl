@@ -2,7 +2,10 @@
 import React from "react";
 import { GameSystem } from "Types/Enums";
 import { StructureComponent, StructureComponentType } from "Types/Sheet";
+import Calculated from "./Calculated";
 import DropDown from "./DropDown";
+import Image from "./Image";
+import MultiSelectPill from "./MultiSelectPill";
 import Region from "./Region";
 import TextInput from "./TextInput";
 
@@ -20,6 +23,12 @@ const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({componen
       return <TextInput component={component} system={system} />
     case StructureComponentType.DropDown:
       return <DropDown component={component} system={system} />
+    case StructureComponentType.Image:
+      return <Image component={component} system={system} />
+    case StructureComponentType.Calculated:
+      return <Calculated component={component} system={system} />
+    case StructureComponentType.MultiSelectPill:
+      return <MultiSelectPill component={component} system={system} />
     default:
       return <span />
   }

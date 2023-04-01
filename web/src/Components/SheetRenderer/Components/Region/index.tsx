@@ -5,7 +5,7 @@ import { StructureComponent, StructureComponentDirection, StructureComponentSize
 import SheetRendererComponent, { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
-const regionClass = (direction?: StructureComponentDirection, size?: StructureComponentSize, labelPosition?: StructureLabelPosition) => {
+const regionClass = (direction: StructureComponentDirection = 'horizontal', size?: StructureComponentSize, labelPosition?: StructureLabelPosition) => {
   let result = '';
   
   
@@ -24,12 +24,12 @@ const regionClass = (direction?: StructureComponentDirection, size?: StructureCo
   return result;
 }  
 
-const labelClass = (verticalLabel?: boolean, bold?: boolean, direction?: StructureComponentDirection) => {
+const labelClass = (verticalLabel?: boolean, bold?: boolean, direction: StructureComponentDirection = 'horizontal') => {
   let result = 'p-1';
 
   if (verticalLabel) result += ` ${styles.verticalLabel}`;
 
-  if (direction === 'horizontal') result += ' col-12';
+  if (!direction || direction === 'horizontal') result += ' col-12';
 
   if (bold) result += ' font-bold';
 
@@ -49,14 +49,13 @@ const renderChildren = (system: GameSystem, children?: Array<StructureComponent>
 const Region: React.FC<SheetRendererComponentProps> = ({component, system}) => {
   const {label, options, children} = component;
 
-  return <div className={regionClass(options.direction, options.size, options.labelPosition)} style={{border: '1px solid'}}>
+  return <div className={regionClass(options.direction, options.size, options.labelPosition)}>
     {label && <div className={labelClass(options.verticalLabel, options.boldLabel, options.direction)} style={{background: 'orange'}}>
       {label}
     </div>}
-    {options.direction === 'horizontal' && renderChildren(system, children)}
-    {options.direction === 'vertical' && <div className={subContainerClass(options.labelPosition)}>
+    {options.direction === 'vertical' ? <div className={subContainerClass(options.labelPosition)}>
       {renderChildren(system, children)}
-    </div>}
+    </div> : renderChildren(system, children)}    
   </div>
 }
 
