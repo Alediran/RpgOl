@@ -29,12 +29,12 @@ public class Program
 
         try
         {
-            Log.Information("Starting RpgOl.IdentityServer.");
+            Log.Information("Starting RpgOl.AuthServer.");
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
-            await builder.AddApplicationAsync<RpgOlIdentityServerModule>();
+            await builder.AddApplicationAsync<RpgOlAuthServerModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();
             await app.RunAsync();
@@ -42,7 +42,7 @@ public class Program
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "RpgOl.IdentityServer terminated unexpectedly!");
+            Log.Fatal(ex, "RpgOl.AuthServer terminated unexpectedly!");
             return 1;
         }
         finally

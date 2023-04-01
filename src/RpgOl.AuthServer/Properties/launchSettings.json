@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "RpgOl.IdentityServer": {
+    "RpgOl.AuthServer": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:44384",

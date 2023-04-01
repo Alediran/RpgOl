@@ -150,13 +150,14 @@ public class RpgOlWebModule : AbpModule
                 options.ClientId = configuration["AuthServer:ClientId"];
                 options.ClientSecret = configuration["AuthServer:ClientSecret"];
 
+                options.UsePkce = true; // Add this line
                 options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
 
-                options.Scope.Add("role");
+                options.Scope.Add("roles"); // Replace "role" with "roles"
                 options.Scope.Add("email");
                 options.Scope.Add("phone");
-                options.Scope.Add("RpgOl");
+                options.Scope.Add("MyApplication");
             });
     }
 
