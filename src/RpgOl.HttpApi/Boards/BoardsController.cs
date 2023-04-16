@@ -31,7 +31,7 @@ namespace RpgOl.Boards
 
         [HttpGet]
         [Route("all")]
-        public async Task<List<BoardDto>> GetListAsync()
+        public async Task<GroupedBoardsDto> GetListAsync()
         {
             return await _boardsAppService.GetListAsync();
         }

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 
 namespace RpgOl.Boards
 {
@@ -59,16 +58,21 @@ namespace RpgOl.Boards
             }
         }
 
-        public async Task<List<BoardDto>> GetListAsync()
+        public async Task<GroupedBoardsDto> GetListAsync()
         {
-            return ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id.Value));
+            return new()
+            {
+                OwnerBoards = ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetOwnedBoards(CurrentUser.Id)),
+                FollowedBoards = ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetFollowedBoards(CurrentUser.Id)),
+                GeneralBoards = ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetGeneralBoards())
+            };
         }
 
         public async Task<PagedResultDto<BoardDto>> GetPagedBoardsAsync(GetBoardInput input, CancellationToken cancellationToken = default)
         {
             try
             {
-                var items = await _boardRepository.GetAllAsync(CurrentUser.Id.Value, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
+                var items = await _boardRepository.GetAllAsync(CurrentUser.Id, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
 
                 return new PagedResultDto<BoardDto>
                 {
