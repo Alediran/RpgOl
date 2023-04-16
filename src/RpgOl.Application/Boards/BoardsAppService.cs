@@ -61,14 +61,14 @@ namespace RpgOl.Boards
 
         public async Task<List<BoardDto>> GetListAsync()
         {
-            return ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id.Value));
+            return ObjectMapper.Map<List<Board>, List<BoardDto>>(await _boardRepository.GetAllAsync(CurrentUser.Id));
         }
 
         public async Task<PagedResultDto<BoardDto>> GetPagedBoardsAsync(GetBoardInput input, CancellationToken cancellationToken = default)
         {
             try
             {
-                var items = await _boardRepository.GetAllAsync(CurrentUser.Id.Value, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
+                var items = await _boardRepository.GetAllAsync(CurrentUser.Id, input.SkipCount, input.MaxResultCount, input.Sorting, false, cancellationToken);
 
                 return new PagedResultDto<BoardDto>
                 {

@@ -20,20 +20,18 @@ namespace RpgOl.Boards
         {
         }
 
-        public async Task<List<Board>> GetAllAsync(Guid userId, 
+        public async Task<List<Board>> GetAllAsync(Guid? userId, 
             int skipCount = 0, 
             int maxResultCount = 0, 
             string sorting = null, 
             bool includeDetails = false, 
             CancellationToken cancellationToken = default)
         {
-            var dbContext = await GetDbContextAsync();
-
             var query = (await GetQueryableAsync())
-                .Include(q => q.Characters.Where(q => q.UserId == userId))
-                .Where(q => q.Type == BoardType.General ||
-                    (q.Type == BoardType.Game && q.CreatorId == userId) ||
-                    q.Characters.Count > 0)
+                .Where(
+                    q => q.Type == BoardType.General ||
+                    (q.Type == BoardType.Game && q.CreatorId == userId)
+                )
                 .OrderBy(sorting.IsNullOrWhiteSpace() ? nameof(Board.Name) : sorting);
 
             if (maxResultCount > 0)
