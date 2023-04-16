@@ -20,10 +20,10 @@ const sessionSlice = createSlice({
       ...state,
       userId: action.payload,
     }),
-    setToken: (state, action: PayloadAction<{access_token: string, token_type: string}>) => ({
+    setToken: (state, action: PayloadAction<{access_token?: string, token_type?: string}>) => ({
       ...state,
-      access_token: action.payload.access_token,
-      token_type: action.payload.token_type
+      access_token: action.payload.access_token ?? '',
+      token_type: action.payload.token_type ?? ''
     }),
   }
 })

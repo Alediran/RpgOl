@@ -1,123 +1,54 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useAuth, hasAuthParams } from 'react-oidc-context';
-
-// Elements
-import { Toast } from 'primereact/toast';
-import { Sidebar } from 'primereact/sidebar';
-import { SpeedDial } from 'primereact/speeddial';
-import Header from 'Components/Header';
-import CreateGame from 'Components/CreateGame';
+import React from 'react';
+import { AuthProvider } from 'react-oidc-context';
+import { User } from "oidc-client-ts";
+import { useAppDispatch } from 'App/Hooks';
 import { SessionTokenDto } from 'Types/Authentication';
-
-// Events
-import { useAppDispatch, useAppSelector } from 'App/Hooks';
-import { dismissToast } from 'src/Features/notificationSlice';
-import { setShowCreateGameSidePanel } from 'Features/gameSlice';
-
-// Pages
-import Home from 'Pages/Home';
-import Admin from 'Pages/Admin';
-import BoardCategories from 'src/Pages/Admin/Components/BoardCategories';
-import Game from 'Pages/Game';
-import Characters from 'Pages/Game/Components/Characters';
-import GameConfiguration from 'Pages/Game/Components/Configuration';
-
-// Style
+import { setToken } from 'Features/sessionSlice';
+import AppRoutes from 'AppRoutes';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
-import { setToken } from 'Features/sessionSlice';
-import { MenuItem } from 'primereact/menuitem';
-
 
 function App() {
-  const { activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user, signinRedirect } = useAuth();
-  const { detail, isOpen, position, severity, summary } = useAppSelector(state => state.notification);
-  const { showCreateGameSidePanel } = useAppSelector(state => state.game);
-  const [menu, setMenu] = useState<Array<MenuItem>>([]);
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();  
+
+  const onSigninCallback = (_user: User | void): void => {
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    )
   
-  
-  const toast = useRef<Toast>(null);
-
-  useEffect(() => {
-    if (!hasAuthParams() &&
-        !isAuthenticated && !activeNavigator && !authenticationLoading) {
-        signinRedirect();
+    const sessionToken: SessionTokenDto = {
+      access_token: (_user as User).access_token,
+      expires_at: (_user as User).expires_at,
+      id_token: (_user as User).id_token,
+      scope: (_user as User).scope,
+      session_state: (_user as User).session_state,
+      token_type: (_user as User).token_type,
+      expired: (_user as User).expired,
+      expires_in: (_user as User).expires_in
     }
-  }, [isAuthenticated, activeNavigator, authenticationLoading, signinRedirect]);
 
-  useEffect(() => {
-    if (user) {
-      dispatch(setToken({access_token: user.access_token, token_type:user.token_type}));
-    }
-  },[user, dispatch])
-
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      const sessionToken: SessionTokenDto = {
-        access_token: user.access_token,
-        expires_at: user.expires_at,
-        id_token: user.id_token,
-        scope: user.scope,
-        session_state: user.session_state,
-        token_type: user.token_type,
-        expired: user.expired,
-        expires_in: user.expires_in
-      }
-
-      dispatch(setToken(sessionToken));
-    }
-  }, [isAuthenticated, user, dispatch])
-
-  useEffect(() => {
-    if (toast.current) {
-      if (isOpen) toast.current.show({severity, summary, detail, life: 3000})
-      else toast.current.clear()
-    }
-  }, [detail, isOpen, severity, summary])
-  
-  switch (activeNavigator) {
-    case "signinSilent":
-      return <div>Signing you in...</div>;
-    case "signoutRedirect":
-      return <div>Signing you out...</div>;
-    default:
-      break;
+    dispatch(setToken(sessionToken));
   }
-
-  if (authenticationLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (authenticationError) {
-    return <div>Oops... {authenticationError.message}</div>;
-  }  
 
   return (
-    <div className="App"> 
-    <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home onSetMenu={setMenu}/>} />            
-          <Route path="admin" element={<Admin />} >
-            <Route path="categories" element={<BoardCategories />} />
-          </Route>
-          <Route path='game/:id' element={<Game onSetMenu={setMenu} />}>
-            <Route path='characters' element={<Characters />} />
-            <Route path='configuration' element={<GameConfiguration />} />
-          </Route>          
-        </Routes>
-        <Sidebar visible={showCreateGameSidePanel} position="right" onHide={() => dispatch(setShowCreateGameSidePanel(false))}>
-          <CreateGame />
-        </Sidebar>         
-        <Toast ref={toast} onHide={() => dispatch(dismissToast())} position={position} />
-        <SpeedDial model={menu} direction="up" style={{ left: 'calc(95%)', bottom: 'calc(2%)' }} visible={menu.length > 0} />
-      </BrowserRouter>      
-    </div>
+    <AuthProvider 
+      authority={import.meta.env.VITE_AUTHORITY} 
+      client_id={import.meta.env.VITE_CLIENT_ID} 
+      redirect_uri={import.meta.env.VITE_REDIRECT_URL} 
+      automaticSilentRenew={true}
+      scope='RpgOl' 
+      post_logout_redirect_uri={import.meta.env.VITE_REDIRECT_URL}
+      onSigninCallback={onSigninCallback}
+    >
+      <div className="App"> 
+        <AppRoutes />
+      </div>
+    </AuthProvider>
   );
 }
 
