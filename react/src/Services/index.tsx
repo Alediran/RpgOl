@@ -13,8 +13,7 @@ const api = createApi({
 		prepareHeaders: async (headers, {getState}) => {
 
 			const tokenString = (getState() as RootState).session;
-
-			console.log(tokenString)
+			
 			if (tokenString) {				
 				headers.set('authorization', `${tokenString?.token_type} ${tokenString.access_token}`);
 			}

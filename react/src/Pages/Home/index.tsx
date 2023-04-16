@@ -2,25 +2,28 @@
 import React, { useEffect } from "react";
 import { MenuItem } from "primereact/menuitem";
 import { useAppDispatch } from "App/Hooks";
-import useSpeedDial from "App/useSpeedDial";
 import { setShowCreateGameSidePanel } from "Features/gameSlice";
 import Localize from "Components/Localize/Index";
 import Boards from "./Components/Boards";
+import { PrimeIcons } from "primereact/api";
+import ISpeedMenu from "Interfaces/ISpeedMenu";
 
+interface Props extends ISpeedMenu {
+  
+}
 
-const Home: React.FC = () => {
+const Home: React.FC<Props> = ({onSetMenu}) => {
   const dispatch = useAppDispatch();
-  const {setMenu} = useSpeedDial();
   
   useEffect(() => {       
     
     const menu: Array<MenuItem> = [{
+      icon: PrimeIcons.PLUS_CIRCLE,
       label: Localize.CreateNewGame,
       command: () => dispatch(setShowCreateGameSidePanel(true))
     }]
-
-    console.log(menu)
-    setMenu(menu);
+    
+    onSetMenu(menu);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   

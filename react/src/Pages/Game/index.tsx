@@ -9,14 +9,18 @@ import ErrorHandling from "Components/ErrorHandling";
 import Localize from "Components/Localize/Index";
 import { useGetBoardByIdQuery } from "Services/Boards";
 import Threads from "./Components/Threads";
-import useSpeedDial from "App/useSpeedDial";
+import ISpeedMenu from "Interfaces/ISpeedMenu";
 
-const Game: React.FC = () => {
+interface Props extends ISpeedMenu {
+
+}
+
+
+const Game: React.FC<Props> = ({onSetMenu}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const outlet = useOutlet();  
   const [isGameMaster] = useIsGameMaster();
-  const {setMenu} = useSpeedDial();
   const { data: board, isLoading: boardLoading, isError: boardError, error } = useGetBoardByIdQuery(id);
   
   useEffect(() => {
@@ -36,7 +40,7 @@ const Game: React.FC = () => {
         {label: Localize.Characters, command: () => navigate('characters')},
       ]
       
-      setMenu(isGameMaster() ? menu.concat(masterMenu) : menu);
+      onSetMenu(isGameMaster() ? menu.concat(masterMenu) : menu);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuth, hasAuthParams } from 'react-oidc-context';
 
@@ -30,14 +30,16 @@ import 'primereact/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
 import { setToken } from 'Features/sessionSlice';
-import useSpeedDial from 'App/useSpeedDial';
+import { MenuItem } from 'primereact/menuitem';
+
 
 function App() {
   const { activeNavigator, isLoading: authenticationLoading, error: authenticationError, isAuthenticated, user, signinRedirect } = useAuth();
   const { detail, isOpen, position, severity, summary } = useAppSelector(state => state.notification);
   const { showCreateGameSidePanel } = useAppSelector(state => state.game);
-  const { model } = useSpeedDial();
+  const [menu, setMenu] = useState<Array<MenuItem>>([]);
   const dispatch = useAppDispatch();
+  
   
   const toast = useRef<Toast>(null);
 
@@ -67,10 +69,9 @@ function App() {
         expires_in: user.expires_in
       }
 
-      console.log("Storing the token ", sessionToken)
-     // dispatch(setToken(sessionToken));
+      dispatch(setToken(sessionToken));
     }
-  }, [isAuthenticated, user])
+  }, [isAuthenticated, user, dispatch])
 
   useEffect(() => {
     if (toast.current) {
@@ -98,14 +99,14 @@ function App() {
 
   return (
     <div className="App"> 
-      <BrowserRouter>
+    <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />            
+          <Route path="/" element={<Home onSetMenu={setMenu}/>} />            
           <Route path="admin" element={<Admin />} >
             <Route path="categories" element={<BoardCategories />} />
           </Route>
-          <Route path='game/:id' element={<Game />}>
+          <Route path='game/:id' element={<Game onSetMenu={setMenu} />}>
             <Route path='characters' element={<Characters />} />
             <Route path='configuration' element={<GameConfiguration />} />
           </Route>          
@@ -114,7 +115,7 @@ function App() {
           <CreateGame />
         </Sidebar>         
         <Toast ref={toast} onHide={() => dispatch(dismissToast())} position={position} />
-        <SpeedDial model={model} direction="up" style={{ left: 'calc(50% - 2rem)', bottom: 0 }} />
+        <SpeedDial model={menu} direction="up" style={{ left: 'calc(50% - 2rem)', bottom: 0 }} />
       </BrowserRouter>      
     </div>
   );
