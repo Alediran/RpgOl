@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SessionTokenDto } from 'Types/Authentication';
 
 interface SessionState {
   userId: string,

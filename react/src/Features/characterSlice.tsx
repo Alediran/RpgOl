@@ -22,9 +22,7 @@ export const characterSlice = createSlice({
       state.attributes = action.payload;
     },
     updateAttribute(state, action: PayloadAction<{key: string, value: AcceptedValueTypes}>) {
-      const {key, value} = action.payload;
-
-      console.log("Attribute update ", value)
+      const {key, value} = action.payload;      
       state.attributes[key] = value;
     }
   }
