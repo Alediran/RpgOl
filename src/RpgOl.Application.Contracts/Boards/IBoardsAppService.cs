@@ -10,7 +10,7 @@ namespace RpgOl.Boards
     public interface IBoardsAppService : IApplicationService
     {
         Task<BoardDto> GetAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<List<BoardDto>> GetListAsync();
+        Task<GroupedBoardsDto> GetListAsync();
         Task<PagedResultDto<BoardDto>> GetPagedBoardsAsync(GetBoardInput input, CancellationToken cancellationToken = default);
         Task<BoardDto> CreateAsync(CreateBoardDto input, CancellationToken cancellationToken = default);
         Task<BoardDto> UpdateAsync(UpdateBoardDto input, CancellationToken cancellationToken = default);
