@@ -115,7 +115,7 @@ function App() {
           <CreateGame />
         </Sidebar>         
         <Toast ref={toast} onHide={() => dispatch(dismissToast())} position={position} />
-        <SpeedDial model={menu} direction="up" style={{ left: 'calc(50% - 2rem)', bottom: 0 }} />
+        <SpeedDial model={menu} direction="up" style={{ left: 'calc(95%)', bottom: 'calc(2%)' }} visible={menu.length > 0} />
       </BrowserRouter>      
     </div>
   );

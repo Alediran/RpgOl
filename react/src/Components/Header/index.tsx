@@ -10,8 +10,6 @@ import { PrimeIcons } from 'primereact/api';
 import { useLazyGetUserDetailsQuery } from "Services/User";
 import { useAppSelector } from "App/Hooks";
 import Localize from "Components/Localize/Index";
-import useSpeedDial from "App/useSpeedDial";
-
 
 const Header: React.FC = () => {
   const { isAuthenticated, signinRedirect, signoutRedirect } = useAuth();
@@ -19,7 +17,6 @@ const Header: React.FC = () => {
   const { userId } = useAppSelector(state => state.session);
   const menuRef = useRef<Menu>(null);
   const navigate = useNavigate();
-  const { model } = useSpeedDial();
   
   useEffect(() => {
     if (userId) getUserDetails(userId)
@@ -45,7 +42,7 @@ const Header: React.FC = () => {
     }
   ]
 
-  return <Menubar model={model ? menu.concat(model) : menu} 
+  return <Menubar model={menu /*? menu.concat(model) : menu*/} 
     end={isAuthenticated ? 
       <>
         <Menu model={userMenu} popup ref={menuRef} />
