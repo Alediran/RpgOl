@@ -14,9 +14,16 @@ export interface CreateBoardDto extends NamedDto {
 export interface UpdateBoardDto extends EntityDto, Omit<CreateBoardDto, 'boardCategories'> {
   boardCategories: Array<BoardCategoryDto>;
 }
+
 export interface BoardDto extends FullAuditedEntityDto, Omit<CreateBoardDto, 'boardCategories'> {
   groups: Array<GroupDto>;
   boardCategories: Array<BoardCategoryDto>;
+}
+
+export interface GroupedBoardsDto {
+  ownerBoards: Array<BoardDto>;
+  followedBoards: Array<BoardDto>;
+  generalBoards: Array<BoardDto>;
 }
 
 export const NewCreateBoardDto = (): CreateBoardDto => ({
@@ -26,15 +33,17 @@ export const NewCreateBoardDto = (): CreateBoardDto => ({
   boardCategories: [],
 })
 
-export const DefaultBoardDto = (): BoardDto => ({
-    id: '',
-    name: '',
-    type: BoardTypes.Game,
-    gameSystem: GameSystem.DungeonsAndDragons,
-    boardCategories: [],
-    groups: [],
-    isDeleted: false,
-    creationTime: '',
-    creatorId: ''
 
-  })
+
+export const DefaultBoardDto = (): BoardDto => ({
+  id: '',
+  name: '',
+  type: BoardTypes.Game,
+  gameSystem: GameSystem.DungeonsAndDragons,
+  boardCategories: [],
+  groups: [],
+  isDeleted: false,
+  creationTime: '',
+  creatorId: ''
+
+})

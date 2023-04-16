@@ -1,6 +1,6 @@
 import  api, { generateFilteredPagedAndSortedQuery } from "Services";
 import PagedResultDto from "Types/Base/PagedResultDto";
-import { BoardDto, CreateBoardDto, UpdateBoardDto } from "Types/Board";
+import { BoardDto, CreateBoardDto, GroupedBoardsDto, UpdateBoardDto } from "Types/Board";
 import FilteredPagedAndSortedRequestDto from "Types/Output/FilteredPagedAndSortedRequestDto";
 
 export const boardsApi = api.injectEndpoints({
@@ -8,7 +8,7 @@ export const boardsApi = api.injectEndpoints({
     getBoardById: build.query<BoardDto, string | undefined>({
       query: (id) => `boards/${id}`,
     }),
-    getAllBoards: build.query<Array<BoardDto>, void>({
+    getAllBoards: build.query<GroupedBoardsDto, void>({
       query: () => 'boards/all',
       providesTags: ['boards']
     }),
