@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using RpgOl.BoardCategories;
 using RpgOl.Boards;
 using RpgOl.Characters;
@@ -6,10 +9,6 @@ using RpgOl.Database;
 using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
-using System;
-using System.Collections.Generic;
-using Volo.Abp;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace RpgOl.EntityFrameworkCore
 {
@@ -24,7 +23,7 @@ namespace RpgOl.EntityFrameworkCore
                 e.ToTable(DatabaseConsts.TablePrefix + nameof(Board));
                 e.ConfigureByConvention();
 
-                e.HasMany(e => e.BoardCategories).WithMany(e => e.Boards);
+                e.HasMany(q => q.BoardCategories).WithMany();
             });
 
             builder.Entity<BoardCategory>(e =>
@@ -51,6 +50,7 @@ namespace RpgOl.EntityFrameworkCore
                 e.ConfigureByConvention();
 
                 e.HasMany(t => t.Groups).WithMany(t => t.Characters);
+                e.HasMany(t => t.Posts).WithOne().OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.Entity<Post>(e =>
