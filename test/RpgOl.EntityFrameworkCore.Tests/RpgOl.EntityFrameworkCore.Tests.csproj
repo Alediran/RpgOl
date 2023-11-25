@@ -10,11 +10,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\RpgOl.EntityFrameworkCore\RpgOl.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\RpgOl.TestBase\RpgOl.TestBase.csproj" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="7.4.1" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="7.4.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
   </ItemGroup>
 
 </Project>
