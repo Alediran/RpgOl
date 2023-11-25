@@ -7,7 +7,7 @@ using Volo.Abp.OpenIddict.Applications;
 
 namespace RpgOl.Pages;
 
-public class IndexModel : AbpPageModel
+public class IndexModel(IOpenIddictApplicationRepository openIdApplicationmRepository, ILanguageProvider languageProvider) : AbpPageModel
 {
     public List<OpenIddictApplication> Applications { get; protected set; }
 
@@ -15,15 +15,9 @@ public class IndexModel : AbpPageModel
 
     public string CurrentLanguage { get; protected set; }
 
-    protected IOpenIddictApplicationRepository OpenIdApplicationRepository { get; }
+    protected IOpenIddictApplicationRepository OpenIdApplicationRepository { get; } = openIdApplicationmRepository;
 
-    protected ILanguageProvider LanguageProvider { get; }
-
-    public IndexModel(IOpenIddictApplicationRepository openIdApplicationmRepository, ILanguageProvider languageProvider)
-    {
-        OpenIdApplicationRepository = openIdApplicationmRepository;
-        LanguageProvider = languageProvider;
-    }
+    protected ILanguageProvider LanguageProvider { get; } = languageProvider;
 
     public async Task OnGetAsync()
     {

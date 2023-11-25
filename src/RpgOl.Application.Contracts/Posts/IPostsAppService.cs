@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace RpgOl.Posts
+namespace RpgOl.Posts;
+
+public interface IPostsAppService : IApplicationService
 {
-    public interface IPostsAppService : IApplicationService
-    {
-        Task<PostDto> GetAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<PagedResultDto<PostDto>> GetListByThreadIdAsync(GetPostInput input, CancellationToken cancellationToken = default);
-        Task<PostDto> CreateAsync(CreatePostDto input, CancellationToken cancellationToken = default);
-    }
+    Task<PostDto> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<PagedResultDto<PostDto>> GetListByThreadIdAsync(GetPostInput input, CancellationToken cancellationToken = default);
+    Task<PostDto> CreateAsync(CreatePostDto input, CancellationToken cancellationToken = default);
 }

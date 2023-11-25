@@ -3,34 +3,26 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RpgOl.Threads
+namespace RpgOl.Threads;
+
+public class ThreadsAppService(IThreadRepository threadsRepository) : RpgOlAppService, IThreadsAppService
 {
-    public class ThreadsAppService : RpgOlAppService, IThreadsAppService
+    public async Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default)
     {
-        private readonly IThreadRepository _threadsRepository;
-
-        public ThreadsAppService(IThreadRepository threadsRepository)
+        try
         {
-            _threadsRepository = threadsRepository;
-        }
+            var entity = ObjectMapper.Map<CreateThreadDto, Thread>(input);
 
-        public async Task<ThreadDto> CreateAsync(CreateThreadDto input, CancellationToken cancellationToken = default)
+            return ObjectMapper.Map<Thread, ThreadDto>(await threadsRepository.InsertAsync(entity, cancellationToken: cancellationToken));
+        }
+        catch(Exception)
         {
-            try
-            {
-                var entity = ObjectMapper.Map<CreateThreadDto, Thread>(input);
-
-                return ObjectMapper.Map<Thread, ThreadDto>(await _threadsRepository.InsertAsync(entity, cancellationToken: cancellationToken));
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+            throw;
         }
+    }
 
-        public async Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
-        {
-            return ObjectMapper.Map<List<Thread>, List<ThreadDto>>(await _threadsRepository.GetAll(boardId));
-        }
+    public async Task<List<ThreadDto>> GetListAsync(Guid boardId, CancellationToken cancellationToken = default)
+    {
+        return ObjectMapper.Map<List<Thread>, List<ThreadDto>>(await threadsRepository.GetAll(boardId));
     }
 }

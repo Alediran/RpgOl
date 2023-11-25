@@ -9,7 +9,7 @@ namespace RpgOl.DbMigrator;
     typeof(AbpAutofacModule),
     typeof(RpgOlEntityFrameworkCoreModule),
     typeof(RpgOlApplicationContractsModule)
-    )]
+ )]
 public class RpgOlDbMigratorModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Volo.Abp.Application.Dtos;
+﻿using Volo.Abp.Application.Dtos;
 
-namespace RpgOl.Boards
+namespace RpgOl.Boards;
+
+public class GetBoardInput : PagedAndSortedResultRequestDto
 {
-    public class GetBoardInput : PagedAndSortedResultRequestDto
+    public string FilterText { get; set; }
+    public GetBoardInput()
     {
-        public string FilterText { get; set; }
-        public GetBoardInput()
-        {
-            Sorting = "name ASC";
-        }
+        Sorting = "name ASC";
     }
 }

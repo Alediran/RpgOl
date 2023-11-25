@@ -8,9 +8,8 @@ public class RpgOlPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(RpgOlPermissions.GroupName);
-        //Define your own permissions here. Example:
-        //myGroup.AddPermission(RpgOlPermissions.MyPermission1, L("Permission:MyPermission1"));
+        var myGroup = context.AddGroup(RpgOlPermissions.GroupName)
+
         var boardCategoriesPermission = myGroup.AddPermission(RpgOlPermissions.BoardCategories.Default, L("Permissions:BoardCategories"));
         boardCategoriesPermission.AddChild(RpgOlPermissions.BoardCategories.Create, L("Permissions:BoardCategories:Create"));
         boardCategoriesPermission.AddChild(RpgOlPermissions.BoardCategories.Delete, L("Permissions:BoardCategories:Delete"));

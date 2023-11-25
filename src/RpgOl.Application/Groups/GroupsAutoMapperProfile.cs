@@ -1,19 +1,13 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RpgOl.Groups
+namespace RpgOl.Groups;
+
+internal class GroupsAutoMapperProfile : Profile
 {
-    internal class GroupsAutoMapperProfile : Profile
+    public GroupsAutoMapperProfile()
     {
-        public GroupsAutoMapperProfile()
-        {
-            CreateMap<Group, GroupDto>();
+        CreateMap<Group, GroupDto>();
 
 
-        }
     }
 }

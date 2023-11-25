@@ -12,7 +12,7 @@ namespace RpgOl.HttpApi.Client.ConsoleTestApp;
     typeof(AbpAutofacModule),
     typeof(RpgOlHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule)
-    )]
+)]
 public class RpgOlConsoleApiClientModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

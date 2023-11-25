@@ -18,7 +18,7 @@ namespace RpgOl;
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule)
-    )]
+)]
 public class RpgOlApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

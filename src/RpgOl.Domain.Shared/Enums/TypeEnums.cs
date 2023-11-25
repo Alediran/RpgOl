@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RpgOl.Enums;
 
-namespace RpgOl.Enums
+public enum BoardType
 {
-    public enum BoardType
-    {
-        General,
-        Game,
-    }
+    General,
+    Game,
+}
 
-    public enum GameSystem
-    {
-        DungeonsAndDragons,
-        Exalted,
-        OldWorldOfDarkness,
-        NewWorldOfDarkness
-    }
+public enum GameSystem
+{
+    DungeonsAndDragons,
+    Exalted,
+    OldWorldOfDarkness,
+    NewWorldOfDarkness
 }

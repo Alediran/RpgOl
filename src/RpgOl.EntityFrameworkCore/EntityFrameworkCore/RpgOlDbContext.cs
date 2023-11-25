@@ -24,7 +24,7 @@ namespace RpgOl.EntityFrameworkCore;
 [ReplaceDbContext(typeof(IIdentityDbContext))]
 [ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
-public class RpgOlDbContext : AbpDbContext<RpgOlDbContext>, IRpgOlDbContext, IIdentityDbContext, ITenantManagementDbContext
+public class RpgOlDbContext(DbContextOptions<RpgOlDbContext> options) : AbpDbContext<RpgOlDbContext>(options), IRpgOlDbContext, IIdentityDbContext, ITenantManagementDbContext
 {
     #region Entities from the modules
 
@@ -50,12 +50,6 @@ public class RpgOlDbContext : AbpDbContext<RpgOlDbContext>, IRpgOlDbContext, IId
     public DbSet<Character> Characters { get; set; }
 
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
-
-    public RpgOlDbContext(DbContextOptions<RpgOlDbContext> options)
-        : base(options)
-    {
-
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

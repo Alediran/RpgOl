@@ -8,16 +8,15 @@ using RpgOl.Threads;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace RpgOl.EntityFrameworkCore
+namespace RpgOl.EntityFrameworkCore;
+
+[ConnectionStringName("Default")]
+public interface IRpgOlDbContext : IEfCoreDbContext
 {
-    [ConnectionStringName("Default")]
-    public interface IRpgOlDbContext : IEfCoreDbContext
-    {
-        DbSet<Board> Boards { get; }
-        DbSet<BoardCategory> BoardCategories { get; }
-        DbSet<Thread> Threads { get; }
-        DbSet<Group> Groups { get; }
-        DbSet<Post> Posts { get; }
-        DbSet<Character> Characters { get; }
-    }
+    DbSet<Board> Boards { get; }
+    DbSet<BoardCategory> BoardCategories { get; }
+    DbSet<Thread> Threads { get; }
+    DbSet<Group> Groups { get; }
+    DbSet<Post> Posts { get; }
+    DbSet<Character> Characters { get; }
 }

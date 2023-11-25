@@ -14,15 +14,8 @@ using Volo.Abp.Users;
 
 namespace RpgOl.Web.Menus;
 
-public class RpgOlMenuContributor : IMenuContributor
+public class RpgOlMenuContributor(IConfiguration configuration) : IMenuContributor
 {
-    private readonly IConfiguration _configuration;
-
-    public RpgOlMenuContributor(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public async Task ConfigureMenuAsync(MenuConfigurationContext context)
     {
         if (context.Menu.Name == StandardMenus.Main)
@@ -35,7 +28,7 @@ public class RpgOlMenuContributor : IMenuContributor
         }
     }
 
-    private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+    private static Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<RpgOlResource>();
@@ -70,10 +63,10 @@ public class RpgOlMenuContributor : IMenuContributor
     {
         var l = context.GetLocalizer<RpgOlResource>();
         var accountStringLocalizer = context.GetLocalizer<AccountResource>();
-        var authServerUrl = _configuration["AuthServer:Authority"] ?? "";
+        var authServerUrl = configuration["AuthServer:Authority"] ?? "";
 
         context.Menu.AddItem(new ApplicationMenuItem("Account.Manage", accountStringLocalizer["MyAccount"],
-            $"{authServerUrl.EnsureEndsWith('/')}Account/Manage?returnUrl={_configuration["App:SelfUrl"]}", icon: "fa fa-cog", order: 1000, null, "_blank").RequireAuthenticated());
+            $"{authServerUrl.EnsureEndsWith('/')}Account/Manage?returnUrl={configuration["App:SelfUrl"]}", icon: "fa fa-cog", order: 1000, null, "_blank").RequireAuthenticated());
         context.Menu.AddItem(new ApplicationMenuItem("Account.Logout", l["Logout"], url: "~/Account/Logout", icon: "fa fa-power-off", order: int.MaxValue - 1000).RequireAuthenticated());
 
         return Task.CompletedTask;

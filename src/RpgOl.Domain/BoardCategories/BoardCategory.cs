@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
-namespace RpgOl.BoardCategories
-{
-    public class BoardCategory : AggregateRoot<Guid>
-    {
-        public virtual string Name { get; protected set; }
-        public virtual string Description { get; protected set; }
-        public virtual ICollection<Board> Boards { get; protected set; }
+namespace RpgOl.BoardCategories;
 
-        protected BoardCategory()
-        {
-           
-        }
+public class BoardCategory : AggregateRoot<Guid>
+{
+    public virtual string Name { get; protected set; }
+    public virtual string Description { get; protected set; }
+    public virtual ICollection<Board> Boards { get; protected set; }
+
+    protected BoardCategory()
+    {
+       
     }
 }

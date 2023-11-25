@@ -83,7 +83,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         }
     }
 
-    private void ConfigureConventionalControllers()
+    private static void ConfigureConventionalControllers()
     {
        /* Configure<AbpAspNetCoreMvcOptions>(options =>
         {
@@ -91,7 +91,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         }); */
     }
 
-    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
+    private static void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -144,10 +144,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         });
     }
 
-    private void ConfigureDataProtection(
-        ServiceConfigurationContext context,
-        IConfiguration configuration,
-        IWebHostEnvironment hostingEnvironment)
+    private static void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
     {
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
         if (!hostingEnvironment.IsDevelopment())
@@ -157,7 +154,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         }
     }
 
-    private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
+    private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddCors(options =>
         {

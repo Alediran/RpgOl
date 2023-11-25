@@ -19,28 +19,9 @@ namespace RpgOl.OpenIddict;
 /* Creates initial data that is needed to property run the application
  * and make client-to-server communication possible.
  */
-public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class OpenIddictDataSeedContributor(IConfiguration configuration, IAbpApplicationManager applicationManager, IOpenIddictScopeManager scopeManager, 
+    IPermissionDataSeeder permissionDataSeeder, IStringLocalizer<OpenIddictResponse> l) : IDataSeedContributor, ITransientDependency
 {
-    private readonly IConfiguration _configuration;
-    private readonly IAbpApplicationManager _applicationManager;
-    private readonly IOpenIddictScopeManager _scopeManager;
-    private readonly IPermissionDataSeeder _permissionDataSeeder;
-    private readonly IStringLocalizer<OpenIddictResponse> L;
-
-    public OpenIddictDataSeedContributor(
-        IConfiguration configuration,
-        IAbpApplicationManager applicationManager,
-        IOpenIddictScopeManager scopeManager,
-        IPermissionDataSeeder permissionDataSeeder,
-        IStringLocalizer<OpenIddictResponse> l)
-    {
-        _configuration = configuration;
-        _applicationManager = applicationManager;
-        _scopeManager = scopeManager;
-        _permissionDataSeeder = permissionDataSeeder;
-        L = l;
-    }
-
     [UnitOfWork]
     public virtual async Task SeedAsync(DataSeedContext context)
     {
@@ -50,9 +31,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
     private async Task CreateScopesAsync()
     {
-        if (await _scopeManager.FindByNameAsync("RpgOl") == null)
+        if (await scopeManager.FindByNameAsync("RpgOl") == null)
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
+            await scopeManager.CreateAsync(new OpenIddictScopeDescriptor
             {
                 Name = "RpgOl",
                 DisplayName = "RpgOl API",
@@ -76,7 +57,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             "RpgOl"
         };
 
-        var configurationSection = _configuration.GetSection("OpenIddict:Applications");
+        var configurationSection = configuration.GetSection("OpenIddict:Applications");
 
         //Web Client
         var webClientId = configurationSection["RpgOl_Web:ClientId"];
@@ -92,11 +73,12 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Web Application",
                 secret: configurationSection["RpgOl_Web:ClientSecret"] ?? "1q2w3e*",
-                grantTypes: new List<string> //Hybrid flow
-                {
+                //Hybrid flow
+                grantTypes:                
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Implicit
-                },
+                ],
                 scopes: commonScopes,
                 redirectUri: $"{webClientRootUrl}signin-oidc",
                 clientUri: webClientRootUrl,
@@ -115,13 +97,13 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Console Test / Angular Application",
                 secret: null,
-                grantTypes: new List<string>
-                {
+                grantTypes:
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Password,
                     OpenIddictConstants.GrantTypes.ClientCredentials,
                     OpenIddictConstants.GrantTypes.RefreshToken
-                },
+                ],
                 scopes: commonScopes,
                 redirectUri: consoleAndAngularClientRootUrl,
                 clientUri: consoleAndAngularClientRootUrl,
@@ -141,10 +123,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Swagger Application",
                 secret: null,
-                grantTypes: new List<string>
-                {
+                grantTypes:
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
-                },
+                ],
                 scopes: commonScopes,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 clientUri: swaggerRootUrl
@@ -162,13 +144,13 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Postman Client",
                 secret: configurationSection["RpgOl_Postman:ClientSecret"] ?? "1q2w3e*",
-                grantTypes: new List<string>
-                {
+                grantTypes:
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Password,
                     OpenIddictConstants.GrantTypes.ClientCredentials,
                     OpenIddictConstants.GrantTypes.RefreshToken
-                },
+                ],
                 scopes: commonScopes,
                 redirectUri: $"{postmanRootUrl}/oauth2/callback",
                 clientUri: postmanRootUrl
@@ -191,21 +173,21 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     {
         if (!string.IsNullOrEmpty(secret) && string.Equals(type, OpenIddictConstants.ClientTypes.Public, StringComparison.OrdinalIgnoreCase))
         {
-            throw new BusinessException(L["NoClientSecretCanBeSetForPublicApplications"]);
+            throw new BusinessException(l["NoClientSecretCanBeSetForPublicApplications"]);
         }
 
         if (string.IsNullOrEmpty(secret) && string.Equals(type, OpenIddictConstants.ClientTypes.Confidential, StringComparison.OrdinalIgnoreCase))
         {
-            throw new BusinessException(L["TheClientSecretIsRequiredForConfidentialApplications"]);
+            throw new BusinessException(l["TheClientSecretIsRequiredForConfidentialApplications"]);
         }
 
-        if (!string.IsNullOrEmpty(name) && await _applicationManager.FindByClientIdAsync(name) != null)
+        if (!string.IsNullOrEmpty(name) && await applicationManager.FindByClientIdAsync(name) != null)
         {
             return;
             //throw new BusinessException(L["TheClientIdentifierIsAlreadyTakenByAnotherApplication"]);
         }
 
-        var client = await _applicationManager.FindByClientIdAsync(name);
+        var client = await applicationManager.FindByClientIdAsync(name);
         if (client == null)
         {
             var application = new AbpApplicationDescriptor
@@ -325,7 +307,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 {
                     if (!Uri.TryCreate(redirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
                     {
-                        throw new BusinessException(L["InvalidRedirectUri", redirectUri]);
+                        throw new BusinessException(l["InvalidRedirectUri", redirectUri]);
                     }
 
                     if (application.RedirectUris.All(x => x != uri))
@@ -341,7 +323,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 {
                     if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
                     {
-                        throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
+                        throw new BusinessException(l["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
                     }
 
                     if (application.PostLogoutRedirectUris.All(x => x != uri))
@@ -353,7 +335,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
             if (permissions != null)
             {
-                await _permissionDataSeeder.SeedAsync(
+                await permissionDataSeeder.SeedAsync(
                     ClientPermissionValueProvider.ProviderName,
                     name,
                     permissions,
@@ -361,7 +343,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 );
             }
 
-            await _applicationManager.CreateAsync(application);
+            await applicationManager.CreateAsync(application);
         }
     }
 }

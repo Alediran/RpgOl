@@ -7,17 +7,8 @@ using Volo.Abp.DependencyInjection;
 
 namespace RpgOl.EntityFrameworkCore;
 
-public class EntityFrameworkCoreRpgOlDbSchemaMigrator
-    : IRpgOlDbSchemaMigrator, ITransientDependency
+public class EntityFrameworkCoreRpgOlDbSchemaMigrator(IServiceProvider serviceProvider) : IRpgOlDbSchemaMigrator, ITransientDependency
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public EntityFrameworkCoreRpgOlDbSchemaMigrator(
-        IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-
     public async Task MigrateAsync()
     {
         /* We intentionally resolving the RpgOlDbContext
@@ -26,7 +17,7 @@ public class EntityFrameworkCoreRpgOlDbSchemaMigrator
          * current scope.
          */
 
-        await _serviceProvider
+        await serviceProvider
             .GetRequiredService<RpgOlDbContext>()
             .Database
             .MigrateAsync();

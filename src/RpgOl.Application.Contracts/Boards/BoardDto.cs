@@ -3,21 +3,20 @@ using RpgOl.Enums;
 using RpgOl.Groups;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace RpgOl.Boards
+namespace RpgOl.Boards;
+
+public class BoardDto : FullAuditedEntityDto<Guid>
 {
-    public class BoardDto : FullAuditedEntityDto<Guid>
+    public string Name { get; set; }
+    public BoardType Type { get; set; }
+    public GameSystem GameSystem { get; set; }
+    public List<BoardCategoryDto> BoardCategories { get; set; }
+    public List<GroupDto> Groups { get; set; }
+
+    public BoardDto()
     {
-        public string Name { get; set; }
-        public BoardType Type { get; set; }
-        public GameSystem GameSystem { get; set; }
-        public List<BoardCategoryDto> BoardCategories { get; set; }
-        public List<GroupDto> Groups { get; set; }
-        public BoardDto()
-        {
-            BoardCategories = new();
-        }
+        BoardCategories = [];
     }
 }

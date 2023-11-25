@@ -9,37 +9,27 @@ using Volo.Abp;
 
 namespace RpgOl.DbMigrator;
 
-public class DbMigratorHostedService : IHostedService
+public class DbMigratorHostedService(IHostApplicationLifetime hostApplicationLifetime, IConfiguration configuration) : IHostedService
 {
-    private readonly IHostApplicationLifetime _hostApplicationLifetime;
-    private readonly IConfiguration _configuration;
-
-    public DbMigratorHostedService(IHostApplicationLifetime hostApplicationLifetime, IConfiguration configuration)
-    {
-        _hostApplicationLifetime = hostApplicationLifetime;
-        _configuration = configuration;
-    }
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        using (var application = await AbpApplicationFactory.CreateAsync<RpgOlDbMigratorModule>(options =>
+        using var application = await AbpApplicationFactory.CreateAsync<RpgOlDbMigratorModule>(options =>
         {
-           options.Services.ReplaceConfiguration(_configuration);
-           options.UseAutofac();
-           options.Services.AddLogging(c => c.AddSerilog());
-        }))
-        {
-            await application.InitializeAsync();
+            options.Services.ReplaceConfiguration(configuration);
+            options.UseAutofac();
+            options.Services.AddLogging(c => c.AddSerilog());
+        });
 
-            await application
-                .ServiceProvider
-                .GetRequiredService<RpgOlDbMigrationService>()
-                .MigrateAsync();
+        await application.InitializeAsync();
 
-            await application.ShutdownAsync();
+        await application
+            .ServiceProvider
+            .GetRequiredService<RpgOlDbMigrationService>()
+            .MigrateAsync();
 
-            _hostApplicationLifetime.StopApplication();
-        }
+        await application.ShutdownAsync();
+
+        hostApplicationLifetime.StopApplication();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

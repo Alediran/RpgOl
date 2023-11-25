@@ -1,20 +1,19 @@
 ﻿using AutoMapper;
 using Volo.Abp.AutoMapper;
 
-namespace RpgOl.Threads
+namespace RpgOl.Threads;
+
+internal class PostsAutoMapperProfile : Profile
 {
-    internal class PostsAutoMapperProfile : Profile
+    public PostsAutoMapperProfile()
     {
-        public PostsAutoMapperProfile()
-        {
-            CreateMap<Thread, ThreadDto>();
+        CreateMap<Thread, ThreadDto>();
 
-            CreateMap<CreateThreadDto, Thread>()
-                .IgnoreFullAuditedObjectProperties();
+        CreateMap<CreateThreadDto, Thread>()
+            .IgnoreFullAuditedObjectProperties();
 
-            CreateMap<UpdateThreadDto, Thread>()
-                .IgnoreFullAuditedObjectProperties()
-                .Ignore(x => x.Id);
-        }
+        CreateMap<UpdateThreadDto, Thread>()
+            .IgnoreFullAuditedObjectProperties()
+            .Ignore(x => x.Id);
     }
 }
