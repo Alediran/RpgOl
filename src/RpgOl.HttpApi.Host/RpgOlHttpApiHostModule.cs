@@ -24,6 +24,8 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.EventBus.RabbitMq;
+using Volo.Abp.RabbitMQ;
 
 namespace RpgOl;
 
@@ -32,6 +34,7 @@ namespace RpgOl;
     typeof(AbpAutofacModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
+    typeof(AbpEventBusRabbitMqModule),
     typeof(RpgOlApplicationModule),
     typeof(RpgOlEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
@@ -45,6 +48,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         ConfigureConventionalControllers();
+        // ConfigureRabbitMq();
         ConfigureAuthentication(context, configuration);
         ConfigureLocalization();
         ConfigureCache(configuration);
@@ -59,6 +63,24 @@ public class RpgOlHttpApiHostModule : AbpModule
         Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "RpgOl:"; });
     }
 
+    private void ConfigureRabbitMq()
+    {
+        Configure<AbpRabbitMqOptions>(options =>
+        {
+            options.Connections.Default.UserName = "user";
+            options.Connections.Default.Password = "password";
+            options.Connections.Default.HostName = "localhost";
+            options.Connections.Default.Port = 5672;
+        });
+
+        Configure<AbpRabbitMqEventBusOptions>(options =>
+        {
+            options.ClientName = "Local";
+            options.ExchangeName = "LocalExchange";
+            options.PrefetchCount = 1;
+        });
+
+    }
     private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();

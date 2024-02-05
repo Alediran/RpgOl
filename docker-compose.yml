@@ -13,9 +13,9 @@ services:
     ports: 
       - "1455:1433"
     volumes:
-      - ./sql/data:/var/opt/mssql/data
-      - ./sql/log:/var/opt/mssql/log
-      - ./sql/secrets:/var/opt/mssql/secrets
+      - ./container/sql/data:/var/opt/mssql/data
+      - ./container/sql/log:/var/opt/mssql/log
+      - ./container/sql/secrets:/var/opt/mssql/secrets
   redis:
     container_name: redis
     image: redis:latest
@@ -32,8 +32,8 @@ services:
       - "5672:5672"
       - "15672:15672" 
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./container/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./container/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - rabbitmq_go_net
 
