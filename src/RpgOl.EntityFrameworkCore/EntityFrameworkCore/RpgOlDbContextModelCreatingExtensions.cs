@@ -23,7 +23,12 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.ToTable(DatabaseConsts.TablePrefix + nameof(Board));
             e.ConfigureByConvention();
 
-            e.HasMany(q => q.BoardCategories).WithMany();
+            e.HasMany(q => q.BoardCategories)
+                .WithMany()
+                .UsingEntity("BoardCategories",
+                    l => l.HasOne(typeof(Board)).WithMany().HasForeignKey("BoardId").HasPrincipalKey(nameof(Board.Id)),
+                    r => r.HasOne(typeof(BoardCategory)).WithMany().HasForeignKey("BoardCategoryId").HasPrincipalKey(nameof(BoardCategory.Id)),
+                    j => j.HasKey("BoardCategoryId", "BoardId"));
         });
 
         builder.Entity<BoardCategory>(e =>
@@ -49,8 +54,14 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.ToTable(DatabaseConsts.TablePrefix + nameof(Character));
             e.ConfigureByConvention();
 
-            e.HasMany(t => t.Groups).WithMany(t => t.Characters);
             e.HasMany(t => t.Posts).WithOne().OnDelete(DeleteBehavior.NoAction);
+
+            e.HasMany(t => t.Groups)
+                .WithMany()
+                .UsingEntity("GroupCharacters",
+                    l => l.HasOne(typeof(Character)).WithMany().HasForeignKey("CharacterId").HasPrincipalKey(nameof(Character.Id)),
+                    r => r.HasOne(typeof(Group)).WithMany().HasForeignKey("GroupId").HasPrincipalKey(nameof(Group.Id)),
+                    j => j.HasKey("GroupId", "CharacterId"));            
         });
 
         builder.Entity<Post>(e =>
