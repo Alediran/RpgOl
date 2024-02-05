@@ -193,7 +193,7 @@ public class OpenIddictDataSeedContributor(IConfiguration configuration, IAbpApp
             var application = new AbpApplicationDescriptor
             {
                 ClientId = name,
-                Type = type,
+                ClientType = type,
                 ClientSecret = secret,
                 ConsentType = consentType,
                 DisplayName = displayName,

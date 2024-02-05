@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.TestBase" Version="7.4.2" />
-    <PackageReference Include="Volo.Abp.Autofac" Version="7.4.2" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="7.4.2" />
+    <PackageReference Include="Volo.Abp.TestBase" Version="8.0.2" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="8.0.2" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="8.0.2" />
     <ProjectReference Include="..\..\src\RpgOl.Domain\RpgOl.Domain.csproj" />
   </ItemGroup>
 
@@ -18,9 +18,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
-    <PackageReference Include="xunit" Version="2.6.2" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.6.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
