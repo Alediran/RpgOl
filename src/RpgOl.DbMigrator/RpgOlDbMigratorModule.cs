@@ -1,4 +1,5 @@
-﻿using RpgOl.EntityFrameworkCore;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RpgOl.EntityFrameworkCore;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Modularity;
@@ -14,8 +15,6 @@ public class RpgOlDbMigratorModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpBackgroundJobOptions>(options => options.IsJobExecutionEnabled = false);
-
-
+        Configure<AbpBackgroundJobOptions>(options => options.IsJobExecutionEnabled = false);   
     }
 }

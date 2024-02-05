@@ -5,6 +5,7 @@ using RpgOl.Characters;
 using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
+using System.Linq;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -54,7 +55,6 @@ public class RpgOlDbContext(DbContextOptions<RpgOlDbContext> options) : AbpDbCon
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
         /* Include modules to your migration db context */
 
         builder.ConfigurePermissionManagement();
@@ -69,5 +69,10 @@ public class RpgOlDbContext(DbContextOptions<RpgOlDbContext> options) : AbpDbCon
         /* Configure your own tables/entities inside here */
 
         builder.ConfigureRpgOl();
+
+        foreach (var relationship in builder.Model.GetEntityTypes().Where(e => !e.IsOwned()).SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        }
     }
 }

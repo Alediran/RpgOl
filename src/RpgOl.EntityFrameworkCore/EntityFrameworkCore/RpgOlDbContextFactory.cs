@@ -16,8 +16,7 @@ public class RpgOlDbContextFactory : IDesignTimeDbContextFactory<RpgOlDbContext>
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<RpgOlDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Default"), 
-            x => x.MigrationsAssembly("RpgOl.DbMigrator"));
+            .UseSqlServer(configuration.GetConnectionString("Default"));
 
         return new RpgOlDbContext(builder.Options);
     }

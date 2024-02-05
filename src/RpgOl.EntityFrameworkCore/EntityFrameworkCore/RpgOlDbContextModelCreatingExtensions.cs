@@ -9,6 +9,7 @@ using RpgOl.Database;
 using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
+using System.Collections.Generic;
 
 namespace RpgOl.EntityFrameworkCore;
 
@@ -24,17 +25,24 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.ConfigureByConvention();
 
             e.HasMany(q => q.BoardCategories)
-                .WithMany()
-                .UsingEntity("BoardCategories",
-                    l => l.HasOne(typeof(Board)).WithMany().HasForeignKey("BoardId").HasPrincipalKey(nameof(Board.Id)),
-                    r => r.HasOne(typeof(BoardCategory)).WithMany().HasForeignKey("BoardCategoryId").HasPrincipalKey(nameof(BoardCategory.Id)),
-                    j => j.HasKey("BoardCategoryId", "BoardId"));
+                .WithMany( q => q.Boards)
+                .UsingEntity<Dictionary<string, object>>(
+                    "BoardCategories",                    
+                    e => e.HasOne<BoardCategory>().WithMany().HasForeignKey("BoardCategoryId"),
+                    e => e.HasOne<Board>().WithMany().HasForeignKey("BoardId"));
         });
 
         builder.Entity<BoardCategory>(e =>
         {
             e.ToTable(DatabaseConsts.TablePrefix + nameof(BoardCategory));
             e.ConfigureByConvention();
+
+            e.HasMany(q => q.Boards)
+                .WithMany(q => q.BoardCategories)
+                .UsingEntity<Dictionary<string, object>>(
+                    "BoardCategories",
+                    e => e.HasOne<Board>().WithMany().HasForeignKey("BoardId"),
+                    e => e.HasOne<BoardCategory>().WithMany().HasForeignKey("BoardCategoryId"));
         });
 
         builder.Entity<Group>(e =>
@@ -56,12 +64,12 @@ public static class RpgOlDbContextModelCreatingExtensions
 
             e.HasMany(t => t.Posts).WithOne().OnDelete(DeleteBehavior.NoAction);
 
-            e.HasMany(t => t.Groups)
-                .WithMany()
-                .UsingEntity("GroupCharacters",
-                    l => l.HasOne(typeof(Character)).WithMany().HasForeignKey("CharacterId").HasPrincipalKey(nameof(Character.Id)),
-                    r => r.HasOne(typeof(Group)).WithMany().HasForeignKey("GroupId").HasPrincipalKey(nameof(Group.Id)),
-                    j => j.HasKey("GroupId", "CharacterId"));            
+            e.HasMany(q => q.Groups)
+                .WithMany(q => q.Characters)
+                .UsingEntity<Dictionary<string, object>>(
+                    "GroupCharacters",
+                    e => e.HasOne<Group>().WithMany().HasForeignKey("GroupId"),
+                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"));            
         });
 
         builder.Entity<Post>(e =>
