@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace RpgOl.Migrations
 {
     [DbContext(typeof(RpgOlDbContext))]
-    [Migration("20240205023906_Initial")]
-    partial class Initial
+    [Migration("20240206223928_Base")]
+    partial class Base
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,36 +26,6 @@ namespace RpgOl.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BoardCategories", b =>
-                {
-                    b.Property<Guid>("BoardCategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BoardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BoardCategoryId", "BoardId");
-
-                    b.HasIndex("BoardId");
-
-                    b.ToTable("BoardCategories");
-                });
-
-            modelBuilder.Entity("GroupCharacters", b =>
-                {
-                    b.Property<Guid>("CharacterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CharacterId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("GroupCharacters");
-                });
 
             modelBuilder.Entity("RpgOl.BoardCategories.BoardCategory", b =>
                 {
@@ -205,6 +175,9 @@ namespace RpgOl.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Values")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BoardId");
@@ -344,6 +317,36 @@ namespace RpgOl.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("RpgOlThread", (string)null);
+                });
+
+            modelBuilder.Entity("RpgOlBoardCategories", b =>
+                {
+                    b.Property<Guid>("BoardCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BoardId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BoardCategoryId", "BoardId");
+
+                    b.HasIndex("BoardId");
+
+                    b.ToTable("RpgOlBoardCategories");
+                });
+
+            modelBuilder.Entity("RpgOlGroupCharacters", b =>
+                {
+                    b.Property<Guid>("CharacterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CharacterId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("RpgOlGroupCharacters");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2084,36 +2087,6 @@ namespace RpgOl.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("BoardCategories", b =>
-                {
-                    b.HasOne("RpgOl.BoardCategories.BoardCategory", null)
-                        .WithMany()
-                        .HasForeignKey("BoardCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RpgOl.Boards.Board", null)
-                        .WithMany()
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GroupCharacters", b =>
-                {
-                    b.HasOne("RpgOl.Characters.Character", null)
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RpgOl.Groups.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("RpgOl.Characters.Character", b =>
                 {
                     b.HasOne("RpgOl.Boards.Board", null)
@@ -2151,6 +2124,36 @@ namespace RpgOl.Migrations
                     b.HasOne("RpgOl.Boards.Board", null)
                         .WithMany("Threads")
                         .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RpgOlBoardCategories", b =>
+                {
+                    b.HasOne("RpgOl.BoardCategories.BoardCategory", null)
+                        .WithMany()
+                        .HasForeignKey("BoardCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RpgOl.Boards.Board", null)
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RpgOlGroupCharacters", b =>
+                {
+                    b.HasOne("RpgOl.Characters.Character", null)
+                        .WithMany()
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RpgOl.Groups.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

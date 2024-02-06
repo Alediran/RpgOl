@@ -14,4 +14,5 @@ public class Character : FullAuditedAggregateRoot<Guid>
     public virtual string Description { get; protected set;}
     public virtual ICollection<Group> Groups { get; protected set; }
     public virtual ICollection<Post> Posts { get; protected set; }
+    public virtual Dictionary<string, object> Values { get; protected set; }
 }

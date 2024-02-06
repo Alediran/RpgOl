@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RpgOl.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Base : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -766,6 +766,7 @@ namespace RpgOl.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Values = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -836,7 +837,7 @@ namespace RpgOl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BoardCategories",
+                name: "RpgOlBoardCategories",
                 columns: table => new
                 {
                     BoardCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -844,15 +845,15 @@ namespace RpgOl.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BoardCategories", x => new { x.BoardCategoryId, x.BoardId });
+                    table.PrimaryKey("PK_RpgOlBoardCategories", x => new { x.BoardCategoryId, x.BoardId });
                     table.ForeignKey(
-                        name: "FK_BoardCategories_RpgOlBoardCategory_BoardCategoryId",
+                        name: "FK_RpgOlBoardCategories_RpgOlBoardCategory_BoardCategoryId",
                         column: x => x.BoardCategoryId,
                         principalTable: "RpgOlBoardCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BoardCategories_RpgOlBoard_BoardId",
+                        name: "FK_RpgOlBoardCategories_RpgOlBoard_BoardId",
                         column: x => x.BoardId,
                         principalTable: "RpgOlBoard",
                         principalColumn: "Id",
@@ -926,7 +927,7 @@ namespace RpgOl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupCharacters",
+                name: "RpgOlGroupCharacters",
                 columns: table => new
                 {
                     CharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -934,15 +935,15 @@ namespace RpgOl.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupCharacters", x => new { x.CharacterId, x.GroupId });
+                    table.PrimaryKey("PK_RpgOlGroupCharacters", x => new { x.CharacterId, x.GroupId });
                     table.ForeignKey(
-                        name: "FK_GroupCharacters_RpgOlCharacter_CharacterId",
+                        name: "FK_RpgOlGroupCharacters_RpgOlCharacter_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "RpgOlCharacter",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_GroupCharacters_RpgOlGroup_GroupId",
+                        name: "FK_RpgOlGroupCharacters_RpgOlGroup_GroupId",
                         column: x => x.GroupId,
                         principalTable: "RpgOlGroup",
                         principalColumn: "Id",
@@ -1181,16 +1182,6 @@ namespace RpgOl.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BoardCategories_BoardId",
-                table: "BoardCategories",
-                column: "BoardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupCharacters_GroupId",
-                table: "GroupCharacters",
-                column: "GroupId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1221,6 +1212,11 @@ namespace RpgOl.Migrations
                 column: "ReferenceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RpgOlBoardCategories_BoardId",
+                table: "RpgOlBoardCategories",
+                column: "BoardId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RpgOlCharacter_BoardId",
                 table: "RpgOlCharacter",
                 column: "BoardId");
@@ -1229,6 +1225,11 @@ namespace RpgOl.Migrations
                 name: "IX_RpgOlGroup_BoardId",
                 table: "RpgOlGroup",
                 column: "BoardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RpgOlGroupCharacters_GroupId",
+                table: "RpgOlGroupCharacters",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RpgOlPost_CharacterId",
@@ -1319,16 +1320,16 @@ namespace RpgOl.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BoardCategories");
-
-            migrationBuilder.DropTable(
-                name: "GroupCharacters");
-
-            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictTokens");
+
+            migrationBuilder.DropTable(
+                name: "RpgOlBoardCategories");
+
+            migrationBuilder.DropTable(
+                name: "RpgOlGroupCharacters");
 
             migrationBuilder.DropTable(
                 name: "RpgOlPost");
@@ -1349,13 +1350,13 @@ namespace RpgOl.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
+                name: "OpenIddictAuthorizations");
+
+            migrationBuilder.DropTable(
                 name: "RpgOlBoardCategory");
 
             migrationBuilder.DropTable(
                 name: "RpgOlGroup");
-
-            migrationBuilder.DropTable(
-                name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "RpgOlCharacter");

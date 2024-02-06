@@ -10,6 +10,7 @@ using RpgOl.Groups;
 using RpgOl.Posts;
 using RpgOl.Threads;
 using System.Collections.Generic;
+using RpgOl.Extensions;
 
 namespace RpgOl.EntityFrameworkCore;
 
@@ -27,7 +28,7 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.HasMany(q => q.BoardCategories)
                 .WithMany( q => q.Boards)
                 .UsingEntity<Dictionary<string, object>>(
-                    "BoardCategories",                    
+                  DatabaseConsts.TablePrefix + "BoardCategories",                    
                     e => e.HasOne<BoardCategory>().WithMany().HasForeignKey("BoardCategoryId"),
                     e => e.HasOne<Board>().WithMany().HasForeignKey("BoardId"));
         });
@@ -40,7 +41,7 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.HasMany(q => q.Boards)
                 .WithMany(q => q.BoardCategories)
                 .UsingEntity<Dictionary<string, object>>(
-                    "BoardCategories",
+                  DatabaseConsts.TablePrefix + "BoardCategories",
                     e => e.HasOne<Board>().WithMany().HasForeignKey("BoardId"),
                     e => e.HasOne<BoardCategory>().WithMany().HasForeignKey("BoardCategoryId"));
         });
@@ -67,9 +68,11 @@ public static class RpgOlDbContextModelCreatingExtensions
             e.HasMany(q => q.Groups)
                 .WithMany(q => q.Characters)
                 .UsingEntity<Dictionary<string, object>>(
-                    "GroupCharacters",
+                   DatabaseConsts.TablePrefix + "GroupCharacters",
                     e => e.HasOne<Group>().WithMany().HasForeignKey("GroupId"),
-                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"));            
+                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"));     
+            
+            e.Property(q => q.Values).HasJsonConversion();
         });
 
         builder.Entity<Post>(e =>
