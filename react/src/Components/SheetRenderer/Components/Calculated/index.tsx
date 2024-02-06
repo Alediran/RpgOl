@@ -1,7 +1,7 @@
 /* eslint-disable react/function-component-definition */
+import React from "react";
 import { useAppSelector } from "App/Hooks";
 import { InputText } from "primereact/inputtext";
-import React from "react";
 import { GameSystem } from "Types/Enums";
 import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';

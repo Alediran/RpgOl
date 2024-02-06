@@ -43,47 +43,47 @@ const alignments: Array<LookupDto<string>> = [
 
 const classes: Array<LookupDto<StructureLookupClassValue>> = [
   {
-    value: {id: 'barb', maxLevel: 20},
+    value: {id: 'barb', level: 0, maxLevel: 20},
     label: 'Barbarian'
   },
   {
-    value: {id: 'bard', maxLevel: 20},
+    value: {id: 'bard', level: 0, maxLevel: 20},
     label: 'Bard'
   },
   {
-    value: {id: 'cler', maxLevel: 20},
+    value: {id: 'cler', level: 0, maxLevel: 20},
     label: 'Cleric'
   },
   {
-    value: {id: 'drud', maxLevel: 20},
+    value: {id: 'drud', level: 0, maxLevel: 20},
     label: 'Druid'
   },
   {
-    value: {id: 'fght', maxLevel: 20},
+    value: {id: 'fght', level: 0, maxLevel: 20},
     label: 'Fighter'
   },
   {
-    value: {id: 'monk', maxLevel: 20},
+    value: {id: 'monk', level: 0, maxLevel: 20},
     label: 'Monk'
   },
   {
-    value: {id: 'pldn', maxLevel: 20},
+    value: {id: 'pldn', level: 0, maxLevel: 20},
     label: 'Paladin'
   },
   {
-    value: {id: 'rngr', maxLevel: 20},
+    value: {id: 'rngr', level: 0, maxLevel: 20},
     label: 'Ranger'
   },
   {
-    value: {id: 'rogu', maxLevel: 20},
+    value: {id: 'rogu', level: 0, maxLevel: 20},
     label: 'Rogue'
   },
   {
-    value: {id: 'sorc', maxLevel: 20},
+    value: {id: 'sorc', level: 0, maxLevel: 20},
     label: 'Sorcerer'
   },
   {
-    value: {id: 'wzrd', maxLevel: 20},
+    value: {id: 'wzrd', level: 0, maxLevel: 20},
     label: 'Wizard'
   },
 ]
@@ -105,7 +105,7 @@ export enum StructureComponentType {
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 export type StructureComponentDirection = 'horizontal' | 'vertical';
 export type StructureLabelPosition = 'top' | 'left' | 'right' | 'bottom';
-export type StructureLookupClassValue = {id: string, maxLevel: number};
+export type StructureLookupClassValue = {id: string, level: number, maxLevel: number};
 
 export interface SheetBase {
   id: string;
