@@ -1,4 +1,5 @@
 /* eslint-disable react/function-component-definition */
+import { InputNumber } from "primereact/inputnumber";
 import React from "react";
 import { GameSystem } from "Types/Enums";
 import { StructureComponent, StructureComponentType } from "Types/Sheet";
@@ -25,6 +26,8 @@ const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({componen
       return <DropDown component={component} system={system} />
     case StructureComponentType.Image:
       return <Image component={component} system={system} />
+    case StructureComponentType.NumberInput:
+      return <InputNumber id={component.id} key={component.key} min={component.options.minValue} showButtons />
     case StructureComponentType.Calculated:
       return <Calculated component={component} system={system} />
     case StructureComponentType.MultiSelectPill:

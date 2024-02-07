@@ -119,6 +119,7 @@ export interface StructureComponentOptions {
   labelPosition?: StructureLabelPosition;
   size?: StructureComponentSize;
   boldLabel?: boolean;
+  minValue?: number;
 }
 
 export interface StructureComponent {
@@ -216,6 +217,45 @@ export const mockSheet: SheetBase = {
         id: 'pic-1',
         key: 'picture',
         type: StructureComponentType.Image,
+        options: {}
+      }]
+    }]
+  },
+  {
+    id: 'attributes',
+    key: 'attributes',
+    type: StructureComponentType.Region,
+    options: {
+      size: '4'
+    },
+    children: [{
+      id: 'strengthRegion',
+      key: 'strengthRegion',
+      type: StructureComponentType.Region,
+      options: {
+        size: '12'
+      },
+      children: [{
+        id: 'strengthLabel',
+        key: 'strengthLabel',
+        type: StructureComponentType.Region,
+        label: 'STR',
+        options: {
+          size: '1'
+        }
+      },
+      {
+        id: 'strengthBase',
+        key: 'strengthBase',
+        type: StructureComponentType.NumberInput,
+        options: {
+          minValue: 3
+        }        
+      },
+      {
+        id: 'strengthBaseModifier',
+        key: 'strengthBaseModifier',
+        type: StructureComponentType.Calculated,
         options: {}
       }]
     }]
