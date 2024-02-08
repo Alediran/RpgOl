@@ -70,9 +70,9 @@ public static class RpgOlDbContextModelCreatingExtensions
                 .UsingEntity<Dictionary<string, object>>(
                    DatabaseConsts.TablePrefix + "GroupCharacters",
                     e => e.HasOne<Group>().WithMany().HasForeignKey("GroupId"),
-                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"));     
+                    r => r.HasOne<Character>().WithMany().HasForeignKey("CharacterId"));
             
-            e.Property(q => q.Values).HasJsonConversion();
+            e.OwnsOne(q => q.Values).ToJson();
         });
 
         builder.Entity<Post>(e =>
