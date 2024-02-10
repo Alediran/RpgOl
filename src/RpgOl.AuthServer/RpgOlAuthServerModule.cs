@@ -5,6 +5,7 @@ using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RpgOl.EntityFrameworkCore;
@@ -45,6 +46,9 @@ public class RpgOlAuthServerModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
+        var hostingEnvironment = context.Services.GetHostingEnvironment();
+        var configuration = context.Services.GetConfiguration();
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -54,6 +58,8 @@ public class RpgOlAuthServerModule : AbpModule
                 options.UseAspNetCore();
             });
         });
+
+        
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -165,6 +171,8 @@ public class RpgOlAuthServerModule : AbpModule
                     .AllowCredentials();
             });
         });
+
+        
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

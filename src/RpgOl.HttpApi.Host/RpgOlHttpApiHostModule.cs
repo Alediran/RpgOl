@@ -26,6 +26,7 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.RabbitMQ;
+using Volo.Abp.AspNetCore.Mvc;
 
 namespace RpgOl;
 
@@ -105,12 +106,12 @@ public class RpgOlHttpApiHostModule : AbpModule
         }
     }
 
-    private static void ConfigureConventionalControllers()
+    private void ConfigureConventionalControllers()
     {
-       /* Configure<AbpAspNetCoreMvcOptions>(options =>
+        Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(RpgOlApplicationModule).Assembly);
-        }); */
+        }); 
     }
 
     private static void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
