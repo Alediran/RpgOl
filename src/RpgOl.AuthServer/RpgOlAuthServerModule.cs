@@ -1,11 +1,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RpgOl.EntityFrameworkCore;
@@ -27,6 +29,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.OpenIddict;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
@@ -49,17 +52,38 @@ public class RpgOlAuthServerModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
-        PreConfigure<OpenIddictBuilder>(builder =>
-        {
-            builder.AddValidation(options =>
-            {
-                options.AddAudiences("RpgOl");
-                options.UseLocalServer();
-                options.UseAspNetCore();
-            });
-        });
 
-        
+        if (!hostingEnvironment.IsDevelopment())
+        {
+            PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
+            {
+                options.AddDevelopmentEncryptionAndSigningCertificate = false;
+            });
+
+            PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
+            {
+                serverBuilder.AddSigningCertificate(GetCertificate(hostingEnvironment, "signing-certificate.pfx", "1363E02F-75CF-53C8-D176-3A006FC7AD25"))
+                    .AddEncryptionCertificate(GetCertificate(hostingEnvironment, "encryption-certificate.pfx", "7F7F8664-C87E-7D90-5D06-39FD432CE6C6"));
+            });
+        }
+        else
+        {
+            PreConfigure<OpenIddictBuilder>(builder =>
+            {
+                builder.AddValidation(options =>
+                {
+                    options.AddAudiences("RpgOl");
+                    options.UseLocalServer();
+                    options.UseAspNetCore();
+                });
+            });
+        }
+    }
+
+    private static X509Certificate2 GetCertificate(IHostEnvironment hostingEnv, string name, string password)
+    {
+        var bytes = File.ReadAllBytes(Path.Combine(hostingEnv.ContentRootPath, name));
+        return new(bytes, password, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -109,7 +133,6 @@ public class RpgOlAuthServerModule : AbpModule
 
         Configure<AbpAuditingOptions>(options =>
         {
-            //options.IsEnabledForGetRequests = true;
             options.ApplicationName = "AuthServer";
         });
 
@@ -141,6 +164,17 @@ public class RpgOlAuthServerModule : AbpModule
             options.KeyPrefix = "RpgOl:";
         });
 
+        Configure<RedisCacheOptions>(options =>
+        {
+            var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
+            configurationOptions.User = configuration["Redis:User"];
+            configurationOptions.Password = configuration["Redis:Password"];
+            configurationOptions.ChannelPrefix = "RpgOl:";
+            configurationOptions.Ssl = true;
+            options.ConfigurationOptions = configurationOptions;
+
+        });
+
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
         if (!hostingEnvironment.IsDevelopment())
         {
@@ -170,9 +204,7 @@ public class RpgOlAuthServerModule : AbpModule
                     .AllowAnyMethod()
                     .AllowCredentials();
             });
-        });
-
-        
+        });        
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
