@@ -163,29 +163,23 @@ public class RpgOlAuthServerModule : AbpModule
         {
             options.KeyPrefix = "RpgOl:";
         });
-
-        Configure<RedisCacheOptions>(options =>
-        {
-            var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
-            configurationOptions.User = configuration["Redis:User"];
-            configurationOptions.Password = configuration["Redis:Password"];
-            configurationOptions.ChannelPrefix = "RpgOl:";
-            configurationOptions.Ssl = true;
-            options.ConfigurationOptions = configurationOptions;
-
-        });
-
+        
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
         if (!hostingEnvironment.IsDevelopment())
         {
-            var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
+            Configure<RedisCacheOptions>(options =>
+            {
+                var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
+                configurationOptions.User = configuration["Redis:User"];
+                configurationOptions.Password = configuration["Redis:Password"];
+                configurationOptions.ChannelPrefix = "RpgOl:";
+                configurationOptions.Ssl = true;
+                options.ConfigurationOptions = configurationOptions;
+
+                var redis = ConnectionMultiplexer.Connect(configurationOptions);
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
+            });           
         }
-
-        Configure<AbpRedisCache>(options =>
-        {
-
-        });
 
         context.Services.AddCors(options =>
         {
