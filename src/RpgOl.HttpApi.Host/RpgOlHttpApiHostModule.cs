@@ -25,8 +25,11 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.EventBus.RabbitMq;
-using Volo.Abp.RabbitMQ;
+//using Volo.Abp.RabbitMQ;
 using Volo.Abp.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Hosting.Internal;
+using Polly;
 
 namespace RpgOl;
 
@@ -64,6 +67,7 @@ public class RpgOlHttpApiHostModule : AbpModule
         Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "RpgOl:"; });
     }
 
+    /*
     private void ConfigureRabbitMq()
     {
         Configure<AbpRabbitMqOptions>(options =>
@@ -80,8 +84,8 @@ public class RpgOlHttpApiHostModule : AbpModule
             options.ExchangeName = "LocalExchange";
             options.PrefetchCount = 1;
         });
+    }*/
 
-    }
     private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -167,13 +171,24 @@ public class RpgOlHttpApiHostModule : AbpModule
         });
     }
 
-    private static void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
-    {
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
-        if (!hostingEnvironment.IsDevelopment())
+    private void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
+    {        
+        if (hostingEnvironment.IsDevelopment())
         {
-            var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
+            var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
+
+            Configure<RedisCacheOptions>(options =>
+            {
+                var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
+                configurationOptions.User = configuration["Redis:User"];
+                configurationOptions.Password = configuration["Redis:Password"];
+                configurationOptions.ChannelPrefix = configuration["Redis:ChannelPrefix"];
+                configurationOptions.Ssl = true;
+                options.ConfigurationOptions = configurationOptions;
+
+                var redis = ConnectionMultiplexer.Connect(configurationOptions);
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
+            });
         }
     }
 

@@ -172,7 +172,7 @@ public class RpgOlAuthServerModule : AbpModule
                 var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
                 configurationOptions.User = configuration["Redis:User"];
                 configurationOptions.Password = configuration["Redis:Password"];
-                configurationOptions.ChannelPrefix = "RpgOl:";
+                configurationOptions.ChannelPrefix = configuration["Redis:ChannelPrefix"];
                 configurationOptions.Ssl = true;
                 options.ConfigurationOptions = configurationOptions;
 
