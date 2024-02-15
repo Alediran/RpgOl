@@ -38,11 +38,11 @@ function App() {
   return (
     <AuthProvider 
       authority={import.meta.env.VITE_AUTHORITY} 
-      client_id={import.meta.env.VITE_CLIENT_ID} 
-      redirect_uri={import.meta.env.VITE_REDIRECT_URL} 
+      client_id={import.meta.env.VITE_CLIENT_ID}       
+      redirect_uri={import.meta.env.VITE_REDIRECT_URL}
+      post_logout_redirect_uri={import.meta.env.VITE_REDIRECT_URL}
       automaticSilentRenew={true}
       scope='RpgOl' 
-      post_logout_redirect_uri={import.meta.env.VITE_REDIRECT_URL}
       onSigninCallback={onSigninCallback}
     >
       <div className="App"> 

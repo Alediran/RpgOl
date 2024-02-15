@@ -51,4 +51,13 @@
 		<None Include="appsettings.Development.json" CopyToPublishDirectory="Never" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="encryption-certificate.pfx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="signing-certificate.pfx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

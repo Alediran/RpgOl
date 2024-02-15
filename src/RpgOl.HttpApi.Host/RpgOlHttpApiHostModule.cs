@@ -202,7 +202,7 @@ public class RpgOlHttpApiHostModule : AbpModule
                     .WithOrigins(
                         configuration["App:CorsOrigins"]
                             .Split(",", StringSplitOptions.RemoveEmptyEntries)
-                            .Select(o => o.RemovePostFix("/"))
+                            .Select(o => o.RemovePostFix("/").Trim())
                             .ToArray()
                     )
                     .WithAbpExposedHeaders()

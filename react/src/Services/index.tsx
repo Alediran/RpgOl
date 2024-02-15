@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'App/Store';
 import FilteredPagedAndSortedRequestDto from 'Types/Output/FilteredPagedAndSortedRequestDto';
 
-const baseUrl = import.meta.env.VITE_API_URL;
+const baseUrl = import.meta.env.VITE_API_URL + '/api/';
 
 const api = createApi({
 	reducerPath: 'api',

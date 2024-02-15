@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -37,6 +37,7 @@ namespace RpgOl;
 
 [DependsOn(
     typeof(AbpAutofacModule),
+    typeof(AbpCachingModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAccountApplicationModule),
@@ -51,31 +52,42 @@ public class RpgOlAuthServerModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
 
+        PreConfigure<OpenIddictBuilder>(builder =>
+        {
+            builder.AddValidation(options =>
+            {
+                options.AddAudiences("RpgOl");
+                options.UseLocalServer();
+                options.UseAspNetCore();
+            });
+        });
 
         if (!hostingEnvironment.IsDevelopment())
         {
             PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
             {
-                options.AddDevelopmentEncryptionAndSigningCertificate = false;
+                options.AddDevelopmentEncryptionAndSigningCertificate = false;                
             });
 
             PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
             {
                 serverBuilder.AddSigningCertificate(GetCertificate(hostingEnvironment, "signing-certificate.pfx", "1363E02F-75CF-53C8-D176-3A006FC7AD25"))
-                    .AddEncryptionCertificate(GetCertificate(hostingEnvironment, "encryption-certificate.pfx", "7F7F8664-C87E-7D90-5D06-39FD432CE6C6"));
+                    .AddEncryptionCertificate(GetCertificate(hostingEnvironment, "encryption-certificate.pfx", "7F7F8664-C87E-7D90-5D06-39FD432CE6C6"));                
             });
-        }
-        else
-        {
-            PreConfigure<OpenIddictBuilder>(builder =>
+
+            PreConfigure<RedisCacheOptions>(options =>
             {
-                builder.AddValidation(options =>
-                {
-                    options.AddAudiences("RpgOl");
-                    options.UseLocalServer();
-                    options.UseAspNetCore();
-                });
+                var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
+                configurationOptions.User = configuration["Redis:User"];
+                configurationOptions.Password = configuration["Redis:Password"];
+                configurationOptions.ChannelPrefix = configuration["Redis:ChannelPrefix"];
+                configurationOptions.Ssl = true;
+                options.ConfigurationOptions = configurationOptions;
+
+                var redis = ConnectionMultiplexer.Connect(configurationOptions);
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
             });
         }
     }
@@ -164,22 +176,7 @@ public class RpgOlAuthServerModule : AbpModule
             options.KeyPrefix = "RpgOl:";
         });
         
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("RpgOl");
-        if (!hostingEnvironment.IsDevelopment())
-        {
-            Configure<RedisCacheOptions>(options =>
-            {
-                var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Host"]);
-                configurationOptions.User = configuration["Redis:User"];
-                configurationOptions.Password = configuration["Redis:Password"];
-                configurationOptions.ChannelPrefix = configuration["Redis:ChannelPrefix"];
-                configurationOptions.Ssl = true;
-                options.ConfigurationOptions = configurationOptions;
-
-                var redis = ConnectionMultiplexer.Connect(configurationOptions);
-                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "RpgOl-Protection-Keys");
-            });           
-        }
+        
 
         context.Services.AddCors(options =>
         {
@@ -189,7 +186,7 @@ public class RpgOlAuthServerModule : AbpModule
                     .WithOrigins(
                         configuration["App:CorsOrigins"]
                             .Split(",", StringSplitOptions.RemoveEmptyEntries)
-                            .Select(o => o.RemovePostFix("/"))
+                            .Select(o => o.RemovePostFix("/").Trim())
                             .ToArray()
                     )
                     .WithAbpExposedHeaders()
@@ -198,7 +195,9 @@ public class RpgOlAuthServerModule : AbpModule
                     .AllowAnyMethod()
                     .AllowCredentials();
             });
-        });        
+        });
+
+        context.Services.AddOpenIddict();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -210,13 +209,12 @@ public class RpgOlAuthServerModule : AbpModule
         {
             app.UseDeveloperExceptionPage();
         }
-
-        app.UseAbpRequestLocalization();
-
-        if (!env.IsDevelopment())
+        else
         {
             app.UseErrorPage();
         }
+
+        app.UseAbpRequestLocalization();
 
         app.UseCorrelationId();
         app.UseStaticFiles();
