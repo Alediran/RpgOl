@@ -153,7 +153,7 @@ public class RpgOlWebModule : AbpModule
                 options.Scope.Add("roles"); // Replace "role" with "roles"
                 options.Scope.Add("email");
                 options.Scope.Add("phone");
-                options.Scope.Add("MyApplication");
+                options.Scope.Add("RpgOl");
             });
     }
 

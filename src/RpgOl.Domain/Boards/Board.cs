@@ -14,10 +14,10 @@ public class Board : FullAuditedAggregateRoot<Guid>
     public virtual string Name { get; protected set; }
     public virtual BoardType Type { get; protected set; } = BoardType.Game;
     public virtual GameSystem GameSystem { get; protected set; }
-    public virtual ICollection<BoardCategory> BoardCategories { get; protected set; } = new List<BoardCategory>();
-    public virtual ICollection<Character> Characters { get; protected set; } = new List<Character>();
-    public virtual ICollection<Group> Groups { get; protected set; } = new List<Group>();
-    public virtual ICollection<Thread> Threads { get; protected set; } = new List<Thread>();
+    public virtual ICollection<BoardCategory> BoardCategories { get; protected set; } = [];
+    public virtual ICollection<Character> Characters { get; protected set; } = [];
+    public virtual ICollection<Group> Groups { get; protected set; } = [];
+    public virtual ICollection<Thread> Threads { get; protected set; } = [];
 
     protected Board()
     {
