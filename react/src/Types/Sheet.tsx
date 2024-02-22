@@ -99,7 +99,8 @@ export enum StructureComponentType {
   Calculated,
   DropDown,
   Image,
-  MultiSelectPill
+  MultiSelectPill,
+  DnDAttribute
 }
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
@@ -128,8 +129,8 @@ export interface StructureComponent {
   label?: string;
   
   type: StructureComponentType;
-  options: StructureComponentOptions;
-  values?: Array<LookupDto<string | number | StructureLookupClassValue>>;
+  settings: StructureComponentOptions;
+  options?: Array<LookupDto<string | number | StructureLookupClassValue>>;
   children?: Array<StructureComponent>;
 }
 
@@ -140,7 +141,7 @@ export const mockSheet: SheetBase = {
     id: 'header-1',
     key: 'firstRow',    
     type: StructureComponentType.Region,
-    options: {
+    settings: {
       size: '12'
     },
     children: [{
@@ -148,7 +149,7 @@ export const mockSheet: SheetBase = {
       key: 'header',
       label: 'Header',
       type: StructureComponentType.Region,
-      options: {
+      settings: {
         direction: 'horizontal',
         size: '8'
       },
@@ -158,7 +159,7 @@ export const mockSheet: SheetBase = {
           key: 'name',
           label: 'Name',
           type: StructureComponentType.TextInput,
-          options: {
+          settings: {
             boldLabel: true,
             size: '12'
           },
@@ -168,15 +169,15 @@ export const mockSheet: SheetBase = {
           key: 'classes',
           label: 'Classes/Level',
           type: StructureComponentType.MultiSelectPill,
-          values: classes,
-          options: { size: '8'}
+          options: classes,
+          settings: { size: '8'}
         },
         {
           id: 'charLevel',
           key: 'charLevel',
           label: 'Character Level',
           type: StructureComponentType.Calculated,
-          options: { 
+          settings: { 
             size: '4'
           }
         },
@@ -185,22 +186,22 @@ export const mockSheet: SheetBase = {
           key: 'race',
           label: 'Race',
           type: StructureComponentType.TextInput,
-          options: {}
+          settings: {}
         },
         {
           id: 'id-4' ,
           key: 'alignment',
           label: 'Alignment',
           type: StructureComponentType.DropDown,
-          values: alignments,
-          options: { size: '2'}
+          options: alignments,
+          settings: { size: '2'}
         },
         {
           id: 'id-5',
           key: 'description',
           label: 'Description',
           type: StructureComponentType.TextInput,
-          options: { 
+          settings: { 
             size: '12'
           }
         }
@@ -210,14 +211,14 @@ export const mockSheet: SheetBase = {
       id: 'id-2-1',
       key: 'pictureArea',
       type: StructureComponentType.Region,
-      options: {
+      settings: {
         size: '4'
       },
       children: [{
         id: 'pic-1',
         key: 'picture',
         type: StructureComponentType.Image,
-        options: {}
+        settings: {}
       }]
     }]
   },
@@ -225,42 +226,17 @@ export const mockSheet: SheetBase = {
     id: 'attributes',
     key: 'attributes',
     type: StructureComponentType.Region,
-    options: {
+    settings: {
       size: '4'
     },
     children: [{
-      id: 'strengthRegion',
-      key: 'strengthRegion',
-      type: StructureComponentType.Region,
-      options: {
-        size: '12'
-      },
-      children: [{
-        id: 'strengthLabel',
-        key: 'strengthLabel',
-        type: StructureComponentType.Region,
-        label: 'STR',
-        options: {
-          size: '1'
-        }
-      },
-      {
-        id: 'strengthBase',
-        key: 'strengthBase',
-        type: StructureComponentType.NumberInput,
-        options: {
-          minValue: 3
-        }        
-      },
-      {
-        id: 'strengthBaseModifier',
-        key: 'strengthBaseModifier',
-        type: StructureComponentType.Calculated,
-        options: {}
-      }]
+      id: 'strength',
+      key: 'Strength',
+      label: "STR",
+      type: StructureComponentType.DnDAttribute,
+      settings: {
+        minValue: 3
+      }      
     }]
-  }
-
-  
-  ]
+  }]
 }

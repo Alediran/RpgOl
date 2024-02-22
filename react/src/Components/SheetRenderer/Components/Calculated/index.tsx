@@ -7,13 +7,13 @@ import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
 const Calculated: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const { id, label, key, options} = component;
+  const { id, label, key, settings} = component;
   
   const values = useAppSelector((state) => state.character.attributes);
 
   
-  return <div className={`flex align-items-end col-${options.size ?? '4'}`}>
-    <span className={`pr-1 ${options.boldLabel ? 'font-bold' : ''} `}>{label}</span>
+  return <div className={`flex align-items-end col-${settings.size ?? '4'}`}>
+    <span className={`pr-1 ${settings.boldLabel ? 'font-bold' : ''} `}>{label}</span>
     <InputText id={id} key={key} readOnly className={`w-full ${styles[GameSystem[system]]}`}/>
   </div>
 }

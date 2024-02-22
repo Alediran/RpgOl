@@ -8,12 +8,12 @@ import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
 const TextInput: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const { id, label, key, options} = component;
+  const { id, label, key, settings} = component;
   const dispatch = useAppDispatch();
   const value = useAppSelector((state) => state.character.attributes[key]);
 
-  return <div className={`flex align-items-end col-${options.size ?? '4'} ${styles.leftAlign}`}>
-    <label htmlFor={id} className={`pr-1 ${options.boldLabel ? 'font-bold' : ''} `}>{label}</label>
+  return <div className={`flex align-items-end col-${settings.size ?? '4'} ${styles.leftAlign}`}>
+    <label htmlFor={id} className={`pr-1 ${settings.boldLabel ? 'font-bold' : ''} `}>{label}</label>
     <InputText id={id} key={key} className={`w-full ${styles[GameSystem[system]]}`} value={(value as string) ?? ''} onChange={(e) => dispatch(updateAttribute({key, value: e.target.value}))} />     
   </div>
 }

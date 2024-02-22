@@ -47,13 +47,13 @@ const subContainerClass = (labelPosition?: StructureLabelPosition) => {
 const renderChildren = (system: GameSystem, children?: Array<StructureComponent>) => children?.map((child) => <SheetRendererComponent key={child.key} component={child} system={system}/>);
 
 const Region: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const {label, options, children} = component;
+  const {label, settings, children} = component;
 
-  return <div className={regionClass(options.direction, options.size, options.labelPosition)}>
-    {label && <div className={labelClass(options.verticalLabel, options.boldLabel, options.direction)} style={{background: 'orange'}}>
+  return <div className={regionClass(settings.direction, settings.size, settings.labelPosition)}>
+    {label && <div className={labelClass(settings.verticalLabel, settings.boldLabel, settings.direction)} style={{background: 'orange'}}>
       {label}
     </div>}
-    {options.direction === 'vertical' ? <div className={subContainerClass(options.labelPosition)}>
+    {settings.direction === 'vertical' ? <div className={subContainerClass(settings.labelPosition)}>
       {renderChildren(system, children)}
     </div> : renderChildren(system, children)}    
   </div>

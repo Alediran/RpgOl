@@ -12,7 +12,7 @@ import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
 const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const { id, label, key, options, values} = component;
+  const { id, label, key, settings, options} = component;
   const dispatch = useAppDispatch();
   const value = useAppSelector((state) => state.character.attributes[key]);
   
@@ -38,7 +38,7 @@ const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, syst
   const pillTemplate = (option?: StructureLookupClassValue) =>  {
     
     if (option && option) {
-      const optionLabel = values?.find(q => (q.value as StructureLookupClassValue).id === option.id)?.label;
+      const optionLabel = options?.find(q => (q.value as StructureLookupClassValue).id === option.id)?.label;
 
       return <Chip template={<><span className="pr-2">{optionLabel}</span> <Badge value={option.level} /></>} removable />
     }
@@ -53,9 +53,9 @@ const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, syst
   } 
 
 
-  return <div className={`flex align-items-end col-${options.size ?? '4'}`}>
-    <label htmlFor={id} className={`pr-1 ${options.boldLabel ? 'font-bold' : ''} `}>{label}</label>
-    <MultiSelect id={id} key={key} options={values} 
+  return <div className={`flex align-items-end col-${settings.size ?? '4'}`}>
+    <label htmlFor={id} className={`pr-1 ${settings.boldLabel ? 'font-bold' : ''} `}>{label}</label>
+    <MultiSelect id={id} key={key} options={options} 
       className={`w-full ${styles[GameSystem[system]]}`} value={value} 
       onChange={(e) => { 
         e.stopPropagation();        
@@ -63,9 +63,6 @@ const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, syst
       itemTemplate={(e) => itemTemplate(e.value.id, e.label, e.value.level, e.value.maxLevel)}
       selectedItemTemplate={pillTemplate}
     />
-    
-
-
   </div>
 }
 

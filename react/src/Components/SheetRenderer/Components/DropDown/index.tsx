@@ -8,13 +8,13 @@ import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
 const DropDown: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const { id, label, key, options, values} = component;
+  const { id, label, key, settings, options} = component;
   const dispatch = useAppDispatch();
   const value = useAppSelector((state) => state.character.attributes[key]);
 
-  return <div className={`flex align-items-end col-${options.size ?? '4'} ${styles.leftAlign}`}>
-    <label htmlFor={id} className={`pr-1 ${options.boldLabel ? 'font-bold' : ''} `}>{label}</label>
-    <Dropdown id={id} key={key} className={`w-full ${styles[GameSystem[system]]}`} options={values} value={value ?? ''} onChange={(e) => dispatch(updateAttribute({key, value: e.target.value}))} />     
+  return <div className={`flex align-items-end col-${settings.size ?? '4'} ${styles.leftAlign}`}>
+    <label htmlFor={id} className={`pr-1 ${settings.boldLabel ? 'font-bold' : ''} `}>{label}</label>
+    <Dropdown id={id} key={key} className={`w-full ${styles[GameSystem[system]]}`} options={options} value={value ?? ''} onChange={(e) => dispatch(updateAttribute({key, value: e.target.value}))} />     
   </div>
 }
 

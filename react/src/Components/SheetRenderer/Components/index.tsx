@@ -4,6 +4,7 @@ import React from "react";
 import { GameSystem } from "Types/Enums";
 import { StructureComponent, StructureComponentType } from "Types/Sheet";
 import Calculated from "./Calculated";
+import DnDAttribute from "./DnD/DnDAttribute";
 import DropDown from "./DropDown";
 import Image from "./Image";
 import MultiSelectPill from "./MultiSelectPill";
@@ -27,11 +28,15 @@ const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({componen
     case StructureComponentType.Image:
       return <Image component={component} system={system} />
     case StructureComponentType.NumberInput:
-      return <InputNumber id={component.id} key={component.key} min={component.options.minValue} showButtons />
+      return <InputNumber id={component.id} key={component.key} min={component.settings.minValue} showButtons />
     case StructureComponentType.Calculated:
       return <Calculated component={component} system={system} />
     case StructureComponentType.MultiSelectPill:
       return <MultiSelectPill component={component} system={system} />
+
+    //D&D 3e / Pathfinder 1e specific components
+    case StructureComponentType.DnDAttribute:
+      return <DnDAttribute component={component} />
     default:
       return <span />
   }

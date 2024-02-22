@@ -20,7 +20,7 @@ const CreateGame: React.FC = () => {
   const {data: categories } = useGetAllQuery();
   const [createGame] = useCreateBoardMutation()
   
-  const { handleSubmit, control, reset } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: NewCreateBoardDto()
   });
   
@@ -36,7 +36,7 @@ const CreateGame: React.FC = () => {
 
   return <div className='card'>
     <h5>{Localize.CreateNewGame}</h5>
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, (e) => console.log(e))}>
       <Controller 
         name='name' 
         control={control}
@@ -60,7 +60,7 @@ const CreateGame: React.FC = () => {
       <Controller 
         name='boardCategories' 
         control={control}
-        rules={{required: true}}
+        rules={{required: false}}
         render={({field}) => <div className='field'>
             <label htmlFor={field.name}>{Localize.Categories}</label>
             <MultiSelect id={field.name} name={field.name} className='w-full' display="chip" panelHeaderTemplate={<span />}
