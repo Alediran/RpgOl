@@ -17,7 +17,6 @@ export default defineConfig({
   envDir: "./env",
   server: {
     port: 4200,
-    https: true,
     headers: {
       'Strict-Transport-Security': `max-age=${oneYearInSeconds}`
     }

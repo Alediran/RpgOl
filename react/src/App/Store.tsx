@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
+import { setupListeners } from '@reduxjs/toolkit/query/react';
 import api from 'Services';
 
 // Slices

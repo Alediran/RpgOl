@@ -7,6 +7,6 @@ interface Props {
   name: string;  
 }
 
-const BoardRow: React.FC<Props> = ({id, name}) => <div className="row"><Link to={`/game/${id}`}>{name}</Link></div>
+const BoardRow: React.FC<Props> = ({id, name}) => <div className="text-left"><Link to={`/game/${id}`}>{name}</Link></div>
 
 export default BoardRow;
