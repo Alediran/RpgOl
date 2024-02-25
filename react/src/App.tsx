@@ -1,14 +1,10 @@
 import React from 'react';
-import { AuthProvider } from 'react-oidc-context';
-import { User } from "oidc-client-ts";
+import { AuthProvider, } from 'react-oidc-context';
+import { User } from 'oidc-client-ts';
 import { useAppDispatch } from 'App/Hooks';
 import { SessionTokenDto } from 'Types/Authentication';
 import { setToken } from 'Features/sessionSlice';
 import AppRoutes from 'AppRoutes';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
-import 'primereact/resources/themes/nova/theme.css';
 import './App.scss';
 
 function App() {
