@@ -83,6 +83,7 @@
       "CreateGame": "Create Game",
       "Configuration": "Configuration",
       "GameMaster": "Game Master",
-      "Characters": "Characters"
+      "Characters": "Characters",
+      "WoundsCurrentHp": "Wounds / Current Hp"
   }
 }

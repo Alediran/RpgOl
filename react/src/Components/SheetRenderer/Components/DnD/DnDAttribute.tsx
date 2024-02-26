@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { InputNumber } from "primereact/inputnumber";
 import { SheetContext } from "Components/SheetRenderer";
 import { SheetRendererComponentProps } from "..";
+import BlackBox from "../StyledBlocks/BlackBox";
 
 const DnDAttribute: React.FC<SheetRendererComponentProps> = ({component}) => {
   const context = useContext(SheetContext);
@@ -13,10 +14,7 @@ const DnDAttribute: React.FC<SheetRendererComponentProps> = ({component}) => {
   }
 
   return <>
-    <div className="bg-black-alpha-90 text-white flex flex-column mb-2 mr-1" style={{flexBasis: '19%'}}>
-      <span className="font-bold text-xs">{component.label}</span>
-      <span className="text-xs">{component.subLabel}</span>
-    </div>
+    <BlackBox label={component.label} subLabel={component.subLabel} flexBasis='19%' />
     <div className="mb-2 mr-1"  style={{flexBasis: '19%'}}>
       <InputNumber min={component.settings.minValue} value={value} onChange={e => handleChange(component.key, e.value)} 
       inputClassName="w-full text-center vertical-align-middle" className="h-full"

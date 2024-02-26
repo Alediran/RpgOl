@@ -24,7 +24,13 @@ const sheetValues = {
     {
       "Name": "Rogue",
       "Level": 1        
-    }]
+    }],
+    "Hp": {
+      "total": 0,
+      "current": 0,
+      "nonlethal": 0,
+      "dr": 0
+    }
   }
 
 const Characters: React.FC = () => <SheetRenderer sheet={mockSheet} value={sheetValues} />

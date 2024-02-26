@@ -6,6 +6,7 @@ import { StructureComponent, StructureComponentType } from "Types/Sheet";
 import Calculated from "./Calculated";
 import DnDAttribute from "./DnD/DnDAttribute";
 import DnDHitPoints from "./DnD/DnDHitPoints";
+import DnDInitiative from "./DnD/DnDInitiative";
 import DropDown from "./DropDown";
 import Grid from "./Grid";
 import Image from "./Image";
@@ -47,6 +48,8 @@ const SheetRendererComponent: React.FC<SheetRendererComponentSystemicProps> = ({
       return <DnDAttribute component={component} />
     case StructureComponentType.DnDHitPoints:
       return <DnDHitPoints component={component} />
+    case StructureComponentType.DnDInitiative:
+      return <DnDInitiative component={component} />
     default:
       return <span />
   }

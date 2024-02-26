@@ -102,7 +102,8 @@ export enum StructureComponentType {
   Image,
   MultiSelectPill,
   DnDAttribute,
-  DnDHitPoints
+  DnDHitPoints,
+  DnDInitiative
 }
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
@@ -308,7 +309,16 @@ export const mockSheet: SheetBase = {
         children: [{
           id: 'hp',
           key: 'Hp',
+          label: 'HP',
+          subLabel: 'Hit Points',
           type: StructureComponentType.DnDHitPoints,
+          settings: {}
+        }, {
+          id: 'initiative',
+          key: 'Initiative',
+          label: 'Initiative',
+          subLabel: 'Modifier',
+          type: StructureComponentType.DnDInitiative,
           settings: {}
         }]
       }]

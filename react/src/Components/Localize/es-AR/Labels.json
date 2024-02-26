@@ -83,6 +83,7 @@
       "CreateGame": "Crear juego",
       "Configuration": "Configuración",
       "GameMaster": "Maestro del juego",
-      "Characters": "Personajes"
+      "Characters": "Personajes",
+      "WoundsCurrentHp": "Heridas / Puntos de salud actuales"
   }
 }
