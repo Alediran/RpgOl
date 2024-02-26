@@ -1,29 +1,28 @@
 /* eslint-disable react/function-component-definition */
-import React from "react";
+import React, { useContext } from "react";
 import { Badge } from 'primereact/badge';
 import { Chip } from 'primereact/chip';
 import { MultiSelect } from "primereact/multiselect";
 import { InputNumber } from 'primereact/inputnumber';
 import { GameSystem } from "Types/Enums";
 import { StructureLookupClassValue } from "Types/Sheet";
-import { useAppDispatch, useAppSelector } from "App/Hooks";
-import { updateAttribute } from "Features/characterSlice";
+import { SheetContext } from "Components/SheetRenderer";
 import { SheetRendererComponentProps } from "..";
 import styles from './index.module.scss';
 
 const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, system}) => {
   const { id, label, key, settings, options} = component;
-  const dispatch = useAppDispatch();
-  const value = useAppSelector((state) => state.character.attributes[key]);
-  
-  
+  const context = useContext(SheetContext);
+  const value = context.value?.[component.key] as Array<StructureLookupClassValue>;
+    
   const updateClassLevel = (itemId: string, level: number | null) => {
     const result = (value as Array<StructureLookupClassValue>).map((item) => item.id === itemId ? {
       ...item,
       level: level ?? 1
     } : item);
 
-    dispatch(updateAttribute({key, value: result})) 
+    console.log("Result ", result);
+    if (context.onChange) context.onChange(component.key, result)
   }
 
   const itemTemplate = (itemId: string, itemLabel: string, itemValue: number, maxValue: number) => <div>{itemLabel} 
@@ -45,13 +44,6 @@ const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, syst
 
     return <div />
   }
-
-  const currentValue = () => value ? (value as Array<StructureLookupClassValue>).map((item) => item.id) : [];
-
-  const onChange = () => {
-    // dispatch(updateAttribute({key, value: e.target.value}))
-  } 
-
 
   return <div className={`flex align-items-end col-${settings.size ?? '4'}`}>
     <label htmlFor={id} className={`pr-1 ${settings.boldLabel ? 'font-bold' : ''} `}>{label}</label>

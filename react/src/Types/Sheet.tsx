@@ -93,6 +93,7 @@ const classes: Array<LookupDto<StructureLookupClassValue>> = [
 // Character Sheets Structure types
 export enum StructureComponentType {
   Region,
+  Grid,
   TextInput,
   NumberInput,
   CheckInput,
@@ -127,7 +128,8 @@ export interface StructureComponent {
   id: string;
   key: string;
   label?: string;
-  
+  titles?: Array<string>;
+  subLabel?: string;
   type: StructureComponentType;
   settings: StructureComponentOptions;
   options?: Array<LookupDto<string | number | StructureLookupClassValue>>;
@@ -183,7 +185,7 @@ export const mockSheet: SheetBase = {
         },
         {
           id: 'id-3',
-          key: 'race',
+          key: 'Race',
           label: 'Race',
           type: StructureComponentType.TextInput,
           settings: {}
@@ -223,20 +225,85 @@ export const mockSheet: SheetBase = {
     }]
   },
   {
-    id: 'attributes',
-    key: 'attributes',
+    id: 'attributesAndCombat',
+    key: 'attributesAndCombat',
     type: StructureComponentType.Region,
     settings: {
-      size: '4'
+      size: '6'
     },
-    children: [{
-      id: 'strength',
-      key: 'Strength',
-      label: "STR",
-      type: StructureComponentType.DnDAttribute,
+    children: [
+      {
+        id: 'attributes',
+        key: 'attributes',
+        titles: ['Ability Name', 'Ability Score', 'Ability Modifier', 'Temp Adjustment', 'Temp Modifier'],
+        type: StructureComponentType.Region,
+        settings: {
+          size: '6',
+          direction: 'horizontal'
+        },
+        children: [{
+          id: 'strength',
+          key: 'Strength',
+          label: "STR",
+          subLabel: "Strength",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        }, {
+          id: 'dexterity',
+          key: 'Dexterity',
+          label: "DEX",
+          subLabel: "Dexterity",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        },{
+          id: 'constitution',
+          key: 'Constitution',
+          label: "CON",
+          subLabel: "Constitution",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        },{
+          id: 'intelligence',
+          key: 'Intelligence',
+          label: "INT",
+          subLabel: "Intelligence",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        },{
+          id: 'wisdom',
+          key: 'Wisdom',
+          label: "WIS",
+          subLabel: "Wisdom",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        },{
+          id: 'charisma',
+          key: 'Charisma',
+          label: "CHA",
+          subLabel: "Charisma",
+          type: StructureComponentType.DnDAttribute,
+          settings: {
+            minValue: 3
+          }      
+        }]
+      },
+      {
+      id :'combat',
+      key: 'combat',
+      type: StructureComponentType.Region,
       settings: {
-        minValue: 3
-      }      
-    }]
+        size: '6',
+      }
+      }]
   }]
 }

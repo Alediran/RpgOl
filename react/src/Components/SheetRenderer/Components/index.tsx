@@ -6,6 +6,7 @@ import { StructureComponent, StructureComponentType } from "Types/Sheet";
 import Calculated from "./Calculated";
 import DnDAttribute from "./DnD/DnDAttribute";
 import DropDown from "./DropDown";
+import Grid from "./Grid";
 import Image from "./Image";
 import MultiSelectPill from "./MultiSelectPill";
 import Region from "./Region";
@@ -21,6 +22,8 @@ const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({componen
   switch (component.type) {
     case StructureComponentType.Region:
       return <Region component={component} system={system} />
+    case StructureComponentType.Grid:
+      return <Grid component={component} system={system} />
     case StructureComponentType.TextInput:
       return <TextInput component={component} system={system} />
     case StructureComponentType.DropDown:

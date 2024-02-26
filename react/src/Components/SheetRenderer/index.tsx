@@ -30,6 +30,8 @@ const SheetRenderer: React.FC<Props> = ({sheet, value}) => {
   }
 
 
+  console.log("Sheet current value is ", currentValue);
+  
   return <div>
     <div>{GameSystem[system]}</div>
     <SheetContext.Provider value={{value: currentValue, onChange: handleChange}}>

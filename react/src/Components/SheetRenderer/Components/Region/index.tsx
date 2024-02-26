@@ -7,12 +7,10 @@ import styles from './index.module.scss';
 
 const regionClass = (direction: StructureComponentDirection = 'horizontal', size?: StructureComponentSize, labelPosition?: StructureLabelPosition) => {
   let result = '';
-  
-  
+    
   if (direction === 'horizontal') result = 'grid' 
   
   if (direction === 'vertical') result = 'block';
-
   
   
   if (labelPosition === 'left') result += ' flex';
@@ -47,12 +45,13 @@ const subContainerClass = (labelPosition?: StructureLabelPosition) => {
 const renderChildren = (system: GameSystem, children?: Array<StructureComponent>) => children?.map((child) => <SheetRendererComponent key={child.key} component={child} system={system}/>);
 
 const Region: React.FC<SheetRendererComponentProps> = ({component, system}) => {
-  const {label, settings, children} = component;
+  const {label, titles, settings, children} = component;
 
   return <div className={regionClass(settings.direction, settings.size, settings.labelPosition)}>
     {label && <div className={labelClass(settings.verticalLabel, settings.boldLabel, settings.direction)} style={{background: 'orange'}}>
       {label}
     </div>}
+    {titles && titles.map(title => <div className="col text-xs uppercase" style={titles ? {flexBasis: `${100 / titles.length}%`} : {}}>{title}</div>)}
     {settings.direction === 'vertical' ? <div className={subContainerClass(settings.labelPosition)}>
       {renderChildren(system, children)}
     </div> : renderChildren(system, children)}    
