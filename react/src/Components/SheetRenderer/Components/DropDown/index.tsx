@@ -2,13 +2,13 @@
 import React, { useContext } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { GameSystem } from "Types/Enums";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 import styles from './index.module.scss';
 import { SheetContext } from "Components/SheetRenderer";
 import LookupDto from "Types/Output/LookupDto";
 import { StructureLookupClassValue } from "Types/Sheet";
 
-const DropDown: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const DropDown: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
   const { id, label, key, settings, options} = component;
   const context = useContext(SheetContext);
   const value = context.value?.[component.key] as LookupDto<string | number | StructureLookupClassValue>;

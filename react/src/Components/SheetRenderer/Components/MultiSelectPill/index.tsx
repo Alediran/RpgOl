@@ -7,10 +7,10 @@ import { InputNumber } from 'primereact/inputnumber';
 import { GameSystem } from "Types/Enums";
 import { StructureLookupClassValue } from "Types/Sheet";
 import { SheetContext } from "Components/SheetRenderer";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 import styles from './index.module.scss';
 
-const MultiSelectPill: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const MultiSelectPill: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
   const { id, label, key, settings, options} = component;
   const context = useContext(SheetContext);
   const value = context.value?.[component.key] as Array<StructureLookupClassValue>;

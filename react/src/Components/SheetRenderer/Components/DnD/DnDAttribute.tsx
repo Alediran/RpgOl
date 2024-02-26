@@ -1,14 +1,9 @@
 import React, { useContext } from "react";
-import { PrimeIcons } from "primereact/api";
 import { InputNumber } from "primereact/inputnumber";
-import { StructureComponent } from "Types/Sheet";
 import { SheetContext } from "Components/SheetRenderer";
+import { SheetRendererComponentProps } from "..";
 
-interface Props {
-  component: StructureComponent;
-}
-
-const DnDAttribute: React.FC<Props> = ({component}) => {
+const DnDAttribute: React.FC<SheetRendererComponentProps> = ({component}) => {
   const context = useContext(SheetContext);
   const value = context.value?.[component.key] as number
   const tempValue = context.value?.[`Temp${component.key}`] as number;

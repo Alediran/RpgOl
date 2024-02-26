@@ -2,11 +2,11 @@
 import React, { useContext } from "react";
 import { InputText } from "primereact/inputtext";
 import { GameSystem } from "Types/Enums";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 import styles from './index.module.scss';
 import { SheetContext } from "Components/SheetRenderer";
 
-const TextInput: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const TextInput: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
   const { id, label, key, settings} = component;
   const context = useContext(SheetContext);
   const value = context.value?.[component.key] as string;

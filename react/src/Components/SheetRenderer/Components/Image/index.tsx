@@ -1,8 +1,8 @@
 /* eslint-disable react/function-component-definition */
 import React from "react";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 
-const Image: React.FC<SheetRendererComponentProps> = ({component}) => {
+const Image: React.FC<SheetRendererComponentSystemicProps> = ({component}) => {
   const { id, label, key, settings, options} = component;
 
   return <div>Image placeholder</div>

@@ -5,6 +5,7 @@ import { GameSystem } from "Types/Enums";
 import { StructureComponent, StructureComponentType } from "Types/Sheet";
 import Calculated from "./Calculated";
 import DnDAttribute from "./DnD/DnDAttribute";
+import DnDHitPoints from "./DnD/DnDHitPoints";
 import DropDown from "./DropDown";
 import Grid from "./Grid";
 import Image from "./Image";
@@ -14,10 +15,14 @@ import TextInput from "./TextInput";
 
 export interface SheetRendererComponentProps {
   component: StructureComponent;
+} 
+
+export interface SheetRendererComponentSystemicProps extends SheetRendererComponentProps{
+  component: StructureComponent;
   system: GameSystem;
 }
 
-const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const SheetRendererComponent: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
 
   switch (component.type) {
     case StructureComponentType.Region:
@@ -40,6 +45,8 @@ const SheetRendererComponent: React.FC<SheetRendererComponentProps> = ({componen
     //D&D 3e / Pathfinder 1e specific components
     case StructureComponentType.DnDAttribute:
       return <DnDAttribute component={component} />
+    case StructureComponentType.DnDHitPoints:
+      return <DnDHitPoints component={component} />
     default:
       return <span />
   }

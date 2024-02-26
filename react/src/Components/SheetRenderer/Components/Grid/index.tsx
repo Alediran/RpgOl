@@ -1,7 +1,7 @@
 import React from "react";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 
-const Grid: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const Grid: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
 
   return <div className="grid">
     

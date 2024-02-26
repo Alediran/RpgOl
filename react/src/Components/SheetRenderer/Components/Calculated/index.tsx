@@ -3,10 +3,10 @@ import React from "react";
 import { useAppSelector } from "App/Hooks";
 import { InputText } from "primereact/inputtext";
 import { GameSystem } from "Types/Enums";
-import { SheetRendererComponentProps } from "..";
+import { SheetRendererComponentSystemicProps } from "..";
 import styles from './index.module.scss';
 
-const Calculated: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const Calculated: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
   const { id, label, key, settings} = component;
   
   const values = useAppSelector((state) => state.character.attributes);

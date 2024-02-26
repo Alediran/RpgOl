@@ -2,7 +2,7 @@
 import React from "react";
 import { GameSystem } from "Types/Enums";
 import { StructureComponent, StructureComponentDirection, StructureComponentSize, StructureLabelPosition } from "Types/Sheet";
-import SheetRendererComponent, { SheetRendererComponentProps } from "..";
+import SheetRendererComponent, { SheetRendererComponentSystemicProps } from "..";
 import styles from './index.module.scss';
 
 const regionClass = (direction: StructureComponentDirection = 'horizontal', size?: StructureComponentSize, labelPosition?: StructureLabelPosition) => {
@@ -44,7 +44,7 @@ const subContainerClass = (labelPosition?: StructureLabelPosition) => {
 
 const renderChildren = (system: GameSystem, children?: Array<StructureComponent>) => children?.map((child) => <SheetRendererComponent key={child.key} component={child} system={system}/>);
 
-const Region: React.FC<SheetRendererComponentProps> = ({component, system}) => {
+const Region: React.FC<SheetRendererComponentSystemicProps> = ({component, system}) => {
   const {label, titles, settings, children} = component;
 
   return <div className={regionClass(settings.direction, settings.size, settings.labelPosition)}>

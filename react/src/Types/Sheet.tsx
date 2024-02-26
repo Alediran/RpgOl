@@ -101,7 +101,8 @@ export enum StructureComponentType {
   DropDown,
   Image,
   MultiSelectPill,
-  DnDAttribute
+  DnDAttribute,
+  DnDHitPoints
 }
 
 export type StructureComponentSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
@@ -298,12 +299,18 @@ export const mockSheet: SheetBase = {
         }]
       },
       {
-      id :'combat',
-      key: 'combat',
-      type: StructureComponentType.Region,
-      settings: {
-        size: '6',
-      }
+        id :'combat',
+        key: 'combat',
+        type: StructureComponentType.Region,
+        settings: {
+          size: '6',
+        },
+        children: [{
+          id: 'hp',
+          key: 'Hp',
+          type: StructureComponentType.DnDHitPoints,
+          settings: {}
+        }]
       }]
   }]
 }
