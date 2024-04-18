@@ -5,16 +5,15 @@ import { Skeleton } from "primereact/skeleton";
 import { useGetAllBoardsQuery } from "Services/Boards";
 import Localize from "Components/Localize/Index";
 import BoardRow from "./BoardRow";
-import { Button } from "primereact/button";
 
 const Boards: React.FC = () => {
   const {data: boards, isLoading: loadingBoards} = useGetAllBoardsQuery();
     
   return <div className='col-6'>
-    <Panel header={Localize.GamesYouOwn} toggleable>
+    <Panel header={Localize.GamesYouOwn} toggleable hidden={boards?.followedBoards.length === 0}>
       {loadingBoards ? <Skeleton width="100%" /> : boards?.ownerBoards.map((board) => <BoardRow key={board.id} id={board.id} name={board.name} />)}
     </Panel>
-    <Panel header={Localize.GamesYouPlay} toggleable>
+    <Panel header={Localize.GamesYouPlay} toggleable hidden={boards?.followedBoards.length === 0}>
       {loadingBoards ? <Skeleton width="100%" /> : boards?.followedBoards.map((board) => <BoardRow key={board.id} id={board.id} name={board.name} />)}
     </Panel>
     <Panel header={Localize.GeneralBoards} toggleable>
