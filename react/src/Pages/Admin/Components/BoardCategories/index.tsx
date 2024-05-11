@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { PrimeIcons } from 'primereact/api';
 import { Skeleton } from 'primereact/skeleton';
-import { DataTable, DataTablePFSEvent } from 'primereact/datatable';
+import { DataTable } from 'primereact/datatable';
 import { useDeleteMutation, useGetPagedSortedQuery } from 'Services/BoardCategories';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';

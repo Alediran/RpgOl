@@ -10,6 +10,8 @@ services:
       MSSQL_DATA_DIR: /var/opt/mssql/data
       MSSQL_PID: 'Developer' 
       MSSQL_TCP_PORT: 1433 
+    networks:
+      - backend
     ports: 
       - "1455:1433"
     volumes:
@@ -19,6 +21,8 @@ services:
   redis:
     container_name: redis
     image: redis:latest
+    networks:
+      - backend
     ports:
       - "6379:6379"
   rabbitmq:
@@ -36,8 +40,26 @@ services:
         - ./container/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - rabbitmq_go_net
+  email:
+    container_name: email
+    hostname: email
+    image: sj26/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+  socialnet.auth:
+    container_name: socialnet.auth
+    hostname: socialnet.auth
+    image: socialnet.auth:latest
+    networks: 
+      - backend
+    ports:
+      - "44319:8080"
+      - "44320:8081"
 
 networks:
   rabbitmq_go_net:
+    driver: bridge
+  backend:
     driver: bridge
     
